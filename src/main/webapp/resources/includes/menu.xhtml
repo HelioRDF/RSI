@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<!-- Rodapé da Página -->
+	<h:form>
+		<div class="menu">
+			<!-- Botão image Home -->
+			<h:commandButton image="/images/home-ok.png"
+				style="float:left; margin: 0px 9px 10px auto;"
+				action="/index.xhtml?faces-redirect=true" />
+			<p:outputLabel value=" Inspeção de Código" id="label"
+				style="float:left; margin: 9px auto auto auto; font-size:18px; "></p:outputLabel>
+			<p:outputLabel styleClass="cabecalhoInfo"
+				value="#{usuarioBean.usuarioLogado.nome} (#{usuarioBean.usuarioLogado.descricao})"
+				rendered="#{loginBean.userlogadoB}"></p:outputLabel>
+			<p:outputLabel styleClass="cabecalhoInfo" value="Visitante"
+				rendered="#{!loginBean.userlogadoB}"></p:outputLabel>
+			<p:commandButton value="Login"
+				action="/pages/publicas/login.xhtml?faces-redirect=true"
+				icon="ui-icon-person" styleClass="cabecalhoInfo"
+				style="background:#794949;" rendered="#{!loginBean.userlogadoB}" />
+			<p:commandButton id="dynaButton" value="Menu" type="button"
+				rendered="#{loginBean.userlogadoB}" icon="ui-icon-arrow-4-diag"
+				styleClass="cabecalhoInfo" />
+			<p:menu overlay="true" trigger="dynaButton" my="left top"
+				at="left bottom">
+				<p:menuitem value="???" icon="ui-icon-wrench" title="Em Breve"
+					disabled="true" />
+			
+				<p:separator style="margin:10px auto auto auto;"></p:separator>
+				<p:menuitem value="Sair" actionListener="#{loginBean.sair}"
+					icon="ui-icon-extlink" style="margin:5px auto;" />
+			</p:menu>
+		</div>
+	</h:form>
+	<!--Fim do Rodapé da Página -->
+</ui:composition>

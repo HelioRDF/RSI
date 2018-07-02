@@ -1,0 +1,159 @@
+package br.com.rsi.domain.complementos;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * [ Detalhes... ]
+ * 
+ * -Entity - Diz que a classe é uma entidade do hibernate
+ * 
+ * -Column( | length = Tamanho do campo | name = define o nome no banco |
+ * nullable = Diz se o campo pode ou não ser nulo "True ou False"); | precision
+ * = Define quantidade de digitos | scale= Define quantos digitos ficam após a
+ * virgula
+ * 
+ * -JoinColumn - Permite personalizar colunas que são chaves estrangeiras
+ * 
+ */
+
+@SuppressWarnings("serial")
+@Entity
+public class RFC extends GenericDomain {
+
+	@Column(nullable = false)
+	private String sigla;
+
+	@Column(nullable = false)
+	private String codProj;
+
+	@Column(nullable = false)
+	private String codRfc;
+
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCadastro;
+	
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataInspecao;
+
+	@Column
+	@Lob
+	private String observacao;
+	
+	@Column(nullable = false)
+	private String status;
+	
+	@Column(nullable = false)
+	private String codVazio;
+	
+	@Column(nullable = true)
+	private int codInspecao;
+	
+	@Column(nullable = true)
+	private int codInspecaoAnterior;
+	
+	@Column(nullable = true)
+	private String inspecionar;
+
+	// --------------------------------------------------
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
+	public String getCodProj() {
+		return codProj;
+	}
+
+	public void setCodProj(String codProj) {
+		this.codProj = codProj;
+	}
+
+	public String getCodRfc() {
+		return codRfc;
+	}
+
+	public void setCodRfc(String codRfc) {
+		this.codRfc = codRfc;
+	}
+
+	public Date getDataInspecao() {
+		return dataInspecao;
+	}
+
+	public void setDataInspecao(Date dataInspecao) {
+		this.dataInspecao = dataInspecao;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getCodVazio() {
+		return codVazio;
+	}
+
+	public void setCodVazio(String codVazio) {
+		this.codVazio = codVazio;
+	}
+
+	public int getCodInspecao() {
+		return codInspecao;
+	}
+
+	public void setCodInspecao(int codInspecao) {
+		this.codInspecao = codInspecao;
+	}
+
+	public String getInspecionar() {
+		return inspecionar;
+	}
+
+	public void setInspecionar(String inspecionar) {
+		this.inspecionar = inspecionar;
+	}
+
+	public int getCodInspecaoAnterior() {
+		return codInspecaoAnterior;
+	}
+
+	public void setCodInspecaoAnterior(int codInspecaoAnterior) {
+		this.codInspecaoAnterior = codInspecaoAnterior;
+	}
+	
+	
+	
+
+
+}

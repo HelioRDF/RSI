@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- Configurações de Conexão com o Banco de Dados -->
+		<!-- <property name="connection.driver_class">com.mysql.jdbc.Driver</property> -->
+		<!-- <property name="connection.url">jdbc:mysql://127.0.0.1:3306/testedb</property> -->
+		<!-- <property name="connection.username">root</property> -->
+		<!-- <property name="connection.password">root</property> -->
+		<!-- <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property> -->
+
+		<property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+		<!-- <property name="connection.url">jdbc:sqlserver://SQLSERVERDEV:1433;databaseName= 
+			testedb / DBSQUBESTDPROD;</property> DBSQUBESTDPROD -->
+		<property name="connection.url">jdbc:sqlserver://10.1.10.6:1433;databaseName=DBSQUBESTDPROD;</property>
+		<property name="connection.username">appinspecao</property>
+		<property name="connection.password">rsi#123!</property>
+		<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
+
+		<!-- Pool de Conexões. -->
+		<!-- necessário trocar o Pool xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- Gerenciamento do Contexto das Sessões -->
+		<property name="current_session_context_class">thread</property>
+		<!-- Cache de Segundo Nível -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+		<!-- Mostra as SQLs Geradas -->
+		<property name="show_sql">true</property>
+		<!-- Cria as tabelas do banco de dados "Create|Update|Validade" -->
+		<property name="hbm2ddl.auto">update</property>
+
+		<!-- Mapeamento das entidades -->
+		<mapping class="br.com.rsi.domain.complementos.RFC" />
+		<mapping class="br.com.rsi.domain.usuarios.Usuario" />
+		<mapping class="br.com.rsi.domain.complementos.ControleSiglas" />
+		<mapping class="br.com.rsi.domain.complementos.AnaliseCodigoHK" />
+		<mapping class="br.com.rsi.domain.complementos.ControleGit" />
+		<mapping class="br.com.rsi.domain.complementos.ControleGitDev" />
+
+	</session-factory>
+</hibernate-configuration>
