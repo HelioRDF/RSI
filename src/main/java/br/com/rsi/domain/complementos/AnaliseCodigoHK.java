@@ -10,6 +10,15 @@ import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * -Classe POJO AnaliseCodigoHK, e entity do DB via Hibernate.
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since  N/A
+ * 
+ */
+
 @Entity
 public class AnaliseCodigoHK implements Serializable {
 

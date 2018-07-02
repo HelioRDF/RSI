@@ -16,6 +16,15 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 
+/**
+ * -Classe BEAN ControleSiglasBean.
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ *
+ */
+
 @ManagedBean
 @SessionScoped
 public class ControleSiglasBean implements Serializable {

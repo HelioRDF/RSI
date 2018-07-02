@@ -9,11 +9,19 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
-import org.primefaces.context.RequestContext;
 
 import br.com.rsi.dao.complementos.AnaliseCodigoHKDAO;
 import br.com.rsi.dao.complementos.ControleGitDAO;
 import br.com.rsi.domain.complementos.AnaliseCodigoHK;
+
+/**
+ * -Classe BEAN AnaliseCodigoHKBean.
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ *
+ */
 
 @ManagedBean
 @SessionScoped
@@ -26,8 +34,6 @@ public class AnaliseCodigoHKBean implements Serializable {
 	List<AnaliseCodigoHK> listaResultado;
 	private int total;
 	String siglaAtual;
-
-
 
 	// Salvar usuário
 	// -------------------------------------------------------------------------------------
@@ -46,7 +52,7 @@ public class AnaliseCodigoHKBean implements Serializable {
 	// Fechar
 	// -------------------------------------------------------------------------------------------
 	public void fechar() {
-	//	RequestContext.getCurrentInstance().reset("formFiltro");
+		// RequestContext.getCurrentInstance().reset("formFiltro");
 		analise = new AnaliseCodigoHK();
 		dao = new AnaliseCodigoHKDAO();
 	}

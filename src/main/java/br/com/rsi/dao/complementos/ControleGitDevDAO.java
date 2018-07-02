@@ -2,20 +2,20 @@ package br.com.rsi.dao.complementos;
 
 import java.util.List;
 
-import javax.persistence.OrderBy;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
 import br.com.rsi.domain.complementos.ControleGitDev;
 import br.com.rsi.util.HibernateUtil;
 
 /**
- * [ Detalhes... ] Referencia.
- * http://www.devmedia.com.br/hibernate-api-criteria-realizando-consultas/29627
+ * [ Detalhes... ] 
  * 
+ * -Classe DAO ControleGIT
+ * Referencia.
+ * http://www.devmedia.com.br/hibernate-api-criteria-realizando-consultas/29627
+ * @author helio.franca
  * 
  */
 

@@ -9,6 +9,16 @@ import br.com.rsi.dao.complementos.GenericDAO;
 import br.com.rsi.domain.usuarios.Usuario;
 import br.com.rsi.util.HibernateUtil;
 
+/**
+ * -Classe Dao de usuário.
+ * [ Detalhes... ] Referencia.
+ * http://www.devmedia.com.br/hibernate-api-criteria-realizando-consultas/29627
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ * 
+ */
 public class UsuarioDAO extends GenericDAO<Usuario> {
 
 	public Usuario autenticar(String email, String senha) {

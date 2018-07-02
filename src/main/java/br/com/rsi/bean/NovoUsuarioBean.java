@@ -15,6 +15,15 @@ import org.omnifaces.util.Messages;
 import br.com.rsi.dao.usuarios.UsuarioDAO;
 import br.com.rsi.domain.usuarios.Usuario;
 
+/**
+ * -Classe BEAN NovoUsuarioBean.
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ *
+ */
+
 @ManagedBean
 @ViewScoped
 public class NovoUsuarioBean implements Serializable {

@@ -2,6 +2,7 @@
 package br.com.rsi.bean;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -24,6 +25,15 @@ import br.com.rsi.email.EnviarEmail;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+
+/**
+ * -Classe BEAN ControleGitBean.
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ *
+ */
 
 @ManagedBean
 @SessionScoped

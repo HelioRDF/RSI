@@ -10,9 +10,11 @@ import br.com.rsi.html.CorpoHtml;
 //https://support.google.com/a/answer/176600?hl=pt-BR
 
 /**
+ * -Classe de configuração p/ envio de e-mail.
+ * 
  * @author Helio Franca
  * @since 26/06/2018
- * @version 1.0
+ * @version 1.2
  */
 
 public class EnviarEmail {
@@ -38,7 +40,7 @@ public class EnviarEmail {
 			destino = "heliordf@hotmail.com";
 			String destino2 = "helio.franca@rsinet.com.br";
 
-			//resultado = "<html>The apache logo Office- </html>";
+			// resultado = "<html>The apache logo Office- </html>";
 
 			// Create the email message
 			HtmlEmail email = new HtmlEmail();
@@ -46,7 +48,7 @@ public class EnviarEmail {
 			email.setDebug(true);
 			email.setHostName(smtp_365);
 			email.setAuthenticator(new DefaultAuthenticator(office_365, senha365));
-			//email.addTo(destino, apelidoDestino);
+			// email.addTo(destino, apelidoDestino);
 			email.addTo(destino2, apelidoDestino);
 
 			email.setFrom(office_365, apelido);

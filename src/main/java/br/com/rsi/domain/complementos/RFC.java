@@ -10,7 +10,7 @@ import javax.persistence.TemporalType;
 
 /**
  * [ Detalhes... ]
- * 
+ * -Classe Pojo do Objeto RFC e Entity do banco de dados via Hibernate.
  * -Entity - Diz que a classe é uma entidade do hibernate
  * 
  * -Column( | length = Tamanho do campo | name = define o nome no banco |
@@ -19,6 +19,10 @@ import javax.persistence.TemporalType;
  * virgula
  * 
  * -JoinColumn - Permite personalizar colunas que são chaves estrangeiras
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
  * 
  */
 
@@ -38,7 +42,7 @@ public class RFC extends GenericDomain {
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInspecao;
@@ -46,19 +50,19 @@ public class RFC extends GenericDomain {
 	@Column
 	@Lob
 	private String observacao;
-	
+
 	@Column(nullable = false)
 	private String status;
-	
+
 	@Column(nullable = false)
 	private String codVazio;
-	
+
 	@Column(nullable = true)
 	private int codInspecao;
-	
+
 	@Column(nullable = true)
 	private int codInspecaoAnterior;
-	
+
 	@Column(nullable = true)
 	private String inspecionar;
 
@@ -151,9 +155,5 @@ public class RFC extends GenericDomain {
 	public void setCodInspecaoAnterior(int codInspecaoAnterior) {
 		this.codInspecaoAnterior = codInspecaoAnterior;
 	}
-	
-	
-	
-
 
 }

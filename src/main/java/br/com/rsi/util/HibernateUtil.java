@@ -5,6 +5,15 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+/**
+ * - Classe Util Hibernate, gera sessão com DB.
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ * 
+ * 
+ */
 public class HibernateUtil {
 
 	private static final SessionFactory fabricaDeSessoes = criarFabricaDeSessoes();

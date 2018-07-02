@@ -8,13 +8,19 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.rsi.domain.complementos.ControleGit;
-import br.com.rsi.domain.complementos.ControleGitDev;
 import br.com.rsi.util.HibernateUtil;
 
 /**
- * [ Detalhes... ] Referencia.
+ * 
+ * [ Detalhes... ] 
+ * 
+ * -Classe DAO ControleGit
+ * Referencia.
  * http://www.devmedia.com.br/hibernate-api-criteria-realizando-consultas/29627
  * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
  * 
  */
 

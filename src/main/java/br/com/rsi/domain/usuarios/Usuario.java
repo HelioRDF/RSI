@@ -12,7 +12,7 @@ import br.com.rsi.domain.complementos.GenericDomain;
 
 /**
  * [ Detalhes... ]
- * 
+ * -Classe POJO Usuário, e entity do banco de dados via Hibernate.
  * -Entity - Diz que a classe é uma entidade do hibernate
  * 
  * -Column( | length = Tamanho do campo | name = define o nome no banco |
@@ -28,6 +28,10 @@ import br.com.rsi.domain.complementos.GenericDomain;
  * 
  * -Atributos |dataCadastro - status - nome - senha - cpf - rg - dataNascimento
  * - email - curriculo
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
  * 
  */
 
@@ -63,10 +67,10 @@ public class Usuario extends GenericDomain {
 
 	@Column(length = 250)
 	private String descricao;
-	
+
 	@Column(nullable = true)
 	private Boolean perfilDev;
-	
+
 	@Column(nullable = true)
 	private Boolean perfilHk;
 
@@ -159,7 +163,5 @@ public class Usuario extends GenericDomain {
 	public void setPerfilHk(Boolean perfilHk) {
 		this.perfilHk = perfilHk;
 	}
-	
-	
 
 }

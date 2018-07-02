@@ -11,6 +11,15 @@ import org.omnifaces.util.Messages;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
+/**
+ * -Classe de captura de eventos do FileUpload PrimeFaces
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ *
+ */
+
 @ManagedBean
 public class FileUploadView {
 

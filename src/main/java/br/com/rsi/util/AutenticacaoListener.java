@@ -1,6 +1,7 @@
 package br.com.rsi.util;
 
 import javax.faces.event.PhaseEvent;
+
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
@@ -9,6 +10,14 @@ import org.omnifaces.util.Faces;
 import br.com.rsi.bean.LoginBean;
 import br.com.rsi.domain.usuarios.Usuario;
 
+/**
+ * -Classe p/ validação de autenticação de usuário.
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ * 
+ */
 public class AutenticacaoListener implements PhaseListener {
 
 	private static final long serialVersionUID = 5370242150329490062L;

@@ -1,5 +1,11 @@
 package br.com.rsi.html;
 
+/**
+ * - Classe para estruturar corpo de e-mail HTML
+ * @author Helio Franca
+ * @since 26/06/2018
+ * @version 1.2
+ */
 public class CorpoHtml {
 
 	public static String bodyHTML(String resultado) {

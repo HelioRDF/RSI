@@ -21,6 +21,15 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 
+/**
+ * -Classe BEAN RFCBean.
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ *
+ */
+
 @ManagedBean
 @SessionScoped
 public class RFCBean implements Serializable {

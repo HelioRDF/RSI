@@ -8,11 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
- * Detalhes:
+ * -Classe genérica para Domain.
  * 
- * MappedSuperclass Específica que a classe não é uma tabela, mas vai ser usada
- * por outras classes que são tabelas
+ * @author helio.franca
+ * @version v1.7
+ * @since  N/A
+ * 
  */
+
 @SuppressWarnings("serial")
 @MappedSuperclass
 public class GenericDomain implements Serializable {
@@ -20,8 +23,8 @@ public class GenericDomain implements Serializable {
 	/**
 	 * Detalhes:
 	 * 
-	 * Id: Define a chave primaria GeneratedValue: Gera uma chave primária de modo
-	 * automatico no DB
+	 * Id: Define a chave primaria 
+	 * GeneratedValue: Gera uma chave primária de modo automático no DB
 	 * 
 	 */
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -13,8 +13,12 @@ import br.com.rsi.util.HibernateUtil;
 
 /**
  * [ Detalhes... ]
- * 
+ * -Classe DAO Generic.
  * API Reflection
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
  * 
  */
 

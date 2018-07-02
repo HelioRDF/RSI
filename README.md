@@ -2,7 +2,7 @@
  
 ********************************************************************************  
  
-ENCODETECH - INSPEÇÃO DE CÓDIGO UPDATE VERSION 7.0 README 
+ENCODETECH - INSPEÇÃO DE CÓDIGO UPDATE VERSION 1.7 README 
  
 ********************************************************************************  
 Autor/Author: Helio Franca "<heliordf@hotmail.com>" || "<helio.franca@rsinet.com.br>" 

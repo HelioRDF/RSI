@@ -8,6 +8,15 @@ import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * -Classe POJO p/ controle de Siglas, e Entity do banco de dados via Hibernate.
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ * 
+ */
+
 @Entity
 public class ControleSiglas extends GenericDomain {
 
@@ -35,7 +44,7 @@ public class ControleSiglas extends GenericDomain {
 	@Column
 	@Lob
 	private String descricao;
-	
+
 	@Column
 	@Lob
 	private String instrucoes;
@@ -49,7 +58,7 @@ public class ControleSiglas extends GenericDomain {
 
 	@Column(nullable = true)
 	private String andamento;
-	
+
 	@Column(nullable = true)
 	private String repositorio;
 
@@ -103,8 +112,6 @@ public class ControleSiglas extends GenericDomain {
 		this.responsavel = responsavel;
 	}
 
-
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -152,9 +159,6 @@ public class ControleSiglas extends GenericDomain {
 	public void setRepositorio(String repositorio) {
 		this.repositorio = repositorio;
 	}
-	
-	
-	
 
 	// --------------------------------------------------
 

@@ -12,6 +12,15 @@ import org.omnifaces.util.Messages;
 import br.com.rsi.dao.usuarios.UsuarioDAO;
 import br.com.rsi.domain.usuarios.Usuario;
 
+/**
+ * -Classe BEAN UsuarioBean.
+ * 
+ * @author helio.franca
+ * @version v1.7
+ * @since N/A
+ *
+ */
+
 @SuppressWarnings("serial")
 @ManagedBean
 @SessionScoped
