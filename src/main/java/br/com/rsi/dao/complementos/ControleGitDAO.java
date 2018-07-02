@@ -25,8 +25,12 @@ import br.com.rsi.util.HibernateUtil;
  */
 
 public class ControleGitDAO extends GenericDAO<ControleGit> {
-
-	// Busca o commit mais recente por sigla, nome do sistema...
+/**
+ * Busca o commit mais recente por sigla, nome do sistema...
+ * @param sigla - String
+ * @param nomeSitema - String
+ * @return - Retorna uma String
+ */
 	public String buscarCommit(String sigla, String nomeSitema) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
@@ -49,7 +53,11 @@ public class ControleGitDAO extends GenericDAO<ControleGit> {
 		}
 	}
 	
-	//Busca ordenada por alteração
+	/**
+	 * 	Busca ordenada por alteração
+	 * @return - Retorna uma lista de ControleGit
+	 */
+
 	@SuppressWarnings("unchecked")
 	public List<ControleGit> listarOrdenandoAlteracao() {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();

@@ -13,7 +13,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
-import org.primefaces.context.RequestContext;
 
 import br.com.rsi.dao.complementos.RFCDAO;
 import br.com.rsi.domain.complementos.RFC;
@@ -42,7 +41,9 @@ public class RFCBean implements Serializable {
 	static String CAMINHO = "";
 	String siglaAtual;
 
-	// Salvar usuário
+/**
+ * 	Salvar objeto do tipo RFC
+ */
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
 		try {
@@ -51,27 +52,22 @@ public class RFCBean implements Serializable {
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar a Silga:" + siglaAtual);
 			System.out.println("Erro ao salvar --------------------------------------" + siglaAtual + e);
-		} finally {
-			fechar();
 		}
 	}
 
-	// Novo
+/**
+ * Cria uma nova instância de RFC e RFCDAO
+ */
 	// -------------------------------------------------------------------------------------------
 	public void novo() {
 		rFC = new RFC();
 		daoRFC = new RFCDAO();
 	}
 
-	// Fechar
-	// -------------------------------------------------------------------------------------------
-	public void fechar() {
-		RequestContext.getCurrentInstance().reset("formFiltro");
-		rFC = new RFC();
-		daoRFC = new RFCDAO();
-	}
-
-	// Excluir
+/**
+ * Exclui objeto selecionado
+ * @param evento - Evento
+ */
 	// -------------------------------------------------------------------------------------------
 	public void excluir(ActionEvent evento) {
 		try {
@@ -81,12 +77,12 @@ public class RFCBean implements Serializable {
 			dao.excluir(rFC);
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Remover: ");
-		} finally {
-			fechar();
 		}
 	}
 
-	// Editar
+/**
+ * Edita objeto selecionado
+ */
 	// -------------------------------------------------------------------------------------------
 	public void editar() {
 		try {
@@ -95,12 +91,13 @@ public class RFCBean implements Serializable {
 			Messages.addGlobalInfo(" Editado com sucesso!!!");
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Editar ");
-		} finally {
-			fechar();
 		}
 	}
 
-	// Instanciar
+/**
+ * Seleciona um objeto na tabela
+ * @param evento - Evento
+ */
 	// -------------------------------------------------------------------------------------------
 	public void getinstancia(ActionEvent evento) {
 		try {
@@ -110,7 +107,10 @@ public class RFCBean implements Serializable {
 		}
 	}
 
-	// Carrega no Banco de Dados
+	/**
+	 * Captura as informações de uma planilha xls e salva no banco de dados
+	 * 
+	 */
 	// -------------------------------------------------------------------------------------------
 	public void salvarPlanilha() {
 		rFC = new RFC();
@@ -148,7 +148,6 @@ public class RFCBean implements Serializable {
 			Cell celulaStatus = sheet.getCell(8, i); // coluna 7 - STATUS
 			Cell celulaCodVazio = sheet.getCell(9, i); // coluna 7 - Cod_Vazio
 
-
 			Cell celula11 = sheet.getCell(10, i); // coluna 10 - Salvar no Banco
 
 			codRfc = celulaRFC.getContents().toString().trim().toUpperCase(); // Coluna 1:COD_RFC
@@ -160,7 +159,7 @@ public class RFCBean implements Serializable {
 			status = celulaStatus.getContents().toString().trim().toUpperCase(); // Coluna 7:STATUS
 			codVazio = celulaCodVazio.getContents().toString().trim().toUpperCase(); // Coluna 8:Cod_Vazio
 			codInspecao = celulaCodInsp.getContents().toString().trim().toUpperCase(); // Coluna 9:Cod_Inspeção
-																							// Anterior
+																						// Anterior
 			salvarSigla = celula11.getContents().toString().trim().toUpperCase();// Coluna 11:Salvar no Banco
 
 			// Encerra a leitura quando encontra linha vazia
@@ -196,7 +195,10 @@ public class RFCBean implements Serializable {
 		}
 	}
 
-	// Seleciona uma RFC da table
+	/**
+	 * Seleciona uma RFC da table
+	 * @param evento - Evento
+	 */
 	// -------------------------------------------------------------------------------------------
 	public void selecionarRFC(ActionEvent evento) {
 		try {
@@ -206,7 +208,9 @@ public class RFCBean implements Serializable {
 		}
 	}
 
-	// Lista RFCs
+	/**
+	 * Lista os objetos do tipo RFC
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void listarInfos() {
 		try {
@@ -222,7 +226,12 @@ public class RFCBean implements Serializable {
 		}
 	}
 
-	// Validador de data
+	/**
+	 * Valida e formata um objeto do tipo Data
+	 * @param dataInfo - Date
+	 * @param msg - String
+	 * @return - Date
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public Date validadorData(String dataInfo, String msg) {
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
@@ -241,7 +250,12 @@ public class RFCBean implements Serializable {
 		return dataFinal;
 	}
 
-	// Valida Inspeção
+/**
+ * Valida se RFC deve ser inspecionada
+ * @param vazio - String
+ * @param status - String
+ * @return - String
+ */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public String validarInspecao(String vazio, String status) {
 		String resultado = "NÃO";
@@ -251,6 +265,7 @@ public class RFCBean implements Serializable {
 		System.out.println("--------------Inspecionar? ------- " + resultado);
 		return resultado;
 	}
+
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public int getTotal() {

@@ -37,10 +37,9 @@ public class ControleSiglasBean implements Serializable {
 	String path;
 	private int total;
 
-	
-
-
-	// Salvar usuário
+	/**
+	 * Salva um objeto do tipo ControleSiglas
+	 */
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
 		try {
@@ -51,7 +50,9 @@ public class ControleSiglasBean implements Serializable {
 		}
 	}
 
-	// Limpar DB
+	/**
+	 * Limpa a tabela do banco de dados
+	 */
 	// -------------------------------------------------------------------------------------
 	public void limparDB() {
 		try {
@@ -66,7 +67,9 @@ public class ControleSiglasBean implements Serializable {
 		}
 	}
 
-	// Carrega no Banco de Dados
+	/**
+	 * Captura as informações de uma planilha xls e salva no banco de dados
+	 */
 	// -------------------------------------------------------------------------------------------
 	public void salvarPlanilha() {
 		controle = new ControleSiglas();
@@ -78,66 +81,68 @@ public class ControleSiglasBean implements Serializable {
 		Workbook workbook = null;
 		try {
 			workbook = Workbook.getWorkbook(new File(CAMINHO));
-		
-		// Seleciona a aba do excel
-		Sheet sheet = workbook.getSheet(0);
 
-		// Numero de linhas com dados do xls
-		int linhas = sheet.getRows();
-		limparDB();
-		for (int i = 1; i < linhas; i++) {
-			Cell celula1 = sheet.getCell(0, i); // coluna 1 -Sigla
-			Cell celula2 = sheet.getCell(1, i); // coluna 2 -Sistema
-			Cell celula3 = sheet.getCell(2, i); // coluna 3 - Linguagem
-			Cell celula4 = sheet.getCell(3, i); // coluna 4 - Mapa
-			Cell celula5 = sheet.getCell(4, i); // coluna 5 - Gestor de Entrega
-			Cell celula6 = sheet.getCell(5, i); // coluna 6 - GestorSigla
-			Cell celula7 = sheet.getCell(6, i); // coluna 7 - Descrição
-			Cell celula8 = sheet.getCell(7, i); // coluna 8 - Instrução
-			Cell celula10 = sheet.getCell(10, i); // coluna 11 - Andamento
-			Cell celula13 = sheet.getCell(12, i); // coluna 13 - Repositório
+			// Seleciona a aba do excel
+			Sheet sheet = workbook.getSheet(0);
 
-			sigla = celula1.getContents().toString().trim().toUpperCase();
-			sistema = celula2.getContents().toString().trim().toUpperCase();
-			linguagem = celula3.getContents().toString().trim().toUpperCase();
-			mapa = celula4.getContents().toString().trim().toUpperCase();
-			gestorEntrega = celula5.getContents().toString().trim().toUpperCase();
-			gestor = celula6.getContents().toString().trim().toUpperCase();
-			descricao = celula7.getContents().toString().trim().toUpperCase();
-			instrucao = celula8.getContents().toString().trim().toUpperCase();
-			andamento = celula10.getContents().toString().trim().toUpperCase();
-			repositorio = celula13.getContents().toString().trim().toUpperCase();
+			// Numero de linhas com dados do xls
+			int linhas = sheet.getRows();
+			limparDB();
+			for (int i = 1; i < linhas; i++) {
+				Cell celula1 = sheet.getCell(0, i); // coluna 1 -Sigla
+				Cell celula2 = sheet.getCell(1, i); // coluna 2 -Sistema
+				Cell celula3 = sheet.getCell(2, i); // coluna 3 - Linguagem
+				Cell celula4 = sheet.getCell(3, i); // coluna 4 - Mapa
+				Cell celula5 = sheet.getCell(4, i); // coluna 5 - Gestor de Entrega
+				Cell celula6 = sheet.getCell(5, i); // coluna 6 - GestorSigla
+				Cell celula7 = sheet.getCell(6, i); // coluna 7 - Descrição
+				Cell celula8 = sheet.getCell(7, i); // coluna 8 - Instrução
+				Cell celula10 = sheet.getCell(10, i); // coluna 11 - Andamento
+				Cell celula13 = sheet.getCell(12, i); // coluna 13 - Repositório
 
-			// Encerra a leitura quando encontra linha vazia
-			if (sigla.isEmpty()) {
-				break;
+				sigla = celula1.getContents().toString().trim().toUpperCase();
+				sistema = celula2.getContents().toString().trim().toUpperCase();
+				linguagem = celula3.getContents().toString().trim().toUpperCase();
+				mapa = celula4.getContents().toString().trim().toUpperCase();
+				gestorEntrega = celula5.getContents().toString().trim().toUpperCase();
+				gestor = celula6.getContents().toString().trim().toUpperCase();
+				descricao = celula7.getContents().toString().trim().toUpperCase();
+				instrucao = celula8.getContents().toString().trim().toUpperCase();
+				andamento = celula10.getContents().toString().trim().toUpperCase();
+				repositorio = celula13.getContents().toString().trim().toUpperCase();
+
+				// Encerra a leitura quando encontra linha vazia
+				if (sigla.isEmpty()) {
+					break;
+				}
+
+				if (!sigla.isEmpty()) {
+					dateC = new Date();
+					controle.setSigla(sigla);
+					controle.setNomeSistema(sistema);
+					controle.setLinguagem(linguagem);
+					controle.setMapa(mapa);
+					controle.setGestoEntrega(gestorEntrega);
+					controle.setResponsavel(gestor);
+					controle.setDescricao(descricao);
+					controle.setInstrucoes(instrucao);
+					controle.setAndamento(andamento);
+					controle.setDataCadastro(dateC);
+					controle.setNomeArquivo(CAMINHO);
+					controle.setRepositorio(repositorio);
+					salvar();
+				}
 			}
-
-			if (!sigla.isEmpty()) {
-				dateC = new Date();
-				controle.setSigla(sigla);
-				controle.setNomeSistema(sistema);
-				controle.setLinguagem(linguagem);
-				controle.setMapa(mapa);
-				controle.setGestoEntrega(gestorEntrega);
-				controle.setResponsavel(gestor);
-				controle.setDescricao(descricao);
-				controle.setInstrucoes(instrucao);
-				controle.setAndamento(andamento);
-				controle.setDataCadastro(dateC);
-				controle.setNomeArquivo(CAMINHO);
-				controle.setRepositorio(repositorio);
-				salvar();
-			}
-		}
-		Messages.addGlobalInfo("Planilha salva com sucesso!");
+			Messages.addGlobalInfo("Planilha salva com sucesso!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			Messages.addGlobalError("Não foi possível salvar ");
 		}
 	}
 
-	// Listar Controle
+	/**
+	 * Lista os objetos do tipo ControleSiglas
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void listarInfos() {
 		try {

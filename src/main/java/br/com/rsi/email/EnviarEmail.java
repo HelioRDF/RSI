@@ -33,6 +33,11 @@ public class EnviarEmail {
 	private static boolean enviado = false;
 	private static boolean concluido = false;
 
+	/**
+	 * Seta as propriedade de configuração de email
+	 * @param resultado - String
+	 * @param titulo - String
+	 */
 	public void emailHtml(String resultado, String titulo) {
 
 		try {

@@ -21,7 +21,10 @@ import br.com.rsi.util.HibernateUtil;
 
 
 public class ControleGitDevDAO extends GenericDAO<ControleGitDev> {
-	//Busca ordenada por alteração
+/**
+ * 	Busca ordenada por alteração
+ * @return - Retorna uma lista de ControleGitDev
+ */
 	@SuppressWarnings("unchecked")
 	public List<ControleGitDev> listarOrdenandoAlteracao() {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();

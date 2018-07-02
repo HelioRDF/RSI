@@ -18,6 +18,10 @@ public class HibernateUtil {
 
 	private static final SessionFactory fabricaDeSessoes = criarFabricaDeSessoes();
 
+	/**
+	 * Cria sessões com o DB
+	 * @return -  Retorna uma sessão
+	 */
 	private static SessionFactory criarFabricaDeSessoes() {
 		try {
 			// Cria a SessionFactory para hibernate.cfg.xml
@@ -37,7 +41,10 @@ public class HibernateUtil {
 			throw new ExceptionInInitializerError(ex);
 		}
 	}
-
+/**
+ * 
+ * @return - Retorna uma SessionFactory
+ */
 	public static SessionFactory getFabricadeSessoes() {
 		return fabricaDeSessoes;
 	}

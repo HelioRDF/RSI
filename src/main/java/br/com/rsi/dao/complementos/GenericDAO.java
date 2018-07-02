@@ -12,9 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import br.com.rsi.util.HibernateUtil;
 
 /**
- * [ Detalhes... ]
- * -Classe DAO Generic.
- * API Reflection
+ * [ Detalhes... ] -Classe DAO Generic. API Reflection
  * 
  * @author helio.franca
  * @version v1.7
@@ -35,6 +33,11 @@ public class GenericDAO<Entidade> {
 
 	}
 
+	/**
+	 * Salva um objeto
+	 * 
+	 * @param entidade - Entidade
+	 */
 	public void salvar(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		Transaction transacao = null;
@@ -56,6 +59,10 @@ public class GenericDAO<Entidade> {
 
 	}
 
+	/**
+	 * 
+	 * @return - Retorna uma lista de objetos
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Entidade> listar() {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
@@ -70,9 +77,12 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
-	
 
-
+	/**
+	 * 
+	 * @param campoOrdecao - String
+	 * @return - Retorna uma lista de objetos ordenados por asc
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Entidade> listar(String campoOrdecao) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
@@ -89,6 +99,11 @@ public class GenericDAO<Entidade> {
 		}
 	}
 
+	/**
+	 * 
+	 * @param codigo - long
+	 * @return - Retorna um objeto filtrado por código
+	 */
 	@SuppressWarnings("unchecked")
 	public Entidade buscar(Long codigo) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
@@ -105,6 +120,11 @@ public class GenericDAO<Entidade> {
 		}
 	}
 
+	/**
+	 * Exclui o objeto passado no parâmetro
+	 * 
+	 * @param entidade Entidade
+	 */
 	public void excluir(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		Transaction transacao = null;
@@ -126,6 +146,11 @@ public class GenericDAO<Entidade> {
 
 	}
 
+	/**
+	 * Edita o objeto do parâmentro
+	 * 
+	 * @param entidade - Entidade
+	 */
 	public void editar(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		Transaction transacao = null;
@@ -147,7 +172,10 @@ public class GenericDAO<Entidade> {
 
 	}
 
-	// Salva ou edita
+	/**
+	 * Salva ou edita o objeto
+	 * @param entidade - Entidade
+	 */
 	public void merge(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		Transaction transacao = null;

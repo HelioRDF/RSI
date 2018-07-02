@@ -18,7 +18,7 @@ import br.com.rsi.domain.usuarios.Usuario;
  * @author helio.franca
  * @version v1.7
  * @since N/A
- *
+ *s
  */
 
 @SuppressWarnings("serial")
@@ -42,7 +42,9 @@ public class UsuarioBean implements Serializable {
 
 	}
 
-	// Editar usuário
+/*
+ * Editar objeto do tipo usuário
+ */
 	// -------------------------------------------------------------------------------------------
 	public void editar() {
 		try {
@@ -55,7 +57,9 @@ public class UsuarioBean implements Serializable {
 		}
 	}
 
-	// Salvar Senha
+/**
+ * Editar senha
+ */
 	// -------------------------------------------------------------------------------------------
 	public void editarSenha() {
 		try {

@@ -50,8 +50,9 @@ public class ControleGitBean implements Serializable {
 	private int total;
 	static String CAMINHO = "";
 
-	
-	// Dispara o envio de E-mail
+	/**
+	 * Dispara o envio de E-mail
+	 */
 	// -------------------------------------------------------------------------------------
 	public void enviarEmail() {
 		Messages.addGlobalWarn("Teste");
@@ -71,8 +72,10 @@ public class ControleGitBean implements Serializable {
 		email.emailHtml(resultado, "TESTE HK");
 
 	}
-	
-	// Salvar usuário
+
+	/**
+	 * Salva objeto do tipo ControleGit
+	 */
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
 		try {
@@ -83,7 +86,9 @@ public class ControleGitBean implements Serializable {
 		}
 	}
 
-	// Listar Controle
+	/**
+	 * Lista os objetos do tipo ControleGit
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void listarInfos() {
 		try {
@@ -98,7 +103,10 @@ public class ControleGitBean implements Serializable {
 		}
 	}
 
-	// Carrega no Banco de Dados
+	/**
+	 * Captura as informações de uma planilha xls e salva no banco de dados
+	 * 
+	 */
 	// -------------------------------------------------------------------------------------------
 	public void salvarPlanilha() {
 		controle = new ControleGit();
@@ -151,7 +159,9 @@ public class ControleGitBean implements Serializable {
 		}
 	}
 
-	// Limpar DB
+	/**
+	 * Limpa as informações da tabela ControleGit no banco de dados
+	 */
 	// -------------------------------------------------------------------------------------
 	public void limparDB() {
 		try {
@@ -166,7 +176,15 @@ public class ControleGitBean implements Serializable {
 		}
 	}
 
-	// Validador de data
+	/**
+	 * Valida e converte uma objeto do tipo data
+	 * 
+	 * @param dataInfo
+	 *            - data para validara
+	 * @param msg
+	 *            - mensagem opcional
+	 * @return - retorna um objeto do tipo data
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public static Date validadorData(String dataInfo, String msg) {
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
@@ -185,7 +203,9 @@ public class ControleGitBean implements Serializable {
 		return dataFinal;
 	}
 
-	// Chama o Runnable do gitlog
+	/**
+	 * Chama o Runnable do gitlog
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void gerarLogGit() {
 		try {
@@ -197,7 +217,9 @@ public class ControleGitBean implements Serializable {
 		}
 	}
 
-	// Runnable para acionar o gitlog
+	/**
+	 * Runnable para acionar o comando gitlog e capturar as informações.
+	 */
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitLog = new Runnable() {
 		public void run() {
@@ -255,26 +277,21 @@ public class ControleGitBean implements Serializable {
 					controleGit.setAuthor(author);
 					controleGit.setDataCommitAnt(controleGit.getDataCommit());
 					controleGit.setDataCommit(ControleGitBean.validadorData(dataCommit, "Data Commit"));
-					if(controleGit.getDataCommit() == controleGit.getDataCommitAnt()) {
+					if (controleGit.getDataCommit() == controleGit.getDataCommitAnt()) {
 						controleGit.setAlteracao(true);
-					}else {
+					} else {
 						controleGit.setAlteracao(false);
 					}
 					dataVerificacao = new Date();
 					controleGit.setDataVerificacao(dataVerificacao);
 					controleGit.setDescricaoLog(descricaoLog);
 
-					// Messages.addGlobalInfo("Executado com sucesso!");
 				} catch (Exception e) {
 					System.err.println(e);
 					author = "----------";
 					controleGit.setAuthor(author);
-					// dataCommit="00-00-0000";
-					// controleGit.setDataCommit(validadorData(dataCommit, "Data Commit"));
 					descricaoLog = "null";
 					controleGit.setDescricaoLog(descricaoLog);
-					// Messages.addGlobalError("Caminho não encontrado ... :\n" +
-					// controleGit.getNomeSistema());
 				} finally {
 					dao.editar(controleGit);
 
@@ -284,7 +301,9 @@ public class ControleGitBean implements Serializable {
 		}
 	};
 
-	// Método Git Pull que chama uma nova Thread (gitPull)
+	/**
+	 * Método Git Pull que chama uma nova Thread (gitPull)
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void atualizarGit() {
 
@@ -297,7 +316,9 @@ public class ControleGitBean implements Serializable {
 		}
 	}
 
-	// Runnable para acionar o gitpull e atualizar os pacotes das aplicações
+	/**
+	 * Runnable para acionar o gitpull e atualizar os pacotes das aplicações
+	 */
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitPull = new Runnable() {
 		public void run() {

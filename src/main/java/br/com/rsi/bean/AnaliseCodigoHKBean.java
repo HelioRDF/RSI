@@ -35,7 +35,9 @@ public class AnaliseCodigoHKBean implements Serializable {
 	private int total;
 	String siglaAtual;
 
-	// Salvar usuário
+	/**
+	 * Salvar um objeto AnaliseCodigoHKBean
+	 */
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
 		try {
@@ -44,20 +46,12 @@ public class AnaliseCodigoHKBean implements Serializable {
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar a Silga:" + siglaAtual);
 			System.out.println("Erro ao salvar --------------------------------------" + siglaAtual + e);
-		} finally {
-			fechar();
 		}
 	}
 
-	// Fechar
-	// -------------------------------------------------------------------------------------------
-	public void fechar() {
-		// RequestContext.getCurrentInstance().reset("formFiltro");
-		analise = new AnaliseCodigoHK();
-		dao = new AnaliseCodigoHKDAO();
-	}
-
-	// Editar
+	/**
+	 * Editar objeto AnaliseCodigoHKBean
+	 */
 	// -------------------------------------------------------------------------------------------
 	public void editar() {
 		try {
@@ -67,12 +61,13 @@ public class AnaliseCodigoHKBean implements Serializable {
 			Messages.addGlobalInfo("Editado com sucesso!!!");
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Editar ");
-		} finally {
-			fechar();
 		}
 	}
 
-	// Seleciona uma analise da tabela
+	/**
+	 * Selecionar uma linha da tabela AnaliseCodigoHKBean
+	 * @param evento - Seleciona um objeto durante o evento.
+	 */
 	// -------------------------------------------------------------------------------------------
 	public void selecionarAnalise(ActionEvent evento) {
 		try {
@@ -82,7 +77,9 @@ public class AnaliseCodigoHKBean implements Serializable {
 		}
 	}
 
-	// Listar Infos
+	/**
+	 * Criar uma lista com os objetos AnaliseCodigoHKBean
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void listarInfos() {
 		try {
@@ -102,7 +99,10 @@ public class AnaliseCodigoHKBean implements Serializable {
 		}
 	}
 
-	// Data commit Git
+	/**
+	 * Captura a última data de Commit em controle git e carimba na analíse.
+	 */
+
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void DataCommit() {
 		try {
@@ -117,20 +117,19 @@ public class AnaliseCodigoHKBean implements Serializable {
 					dataCommit = dataCommit.substring(0, 11);
 				}
 				obj.setDataCommit(dataCommit);
-				// System.out.println("\nSigla = "+obj.getSigla());
-				// System.out.println("Data = "+dataCommit);
 				dao.editar(obj);
 				Messages.addGlobalInfo("Data de Commit atualizada! " + obj.getSigla());
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
 		} finally {
 		}
 	}
 
-	// Listar Resultado Vazio e seta as regras de Warning/Passed
+	/**
+	 * Captura Resultados nulos e seta as regras de Alerta/LIBERADO
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void resultadoVazio() {
 		try {
@@ -159,10 +158,6 @@ public class AnaliseCodigoHKBean implements Serializable {
 
 						if (notaAtual >= notaAnterior || notaAtual == 100) {
 							analiseCodigoHK.setResultado("LIBERADO");
-							// System.out.println("-------Maior -----" + analiseCodigoHK.getSigla()
-							// +"-"+analiseCodigoHK.getId() +"\nAtual:"
-							// + analiseCodigoHK.getNotaProjeto());
-							// System.out.println("\nAnterior::" + objAnterior.getNotaProjeto());
 
 						} else {
 							analiseCodigoHK.setResultado("ALERTA");
@@ -180,12 +175,13 @@ public class AnaliseCodigoHKBean implements Serializable {
 				} // Fim do For
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("XXXxxx ERRO:" + e.getMessage() + e.getCause());
 		}
 	}
 
-	// Get e Set
+	/**
+	 * Calcula a nota da análise
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void calcNota() {
 		listarInfos();
@@ -199,8 +195,6 @@ public class AnaliseCodigoHKBean implements Serializable {
 				major = obj.getIssuesMedia();
 				minor = obj.getIssuesBaixa();
 				linhaCodigo = obj.getLinhaCodigo();
-				// double nota=
-				// 1-((blocker/linhaCodigo)*10)+((critical/linhaCodigo)*5)+(major/linhaCodigo)+((minor/linhaCodigo)*0.1);
 				blocker = ((blocker / linhaCodigo) * 10);
 				critical = ((critical / linhaCodigo) * 5);
 				major = ((major / linhaCodigo));

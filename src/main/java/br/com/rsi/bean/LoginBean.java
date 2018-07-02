@@ -41,7 +41,10 @@ public class LoginBean implements Serializable {
 	public void iniciar() {
 		usuario = new Usuario();
 	}
-
+	
+	/**
+	 * Autenticar usuário na aplicação.
+	 */
 	public void autenticar() {
 		if (tipoLogin == 1) {
 			try {
@@ -73,7 +76,9 @@ public class LoginBean implements Serializable {
 
 	// Logoff
 	// -------------------------------------------------------------------------------------------
-
+/**
+ * Sair da aplicação
+ */
 	public void sair() {
 		try {
 			userlogadoB = false;

@@ -23,7 +23,10 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 public class FileUploadView {
 
-	// RFC
+/**
+ * handleFileUpload p/ RFC
+ * @param event - Evento
+ */
 	// -----------------------------------------------------------------------------------
 	public void handleFileUpload(FileUploadEvent event) {
 
@@ -53,7 +56,10 @@ public class FileUploadView {
 		bean.salvarPlanilha();
 	}
 
-	// Controle
+	/**
+	 * handleFileUpload p/ Controle de Siglas
+	 * @param event - Evento
+	 */
 	// ---------------------------------------------------------------------
 	public void handleFileUploadControle(FileUploadEvent event) {
 		new File("C:\\TempCargaRFC").mkdir();
@@ -75,7 +81,10 @@ public class FileUploadView {
 		bean.salvarPlanilha();
 	}
 
-	// Controle Git HK
+	/**
+	 * handleFileUpload p/ controle git hk
+	 * @param event - Evento
+	 */
 	// -----------------------------------------------------------------------------
 	public void handleFileUploadGit(FileUploadEvent event) {
 		new File("C:\\TempCargaRFC").mkdir();
@@ -97,7 +106,10 @@ public class FileUploadView {
 		bean.salvarPlanilha();
 	}
 
-	// Controle Git Dev
+	/**
+	 * handleFileUpload p/ Controle Git Dev
+	 * @param event - Evento
+	 */
 	// -----------------------------------------------------------------------------
 	public void handleFileUploadGitDev(FileUploadEvent event) {
 		new File("C:\\TempCargaRFC").mkdir();

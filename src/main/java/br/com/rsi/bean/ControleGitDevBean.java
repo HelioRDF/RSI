@@ -47,9 +47,9 @@ public class ControleGitDevBean implements Serializable {
 	private int total;
 	static String CAMINHO = "";
 
-	
-	
-	// Dispara o envio de E-mail
+	/**
+	 * Dispara o envio de E-mail
+	 */
 	// -------------------------------------------------------------------------------------
 	public void enviarEmail() {
 		Messages.addGlobalWarn("Teste");
@@ -63,14 +63,16 @@ public class ControleGitDevBean implements Serializable {
 
 			GitList list = new GitList();
 			resultado += list.alertaGit(obj.getSigla(), obj.getNomeSistema(), obj.getDataCommit(),
-					obj.getDataCommitAnt(),obj.isAlteracao());
+					obj.getDataCommitAnt(), obj.isAlteracao());
 			System.out.println(resultado);
 		}
 		email.emailHtml(resultado, "TESTE DEV");
 
 	}
-	
-	// Salvar usuário
+
+	/**
+	 * // Salvar um objeto do tipo ControleGitDev
+	 */
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
 		try {
@@ -81,7 +83,9 @@ public class ControleGitDevBean implements Serializable {
 		}
 	}
 
-	// Listar Controle
+	/**
+	 * Lista os objetos do tipo ControleGitDev
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void listarInfos() {
 		try {
@@ -96,7 +100,9 @@ public class ControleGitDevBean implements Serializable {
 		}
 	}
 
-	// Carrega no Banco de Dados
+	/**
+	 * Captura as informações de uma planilha xls e salva no banco de dados
+	 */
 	// -------------------------------------------------------------------------------------------
 	public void salvarPlanilha() {
 		controle = new ControleGitDev();
@@ -149,7 +155,9 @@ public class ControleGitDevBean implements Serializable {
 		}
 	}
 
-	// Limpar DB
+	/**
+	 * Limpa a tabela do banco de dados.
+	 */
 	// -------------------------------------------------------------------------------------
 	public void limparDB() {
 		try {
@@ -164,7 +172,15 @@ public class ControleGitDevBean implements Serializable {
 		}
 	}
 
-	// Validador de data
+	/**
+	 * Valida e formata um objeto do tipo Data.
+	 * 
+	 * @param dataInfo
+	 *            - Data a ser validada
+	 * @param msg
+	 *            - Mensagem alternativa.
+	 * @return - Retorna um objeto do tipo Date.
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public static Date validadorData(String dataInfo, String msg) {
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
@@ -183,7 +199,9 @@ public class ControleGitDevBean implements Serializable {
 		return dataFinal;
 	}
 
-	// Percorrer a lista de siglas, e capturar informações do git log
+	/**
+	 * Chama o Runnable do gitlog
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void gerarLogGit() {
 		try {
@@ -195,7 +213,9 @@ public class ControleGitDevBean implements Serializable {
 		}
 	}
 
-	// Runnable para acionar o gitlog
+	/**
+	 * Runnable para acionar o comando gitlog e capturar as informações.
+	 */
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitLog = new Runnable() {
 		public void run() {
@@ -253,9 +273,9 @@ public class ControleGitDevBean implements Serializable {
 					controleGit.setAuthor(author);
 					controleGit.setDataCommitAnt(controleGit.getDataCommit());
 					controleGit.setDataCommit(ControleGitDevBean.validadorData(dataCommit, "Data Commit"));
-					if(controleGit.getDataCommit() == controleGit.getDataCommitAnt()) {
+					if (controleGit.getDataCommit() == controleGit.getDataCommitAnt()) {
 						controleGit.setAlteracao(true);
-					}else {
+					} else {
 						controleGit.setAlteracao(false);
 					}
 					dataVerificacao = new Date();
@@ -282,7 +302,9 @@ public class ControleGitDevBean implements Serializable {
 		}
 	};
 
-	// Método Git Pull que chama uma nova Thread (gitPull)
+	/**
+	 * Método Git Pull que chama uma nova Thread (gitPull)
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void atualizarGit() {
 
@@ -296,7 +318,9 @@ public class ControleGitDevBean implements Serializable {
 
 	}
 
-	// Runnable para acionar o gitpull e atualizar os pacotes das aplicações
+	/**
+	 * Runnable para acionar o gitpull e atualizar os pacotes das aplicações
+	 */
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitPull = new Runnable() {
 		public void run() {

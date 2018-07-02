@@ -22,7 +22,10 @@ import br.com.rsi.util.HibernateUtil;
  */
 
 public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
-
+/**
+ * 
+ * @return - Retorna uma lista de AnaliseCodigoHK
+ */
 	@SuppressWarnings("unchecked")
 	public List<AnaliseCodigoHK> listaResultadoVazio() {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
@@ -42,7 +45,13 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 			sessao.close();
 		}
 	}
-
+/**
+ * 
+ * @param codigo - int
+ * @param sigla - String
+ * @param projeto - String
+ * @return - Retorna uma objeto AnaliseCodigoHK
+ */
 	public AnaliseCodigoHK buscarAnterior(int codigo, String sigla,String projeto) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
@@ -63,7 +72,10 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 			sessao.close();
 		}
 	}
-	
+	/**
+	 * 
+	 * @return  - Retorna uma  lista AnaliseCodigoHK com dataCommit = Null
+	 */
 	@SuppressWarnings("unchecked")
 	public List<AnaliseCodigoHK> listarParaDataCommit() {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
@@ -79,7 +91,13 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 			sessao.close();
 		}
 	}
-
+/**
+ * 
+ * @param codigo - int
+ * @param sigla - string
+ * @param projeto - string
+ * @return - Retorna a quantidade na lista
+ */
 	public int qtdList(int codigo, String sigla, String projeto ) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {

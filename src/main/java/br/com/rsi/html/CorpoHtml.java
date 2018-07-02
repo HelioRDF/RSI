@@ -8,6 +8,11 @@ package br.com.rsi.html;
  */
 public class CorpoHtml {
 
+	/**
+	 * Cria o corpo HTML p/ Email
+	 * @param resultado - String
+	 * @return - String - String
+	 */
 	public static String bodyHTML(String resultado) {
 		// embed the image and get the content id
 

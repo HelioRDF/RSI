@@ -1,1 +1,9 @@
+br.com.rsi.alertaGit
+br.com.rsi.bean
 br.com.rsi.dao.complementos
+br.com.rsi.dao.usuarios
+br.com.rsi.domain.complementos
+br.com.rsi.domain.usuarios
+br.com.rsi.email
+br.com.rsi.html
+br.com.rsi.util

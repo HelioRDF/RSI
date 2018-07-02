@@ -43,7 +43,9 @@ public class NovoUsuarioBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	// Salvar usuário
+	/**
+	 *  Salvar novo usuário
+	 */
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
 		dao = new UsuarioDAO();
