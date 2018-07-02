@@ -40,7 +40,7 @@ COMO UTILIZAR
 DUVIDAS FREQUENTES 
 =================== 
  
-Novas atualizacões  disponoveís conforme demanda ... 
+Novas atualizacões  disponíveis conforme demanda ... 
 Helio Franca "<heliordf@hotmail.com>"
 
 
