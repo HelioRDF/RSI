@@ -273,10 +273,14 @@ public class ControleGitDevBean implements Serializable {
 					controleGit.setAuthor(author);
 					controleGit.setDataCommitAnt(controleGit.getDataCommit());
 					controleGit.setDataCommit(ControleGitDevBean.validadorData(dataCommit, "Data Commit"));
-					if (controleGit.getDataCommit() == controleGit.getDataCommitAnt()) {
-						controleGit.setAlteracao(true);
-					} else {
+					String dataAtual = controleGit.getDataCommit().toString().trim();
+					String dataAnterior = controleGit.getDataCommitAnt().toString().trim();
+					if(dataAtual.equalsIgnoreCase(dataAnterior)) {
 						controleGit.setAlteracao(false);
+						System.out.println("FFFFFFFFFFFFFFFFFF_---------------Atual: "+dataAtual+" ----- Anterior:"+dataAnterior);
+					}else {
+						controleGit.setAlteracao(true);
+						System.out.println("SSSSSSSSSSSSSSSSSS_---------------Atual: "+dataAtual+" ----- Anterior:"+dataAnterior);
 					}
 					dataVerificacao = new Date();
 					controleGit.setDataVerificacao(dataVerificacao);
