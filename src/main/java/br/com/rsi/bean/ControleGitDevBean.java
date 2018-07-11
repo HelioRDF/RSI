@@ -3,10 +3,12 @@ package br.com.rsi.bean;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -192,7 +194,7 @@ public class ControleGitDevBean implements Serializable {
 				dataFinal = (Date) formatter.parse(dataInfo);
 			} catch (ParseException e) {
 				dataFinal = null;
-				System.out.println("\n-----------------------------------------Erro em data" + msg);
+				System.out.println("\n-----------------------------------------Erro em data " + msg);
 				e.printStackTrace();
 			}
 		}
@@ -226,7 +228,6 @@ public class ControleGitDevBean implements Serializable {
 			for (ControleGitDev controleGit : listaControle) {
 				ControleGitDev entidade = dao.buscar(controleGit.getCodigo());
 				String pathSigla = "cd " + entidade.getCaminho();
-				;
 				String comandoGit = "git log --stat -1 --date=format:%d/%m/%Y";
 				String[] cmds = { pathSigla, comandoGit };
 				StringBuilder log = new StringBuilder();
@@ -269,18 +270,20 @@ public class ControleGitDevBean implements Serializable {
 					author = author.substring(7, author.length()).trim();
 					dataCommit = dataCommit.substring(5, dataCommit.length()).trim();
 					descricaoLog = log.toString();
-
+					
 					controleGit.setAuthor(author);
+					Date dataAnteriorParaComparacao = ControleGitDevBean.formatadorData(controleGit.getDataCommit());
 					controleGit.setDataCommitAnt(controleGit.getDataCommit());
-					controleGit.setDataCommit(ControleGitDevBean.validadorData(dataCommit, "Data Commit"));
-					String dataAtual = controleGit.getDataCommit().toString().trim();
-					String dataAnterior = controleGit.getDataCommitAnt().toString().trim();
-					if(dataAtual.equalsIgnoreCase(dataAnterior)) {
+					controleGit.setDataCommit(ControleGitBean.validadorData(dataCommit, "Data Commit"));
+					Date dataAtual = controleGit.getDataCommit();
+					if (dataAtual.equals(dataAnteriorParaComparacao)) {
 						controleGit.setAlteracao(false);
-						System.out.println("FFFFFFFFFFFFFFFFFF_---------------Atual: "+dataAtual+" ----- Anterior:"+dataAnterior);
-					}else {
+//						 System.out.println("FFFFFFFFFFFFFFFFFF_---------------Atual:"+ dataAtual + " ----- Anterior:"
+//						 + dataAnteriorParaComparacao);
+					} else {
 						controleGit.setAlteracao(true);
-						System.out.println("SSSSSSSSSSSSSSSSSS_---------------Atual: "+dataAtual+" ----- Anterior:"+dataAnterior);
+//						System.out.println("SSSSSSSSSSSSSSSSSS_---------------Atual: " + dataAtual + " ----- Anterior:"
+//							+ dataAnteriorParaComparacao);
 					}
 					dataVerificacao = new Date();
 					controleGit.setDataVerificacao(dataVerificacao);
@@ -292,10 +295,12 @@ public class ControleGitDevBean implements Serializable {
 					author = "----------";
 					controleGit.setAuthor(author);
 					// dataCommit="00-00-0000";
-					// controleGit.setDataCommit(validadorData(dataCommit, "Data Commit"));
+					// controleGit.setDataCommit(validadorData(dataCommit, "Data
+					// Commit"));
 					descricaoLog = "null";
 					controleGit.setDescricaoLog(descricaoLog);
-					// Messages.addGlobalError("Caminho não encontrado ... :\n" +
+					// Messages.addGlobalError("Caminho não encontrado ... :\n"
+					// +
 					// controleGit.getNomeSistema());
 				} finally {
 					dao.editar(controleGit);
@@ -328,48 +333,102 @@ public class ControleGitDevBean implements Serializable {
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitPull = new Runnable() {
 		public void run() {
-			List<ControleGitDev> listaControle;
-			ControleGitDevDAO dao = new ControleGitDevDAO();
-			listaControle = dao.listar();
+			int numeroContas = 0;
+			alteraArquivoDadosPaula();
+			while (numeroContas < 2) {
+				List<ControleGitDev> listaControle;
+				ControleGitDevDAO dao = new ControleGitDevDAO();
+				listaControle = dao.listar();
 
-			for (ControleGitDev controleGitDev : listaControle) {
-				ControleGitDev entidade = dao.buscar(controleGitDev.getCodigo());
-				String pathSigla = "cd " + entidade.getCaminho();
+				for (ControleGitDev controleGitDev : listaControle) {
+					ControleGitDev entidade = dao.buscar(controleGitDev.getCodigo());
+					String pathSigla = "cd " + entidade.getCaminho();
 
-				String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
-				String[] cmds = { pathSigla, comandoGit };
-				StringBuilder log = new StringBuilder();
-				log.append("\n \n");
+					String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
+					String[] cmds = { pathSigla, comandoGit };
+					StringBuilder log = new StringBuilder();
+					log.append("\n \n");
 
-				try {
-					ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
-					builder.redirectErrorStream(true);
-					Process p = builder.start();
+					try {
+						ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
+						builder.redirectErrorStream(true);
+						Process p = builder.start();
 
-					BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-					String line;
-					int i = 0;
-					while (true) {
-						i++;
-						line = r.readLine();
-						if (line == null) {
-							break;
+						BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+						String line;
+						int i = 0;
+						while (true) {
+							i++;
+							line = r.readLine();
+							if (line == null) {
+								break;
+							}
+							log.append(i + ": " + line + "\n");
+							System.out.println(line);
 						}
-						log.append(i + ": " + line + "\n");
-						System.out.println(line);
+						// Messages.addGlobalInfo("Executado com sucesso!");
+					} catch (Exception e) {
+						// Messages.addGlobalError("Caminho não encontrado ...
+						// :\n"
+						// +
+						// controleGitDev.getNomeSistema());
+					} finally {
+						dao.editar(controleGitDev);
+
 					}
-					// Messages.addGlobalInfo("Executado com sucesso!");
-				} catch (Exception e) {
-					// Messages.addGlobalError("Caminho não encontrado ... :\n" +
-					// controleGitDev.getNomeSistema());
-				} finally {
-					dao.editar(controleGitDev);
-
 				}
+				System.out.println((numeroContas + 1) + " º rodada terminou.");
+				alteraArquivoDadosLuiz();
+				numeroContas++;
 			}
-
+			new Thread(gitLog).start();
+			terminoThread();
 		}
 	};
+	
+	/** Metodo para formatar Data
+	 * @param data - recebe uma data
+	 * @return - retorna um objeto do tipo Date
+	 * @author andre.graca
+	 *  */
+	public static Date formatadorData(Date data) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(data);
+		String dataString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.YEAR);
+		//System.out.println(dataString);
+		return ControleGitBean.validadorData(dataString, "Data Anterior");
+	}
+
+	/** Metodos para escrever no arquivo C:/Users/andre.graca/_netrc
+	*Este arquivo salva o login do GitLab na maquina, o que auxilia no git pull para contas diferentes.
+	 *@author andre.graca
+	 */
+
+	public static void alteraArquivoDadosPaula() {
+		PrintStream ps = null;
+		try {
+			ps = new PrintStream("C:/Users/RSI/_netrc");
+		} catch (Exception e) {
+			System.out.println("Falha ao criar o arquivo C:/Users/RSI/_netrc");
+		}
+		ps.append("machine gitlab.produbanbr.corp\nlogin xb201520\npassword pCAV#1212");
+		ps.close();
+	}
+
+	public static void alteraArquivoDadosLuiz() {
+		PrintStream ps = null;
+		try {
+			ps = new PrintStream("C:/Users/RSI/_netrc");
+		} catch (Exception e) {
+			System.out.println("Falha ao criar o arquivo C:/Users/RSI/_netrc");
+		}
+		ps.append("machine gitlab.produbanbr.corp\nlogin XI324337\npassword elphbbtu");
+		ps.close();
+	}
+
+	public static void terminoThread() {
+		System.out.println("Siglas Analisadas");
+	}
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------

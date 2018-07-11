@@ -221,7 +221,7 @@
 						sortBy="#{dataVar.inspecionar}" filterBy="#{dataVar.inspecionar}">
 						<p:outputLabel value="#{dataVar.inspecionar}" />
 					</p:column>
-					<p:column headerText="Config" width="12%"  exportable="false">
+					<p:column headerText="Config" width="12%" exportable="false">
 						<p:commandButton icon="ui-icon-pencil" title="Editar"
 							onclick="PF('dlg2').show();"></p:commandButton>
 						<p:commandButton icon="ui-icon-trash" title="Excluir"
@@ -266,7 +266,8 @@
 
 					<h:commandLink style="float:left; margin-right:5px;">
 						<h:graphicImage value="/images/excel2.png" width="24" />
-						<p:dataExporter type="xls" target="dataTableControle" fileName="Controle de Siglas" />
+						<p:dataExporter type="xls" target="dataTableControle"
+							fileName="Controle de Siglas" />
 					</h:commandLink>
 
 					<p:commandButton style="font-size:13px; float:right" id="btat"
@@ -289,7 +290,7 @@
 					</f:facet>
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações das Colunas -->
-					<p:column headerText="Ver" width="4%"  exportable="false">
+					<p:column headerText="Ver" width="4%" exportable="false">
 						<!-- Expandir infos -->
 						<p:rowToggler />
 					</p:column>
@@ -484,6 +485,11 @@
 						<br></br>
 					</p:rowExpansion>
 				</p:dataTable>
+				<p:dialog widgetVar="finishedGitPull" id="idfinishedGitPull">
+					<h:form>
+						<h:outputText value="Siglas atualizadas" />
+					</h:form>
+				</p:dialog>
 			</p:tab>
 			<!-- FIM Controle Git HK _________________________________________________________________________________ -->
 
@@ -495,7 +501,8 @@
 
 					<h:commandLink style="float:left; margin-right:5px;">
 						<h:graphicImage value="/images/excel2.png" width="24" />
-						<p:dataExporter type="xls" target="dataTableGitDev" fileName="Git-Dev" />
+						<p:dataExporter type="xls" target="dataTableGitDev"
+							fileName="Git-Dev" />
 					</h:commandLink>
 
 

@@ -2,13 +2,14 @@
 package br.com.rsi.bean;
 
 import java.io.BufferedReader;
-
 import java.io.File;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,6 @@ import org.omnifaces.util.Messages;
 
 import br.com.rsi.alertaGit.GitList;
 import br.com.rsi.dao.complementos.ControleGitDAO;
-
 import br.com.rsi.domain.complementos.ControleGit;
 import br.com.rsi.email.EnviarEmail;
 import jxl.Cell;
@@ -230,7 +230,6 @@ public class ControleGitBean implements Serializable {
 			for (ControleGit controleGit : listaControle) {
 				ControleGit entidade = dao.buscar(controleGit.getCodigo());
 				String pathSigla = "cd " + entidade.getCaminho();
-				;
 				String comandoGit = "git log --stat -1 --date=format:%d/%m/%Y";
 				String[] cmds = { pathSigla, comandoGit };
 				StringBuilder log = new StringBuilder();
@@ -275,15 +274,21 @@ public class ControleGitBean implements Serializable {
 					descricaoLog = log.toString();
 
 					controleGit.setAuthor(author);
+					Date dataAnteriorParaComparacao = ControleGitBean.formatadorData(controleGit.getDataCommit());
 					controleGit.setDataCommitAnt(controleGit.getDataCommit());
 					controleGit.setDataCommit(ControleGitBean.validadorData(dataCommit, "Data Commit"));
-					String dataAtual = controleGit.getDataCommit().toString().trim();
-					String dataAnterior = controleGit.getDataCommitAnt().toString().trim();
-					
-					if(dataAtual.equalsIgnoreCase(dataAnterior)) {
+					Date dataAtual = controleGit.getDataCommit();
+					// Date dataAnterior = controleGit.getDataCommitAnt();
+					//System.out.println("Data Commit: " + dataCommit);
+
+					if (dataAtual.equals(dataAnteriorParaComparacao)) {
 						controleGit.setAlteracao(false);
-					}else {
+//						 System.out.println("FFFFFFFFFFFFFFFFFF_---------------Atual:"+ dataAtual + " ----- Anterior:"
+//						 + dataAnteriorParaComparacao);
+					} else {
 						controleGit.setAlteracao(true);
+//						System.out.println("SSSSSSSSSSSSSSSSSS_---------------Atual: " + dataAtual + " ----- Anterior:"
+//							+ dataAnteriorParaComparacao);
 					}
 
 					dataVerificacao = new Date();
@@ -301,9 +306,13 @@ public class ControleGitBean implements Serializable {
 
 				}
 			}
-
+			terminoThread();
 		}
 	};
+
+	public static void terminoThread() {
+		System.out.println("Siglas Analisadas");
+	}
 
 	/**
 	 * Método Git Pull que chama uma nova Thread (gitPull)
@@ -326,48 +335,96 @@ public class ControleGitBean implements Serializable {
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitPull = new Runnable() {
 		public void run() {
-			List<ControleGit> listaControle;
-			ControleGitDAO dao = new ControleGitDAO();
-			listaControle = dao.listar();
+			int numeroContas = 0;
+			alteraArquivoDadosPaula();
+			while (numeroContas < 2) {
+				List<ControleGit> listaControle;
+				ControleGitDAO dao = new ControleGitDAO();
+				listaControle = dao.listar();
+				for (ControleGit controleGit : listaControle) {
+					ControleGit entidade = dao.buscar(controleGit.getCodigo());
+					String pathSigla = "cd " + entidade.getCaminho();
+					System.out.println(pathSigla);
+					String comandoGit = "git -c http.sslVerify=no pull >>LogGit.txt";
+					String[] cmds = { pathSigla, comandoGit };
+					StringBuilder log = new StringBuilder();
+					log.append("\n \n");
 
-			for (ControleGit controleGit : listaControle) {
-				ControleGit entidade = dao.buscar(controleGit.getCodigo());
-				String pathSigla = "cd " + entidade.getCaminho();
+					try {
+						ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
+						builder.redirectErrorStream(true);
+						Process p = builder.start();
 
-				String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
-				String[] cmds = { pathSigla, comandoGit };
-				StringBuilder log = new StringBuilder();
-				log.append("\n \n");
-
-				try {
-					ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
-					builder.redirectErrorStream(true);
-					Process p = builder.start();
-
-					BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-					String line;
-					int i = 0;
-					while (true) {
-						i++;
-						line = r.readLine();
-						if (line == null) {
-							break;
+						BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+						String line;
+						int i = 0;
+						while (true) {
+							i++;
+							line = r.readLine();
+							if (line == null) {
+								break;
+							}
+							log.append(i + ": " + line + "\n");
+							System.out.println(line);
 						}
-						log.append(i + ": " + line + "\n");
-						System.out.println(line);
+						// Messages.addGlobalInfo("Executado com sucesso!");
+					} catch (Exception e) {
+						// Messages.addGlobalError("Caminho não encontrado
+						// ...
+						// :\n" +
+						// controleGitDev.getNomeSistema());
+					} finally {
+						dao.editar(controleGit);
 					}
-					// Messages.addGlobalInfo("Executado com sucesso!");
-				} catch (Exception e) {
-					// Messages.addGlobalError("Caminho não encontrado ... :\n" +
-					// controleGitDev.getNomeSistema());
-				} finally {
-					dao.editar(controleGit);
-
 				}
+				System.out.println((numeroContas + 1) + " º rodada terminou.");
+				alteraArquivoDadosLuiz();
+				numeroContas++;
 			}
-
+			new Thread(gitLog).start();
+			terminoThread();
 		}
 	};
+
+	/** Metodo para formatar Data
+	 * @param data - recebe uma data
+	 * @return - retorna um objeto do tipo Date
+	 * @author andre.graca
+	 *  */
+	public static Date formatadorData(Date data) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(data);
+		String dataString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.YEAR);
+		//System.out.println(dataString);
+		return ControleGitBean.validadorData(dataString, "Data Anterior");
+	}
+
+	/** Metodos para escrever no arquivo C:/Users/andre.graca/_netrc
+	*Este arquivo salva o login do GitLab na maquina, o que auxilia no git pull para contas diferentes.
+	 *@author andre.graca
+	 */
+
+	public static void alteraArquivoDadosPaula() {
+		PrintStream ps = null;
+		try {
+			ps = new PrintStream("C:/Users/andre.graca/_netrc");
+		} catch (Exception e) {
+			System.out.println("Falha ao criar o arquivo C:/Users/andre.graca/_netrc");
+		}
+		ps.append("machine gitlab.produbanbr.corp\nlogin xb201520\npassword pCAV#1212");
+		ps.close();
+	}
+
+	public static void alteraArquivoDadosLuiz() {
+		PrintStream ps = null;
+		try {
+			ps = new PrintStream("C:/Users/andre.graca/_netrc");
+		} catch (Exception e) {
+			System.out.println("Falha ao criar o arquivo C:/Users/andre.graca/_netrc");
+		}
+		ps.append("machine gitlab.produbanbr.corp\nlogin XI324337\npassword elphbbtu");
+		ps.close();
+	}
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
