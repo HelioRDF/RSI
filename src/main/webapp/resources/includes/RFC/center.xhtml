@@ -153,6 +153,89 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Analise Dev ______________________________________________________________  -->
+			<p:tab title="Análise (DEV)" closable="true" disabled="false">
+				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
+
+		<p:commandButton style="font-size:13px; float:right"
+						id="btAtualizarDev" styleClass="add"
+						action="#{analise_CodigoBean.listarInfos}" value="Atualizar"
+						rendered="true" update=":formTb:fr:dataTableAnaliseDEV"
+						icon=" ui-icon-refresh"></p:commandButton>
+
+				</p:fieldset>
+				<p:dataTable id="dataTableAnaliseDEV" rendered="true"
+					rowsPerPageTemplate="12,20,30,50,100" rowIndexVar="rowIndex"
+					emptyMessage="Nenhum Registro encontrado" rows="7" paginator="true"
+					var="dataVar" value="#{analise_CodigoBean.listaAnalise}"
+					draggableColumns="true" style=" text-align:center;font-size: 12px;"
+					paginatorPosition="top">
+
+					<f:facet name="header">
+
+						<p:outputLabel value="TOTAL: #{analise_CodigoBean.total}" />
+						<p:commandButton id="toggler" type="button" value="Colunas"
+							style="float:right" icon="ui-icon-calculator" />
+						<p:columnToggler datasource="dataTableAnaliseDEV" trigger="toggler">
+						</p:columnToggler>
+					</f:facet>
+
+
+
+					<!-- _________________________________________________________________________________________________________________________________ -->
+					<!-- Informações das Colunas -->
+					<p:column headerText="Ver" width="4%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
+					</p:column>
+					<!-- <p:column headerText="Linhas" width="9%" sortBy="#{rowIndex}"> -->
+					<!-- #{rowIndex+1} -->
+					<!-- </p:column> -->
+					<p:column headerText="ID" width="9%" sortBy="#{dataVar.id}"
+						filterBy="#{dataVar.id}">
+						<p:outputLabel value="#{dataVar.id}" />
+					</p:column>
+					<p:column headerText="GESTOR" width="13%"
+						sortBy="#{dataVar.painelGestor}"
+						filterBy="#{dataVar.painelGestor}">
+						<p:outputLabel value="#{dataVar.painelGestor}" />
+					</p:column>
+					<p:column headerText="SIGLA" width="10%" sortBy="#{dataVar.sigla}"
+						filterBy="#{dataVar.sigla}">
+						<p:outputLabel value="#{dataVar.sigla}" />
+					</p:column>
+
+					
+					<!-- _________________________________________________________________________________________________________________________________ -->
+					<!-- Informações após expandir linha -->
+					<p:rowExpansion styleClass="rowEdit">
+	
+						<!-- <p:separator style="border: 2px solid #c1c7d9; border-radius: 100px/9px; background-color:  #d4d5e6; height:8px;"> </p:separator>  -->
+						<p:separator style=" height:10px;background-color:#e6e6ff"></p:separator>
+						<br></br>
+					</p:rowExpansion>
+				</p:dataTable>
+
+
+			</p:tab>
+
+
+
+
+
+
+
 			<!--  RFC________________________________________________________________________________________ -->
 			<p:tab title="RFCs" closable="true" disabled="false">
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">

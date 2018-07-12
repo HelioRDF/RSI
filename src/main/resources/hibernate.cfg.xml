@@ -38,6 +38,8 @@
 		<mapping class="br.com.rsi.domain.complementos.ControleSiglas" />
 		<mapping class="br.com.rsi.domain.complementos.AnaliseCodigoHK" />
 		<mapping class="br.com.rsi.domain.complementos.ControleGit" />
+		<mapping class="br.com.rsi.domain.complementos.Automacao_Analise_Codigo" />
+		
 		<mapping class="br.com.rsi.domain.complementos.ControleGitDev" />
 
 	</session-factory>
