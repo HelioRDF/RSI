@@ -7,14 +7,14 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.rsi.domain.complementos.ControleGit;
+import br.com.rsi.domain.complementos.ControleGitHK;
 import br.com.rsi.util.HibernateUtil;
 
 /**
  * 
  * [ Detalhes... ] 
  * 
- * -Classe DAO ControleGit
+ * -Classe DAO ControleGitHK
  * Referencia.
  * http://www.devmedia.com.br/hibernate-api-criteria-realizando-consultas/29627
  * 
@@ -24,7 +24,7 @@ import br.com.rsi.util.HibernateUtil;
  * 
  */
 
-public class ControleGitDAO extends GenericDAO<ControleGit> {
+public class ControleGitHKDAO extends GenericDAO<ControleGitHK> {
 /**
  * Busca o commit mais recente por sigla, nome do sistema...
  * @param sigla - String
@@ -34,11 +34,11 @@ public class ControleGitDAO extends GenericDAO<ControleGit> {
 	public String buscarCommit(String sigla, String nomeSitema) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
-			Criteria consulta = sessao.createCriteria(ControleGit.class);
+			Criteria consulta = sessao.createCriteria(ControleGitHK.class);
 			consulta.add(Restrictions.eq("sigla", sigla));
 			consulta.setMaxResults(1);
 			consulta.addOrder(Order.desc("dataCommit"));
-			ControleGit resultado = (ControleGit) consulta.uniqueResult(); // Utilizado para retornar um unico
+			ControleGitHK resultado = (ControleGitHK) consulta.uniqueResult(); // Utilizado para retornar um unico
 								// resultado
 			
 			System.out.println("-- Achou:"+resultado.getSigla());
@@ -55,16 +55,16 @@ public class ControleGitDAO extends GenericDAO<ControleGit> {
 	
 	/**
 	 * 	Busca ordenada por alteração
-	 * @return - Retorna uma lista de ControleGit
+	 * @return - Retorna uma lista de ControleGitHK
 	 */
 
 	@SuppressWarnings("unchecked")
-	public List<ControleGit> listarOrdenandoAlteracao() {
+	public List<ControleGitHK> listarOrdenandoAlteracao() {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
-			Criteria consulta = sessao.createCriteria(ControleGit.class);
+			Criteria consulta = sessao.createCriteria(ControleGitHK.class);
 			consulta.addOrder(Order.desc("alteracao"));
-			List<ControleGit> resultado = consulta.list();
+			List<ControleGitHK> resultado = consulta.list();
 			return resultado;
 
 		} catch (RuntimeException erro) {

@@ -20,16 +20,16 @@ import javax.faces.bean.SessionScoped;
 import org.omnifaces.util.Messages;
 
 import br.com.rsi.alertaGit.GitList;
-import br.com.rsi.dao.complementos.ControleGitDAO;
+import br.com.rsi.dao.complementos.ControleGitHKDAO;
 
-import br.com.rsi.domain.complementos.ControleGit;
+import br.com.rsi.domain.complementos.ControleGitHK;
 import br.com.rsi.email.EnviarEmail;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 
 /**
- * -Classe BEAN ControleGitBean.
+ * -Classe BEAN ControleGitHKBean.
  * 
  * @author helio.franca
  * @version v1.7
@@ -39,14 +39,14 @@ import jxl.Workbook;
 
 @ManagedBean
 @SessionScoped
-public class ControleGitBean implements Serializable {
+public class ControleRtcHKBean implements Serializable {
 	static final Runtime run = Runtime.getRuntime();
 	static Process pro;
 	static BufferedReader read;
 	private static final long serialVersionUID = 1L;
-	private ControleGit controle;
-	private ControleGitDAO dao;
-	private List<ControleGit> listaControle;
+	private ControleGitHK controle;
+	private ControleGitHKDAO dao;
+	private List<ControleGitHK> listaControle;
 	private String pathSigla;
 	String path;
 	private int total;
@@ -59,12 +59,12 @@ public class ControleGitBean implements Serializable {
 	public void enviarEmail() {
 		Messages.addGlobalWarn("Teste");
 		EnviarEmail email = new EnviarEmail();
-		ControleGitDAO gitDao = new ControleGitDAO();
+		ControleGitHKDAO gitDao = new ControleGitHKDAO();
 		String resultado = "";
-		List<ControleGit> git;
+		List<ControleGitHK> git;
 		git = gitDao.listarOrdenandoAlteracao();
 
-		for (ControleGit obj : git) {
+		for (ControleGitHK obj : git) {
 
 			GitList list = new GitList();
 			resultado += list.alertaGit(obj.getSigla(), obj.getNomeSistema(), obj.getDataCommit(),
@@ -76,7 +76,7 @@ public class ControleGitBean implements Serializable {
 	}
 
 	/**
-	 * Salva objeto do tipo ControleGit
+	 * Salva objeto do tipo ControleGitHK
 	 */
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
@@ -89,14 +89,19 @@ public class ControleGitBean implements Serializable {
 	}
 
 	/**
-	 * Lista os objetos do tipo ControleGit
+	 * Lista os objetos do tipo ControleGitHK
 	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void listarInfos() {
 		try {
-			dao = new ControleGitDAO();
+			dao = new ControleGitHKDAO();
 			listaControle = dao.listar();
 			total = listaControle.size();
+			
+			for (ControleGitHK obj : listaControle) {
+				System.out.println("--------------"+obj);				
+			}
+			
 			Messages.addGlobalInfo("Lista Atualizada!");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -111,8 +116,8 @@ public class ControleGitBean implements Serializable {
 	 */
 	// -------------------------------------------------------------------------------------------
 	public void salvarPlanilha() {
-		controle = new ControleGit();
-		dao = new ControleGitDAO();
+		controle = new ControleGitHK();
+		dao = new ControleGitHKDAO();
 		String sigla, sistema, caminho, pacote;
 		Date dateC = new Date();
 
@@ -162,14 +167,14 @@ public class ControleGitBean implements Serializable {
 	}
 
 	/**
-	 * Limpa as informações da tabela ControleGit no banco de dados
+	 * Limpa as informações da tabela ControleGitHK no banco de dados
 	 */
 	// -------------------------------------------------------------------------------------
 	public void limparDB() {
 		try {
 			listarInfos();
-			for (ControleGit controleGit : listaControle) {
-				ControleGit entidade = dao.buscar(controleGit.getCodigo());
+			for (ControleGitHK ControleGitHK : listaControle) {
+				ControleGitHK entidade = dao.buscar(ControleGitHK.getCodigo());
 				dao.excluir(entidade);
 			}
 		} catch (Exception e) {
@@ -225,12 +230,12 @@ public class ControleGitBean implements Serializable {
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitLog = new Runnable() {
 		public void run() {
-			List<ControleGit> listaControle;
-			ControleGitDAO dao = new ControleGitDAO();
+			List<ControleGitHK> listaControle;
+			ControleGitHKDAO dao = new ControleGitHKDAO();
 			listaControle = dao.listar();
 
-			for (ControleGit controleGit : listaControle) {
-				ControleGit entidade = dao.buscar(controleGit.getCodigo());
+			for (ControleGitHK ControleGitHK : listaControle) {
+				ControleGitHK entidade = dao.buscar(ControleGitHK.getCodigo());
 				String pathSigla = "cd " + entidade.getCaminho();
 				;
 				String comandoGit = "git log --stat -1 --date=format:%d/%m/%Y";
@@ -276,31 +281,31 @@ public class ControleGitBean implements Serializable {
 					dataCommit = dataCommit.substring(5, dataCommit.length()).trim();
 					descricaoLog = log.toString();
 
-					controleGit.setAuthor(author);
-					controleGit.setDataCommitAnt(controleGit.getDataCommit());
-					controleGit.setDataCommit(ControleGitBean.validadorData(dataCommit, "Data Commit"));
-					Date dataAtual = controleGit.getDataCommit();
-					Date dataAnterior = controleGit.getDataCommitAnt();
+					ControleGitHK.setAuthor(author);
+					ControleGitHK.setDataCommitAnt(ControleGitHK.getDataCommit());
+					ControleGitHK.setDataCommit(ControleGitHKBean.validadorData(dataCommit, "Data Commit"));
+					Date dataAtual = ControleGitHK.getDataCommit();
+					Date dataAnterior = ControleGitHK.getDataCommitAnt();
 					dataAnterior = formatadorData(dataAnterior);
 
 					if (dataAtual.equals(dataAnterior)) {
-						controleGit.setAlteracao(false);
+						ControleGitHK.setAlteracao(false);
 					} else {
-						controleGit.setAlteracao(true);
+						ControleGitHK.setAlteracao(true);
 					}
 
 					dataVerificacao = new Date();
-					controleGit.setDataVerificacao(dataVerificacao);
-					controleGit.setDescricaoLog(descricaoLog);
+					ControleGitHK.setDataVerificacao(dataVerificacao);
+					ControleGitHK.setDescricaoLog(descricaoLog);
 
 				} catch (Exception e) {
 					System.err.println("---------------Erro: -" + e.getStackTrace());
 					author = "----------";
-					controleGit.setAuthor(author);
+					ControleGitHK.setAuthor(author);
 					descricaoLog = "null";
-					controleGit.setDescricaoLog(descricaoLog);
+					ControleGitHK.setDescricaoLog(descricaoLog);
 				} finally {
-					dao.editar(controleGit);
+					dao.editar(ControleGitHK);
 
 				}
 			}
@@ -342,7 +347,7 @@ public class ControleGitBean implements Serializable {
 		String dataString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/"
 				+ c.get(Calendar.YEAR);
 		// System.out.println(dataString);
-		return ControleGitBean.validadorData(dataString, "Data Anterior");
+		return ControleGitHKBean.validadorData(dataString, "Data Anterior");
 	}
 
 	/**
@@ -351,12 +356,12 @@ public class ControleGitBean implements Serializable {
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitPull = new Runnable() {
 		public void run() {
-			List<ControleGit> listaControle;
-			ControleGitDAO dao = new ControleGitDAO();
+			List<ControleGitHK> listaControle;
+			ControleGitHKDAO dao = new ControleGitHKDAO();
 			listaControle = dao.listar();
 
-			for (ControleGit controleGit : listaControle) {
-				ControleGit entidade = dao.buscar(controleGit.getCodigo());
+			for (ControleGitHK ControleGitHK : listaControle) {
+				ControleGitHK entidade = dao.buscar(ControleGitHK.getCodigo());
 				String pathSigla = "cd " + entidade.getCaminho();
 
 				String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
@@ -385,9 +390,9 @@ public class ControleGitBean implements Serializable {
 				} catch (Exception e) {
 					// Messages.addGlobalError("Caminho não encontrado ... :\n"
 					// +
-					// controleGitDev.getNomeSistema());
+					// ControleGitHKDev.getNomeSistema());
 				} finally {
-					dao.editar(controleGit);
+					dao.editar(ControleGitHK);
 
 				}
 			}
@@ -415,19 +420,19 @@ public class ControleGitBean implements Serializable {
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public ControleGit getControle() {
+	public ControleGitHK getControle() {
 		return controle;
 	}
 
-	public void setControle(ControleGit controle) {
+	public void setControle(ControleGitHK controle) {
 		this.controle = controle;
 	}
 
-	public List<ControleGit> getListaControle() {
+	public List<ControleGitHK> getListaControle() {
 		return listaControle;
 	}
 
-	public void setListaControle(List<ControleGit> listaControle) {
+	public void setListaControle(List<ControleGitHK> listaControle) {
 		this.listaControle = listaControle;
 	}
 

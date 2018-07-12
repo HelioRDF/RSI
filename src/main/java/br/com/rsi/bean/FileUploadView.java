@@ -92,7 +92,7 @@ public class FileUploadView {
 			UploadedFile arq = event.getFile();
 			InputStream in = new BufferedInputStream(arq.getInputstream());
 			File file = new File("C:/TempCargaRFC/" + arq.getFileName());
-			ControleGitBean.CAMINHO = file.getAbsolutePath();
+			ControleGitHKBean.CAMINHO = file.getAbsolutePath();
 			FileOutputStream fout = new FileOutputStream(file);
 			while (in.available() != 0) {
 				fout.write(in.read());
@@ -102,7 +102,7 @@ public class FileUploadView {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
 			ex.printStackTrace();
 		}
-		ControleGitBean bean = new ControleGitBean();
+		ControleGitHKBean bean = new ControleGitHKBean();
 		bean.salvarPlanilha();
 	}
 

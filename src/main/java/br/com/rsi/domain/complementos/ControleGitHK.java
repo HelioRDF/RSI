@@ -10,7 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * -Classe POJO ControleGit, e entity do DB via Hibernate.
+ * -Classe POJO ControleGitHK, e entity do DB via Hibernate.
  * 
  * @author helio.franca
  * @version v1.7
@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
-public class ControleGit extends GenericDomain {
+public class ControleGitHK extends GenericDomain {
 
 	private static final long serialVersionUID = -9203193152118322163L;
 

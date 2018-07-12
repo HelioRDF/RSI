@@ -11,7 +11,7 @@ import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 
 import br.com.rsi.dao.complementos.AnaliseCodigoHKDAO;
-import br.com.rsi.dao.complementos.ControleGitDAO;
+import br.com.rsi.dao.complementos.ControleGitHKDAO;
 import br.com.rsi.domain.complementos.AnaliseCodigoHK;
 
 /**
@@ -111,7 +111,7 @@ public class AnaliseCodigoHKBean implements Serializable {
 			List<AnaliseCodigoHK> listaAnaliseTemp = dao.listarParaDataCommit();
 
 			for (AnaliseCodigoHK obj : listaAnaliseTemp) {
-				ControleGitDAO daoGit = new ControleGitDAO();
+				ControleGitHKDAO daoGit = new ControleGitHKDAO();
 				String dataCommit = daoGit.buscarCommit(obj.getSigla().trim(), "N/A").toString();
 				if (!dataCommit.equals("N/A")) {
 					dataCommit = dataCommit.substring(0, 11);
