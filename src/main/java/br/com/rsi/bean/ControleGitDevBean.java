@@ -270,21 +270,21 @@ public class ControleGitDevBean implements Serializable {
 					author = author.substring(7, author.length()).trim();
 					dataCommit = dataCommit.substring(5, dataCommit.length()).trim();
 					descricaoLog = log.toString();
-					
+
 					controleGit.setAuthor(author);
-					Date dataAnteriorParaComparacao = ControleGitDevBean.formatadorData(controleGit.getDataCommit());
+					
 					controleGit.setDataCommitAnt(controleGit.getDataCommit());
 					controleGit.setDataCommit(ControleGitBean.validadorData(dataCommit, "Data Commit"));
 					Date dataAtual = controleGit.getDataCommit();
-					if (dataAtual.equals(dataAnteriorParaComparacao)) {
+					Date dataAnterior = controleGit.getDataCommitAnt();
+					dataAnterior = formatadorData(dataAnterior);
+
+					if (dataAtual.equals(dataAnterior)) {
 						controleGit.setAlteracao(false);
-//						 System.out.println("FFFFFFFFFFFFFFFFFF_---------------Atual:"+ dataAtual + " ----- Anterior:"
-//						 + dataAnteriorParaComparacao);
 					} else {
 						controleGit.setAlteracao(true);
-//						System.out.println("SSSSSSSSSSSSSSSSSS_---------------Atual: " + dataAtual + " ----- Anterior:"
-//							+ dataAnteriorParaComparacao);
 					}
+					
 					dataVerificacao = new Date();
 					controleGit.setDataVerificacao(dataVerificacao);
 					controleGit.setDescricaoLog(descricaoLog);
@@ -318,13 +318,17 @@ public class ControleGitDevBean implements Serializable {
 	public void atualizarGit() {
 
 		try {
+			alteraLoginGit("xb201520", "pCAV#1212");
 			new Thread(gitPull).start();
-			Messages.addGlobalInfo("Git pull em  execução!");
+
+			alteraLoginGit("XI324337", "elphbbtu");
+			new Thread(gitPull).start();
+
+			Messages.addGlobalInfo("Git pull em execução!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			Messages.addGlobalError("Erro ao executar GitPull!");
+			Messages.addGlobalError("Erro ao executar Git pull!");
 		}
-
 	}
 
 	/**
@@ -333,9 +337,6 @@ public class ControleGitDevBean implements Serializable {
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitPull = new Runnable() {
 		public void run() {
-			int numeroContas = 0;
-			alteraArquivoDadosPaula();
-			while (numeroContas < 2) {
 				List<ControleGitDev> listaControle;
 				ControleGitDevDAO dao = new ControleGitDevDAO();
 				listaControle = dao.listar();
@@ -366,68 +367,43 @@ public class ControleGitDevBean implements Serializable {
 							log.append(i + ": " + line + "\n");
 							System.out.println(line);
 						}
-						// Messages.addGlobalInfo("Executado com sucesso!");
 					} catch (Exception e) {
-						// Messages.addGlobalError("Caminho não encontrado ...
-						// :\n"
-						// +
-						// controleGitDev.getNomeSistema());
+						
 					} finally {
 						dao.editar(controleGitDev);
 
 					}
 				}
-				System.out.println((numeroContas + 1) + " º rodada terminou.");
-				alteraArquivoDadosLuiz();
-				numeroContas++;
-			}
 			new Thread(gitLog).start();
-			terminoThread();
 		}
 	};
-	
-	/** Metodo para formatar Data
-	 * @param data - recebe uma data
+
+	/**
+	 * Metodo para formatar Data
+	 * 
+	 * @param data
+	 *            - recebe uma data
 	 * @return - retorna um objeto do tipo Date
 	 * @author andre.graca
-	 *  */
+	 */
 	public static Date formatadorData(Date data) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(data);
-		String dataString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.YEAR);
-		//System.out.println(dataString);
+		String dataString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/"
+				+ c.get(Calendar.YEAR);
+		// System.out.println(dataString);
 		return ControleGitBean.validadorData(dataString, "Data Anterior");
 	}
 
-	/** Metodos para escrever no arquivo C:/Users/andre.graca/_netrc
-	*Este arquivo salva o login do GitLab na maquina, o que auxilia no git pull para contas diferentes.
-	 *@author andre.graca
-	 */
-
-	public static void alteraArquivoDadosPaula() {
+	public static void alteraLoginGit(String login, String senha) {
 		PrintStream ps = null;
 		try {
 			ps = new PrintStream("C:/Users/RSI/_netrc");
 		} catch (Exception e) {
 			System.out.println("Falha ao criar o arquivo C:/Users/RSI/_netrc");
 		}
-		ps.append("machine gitlab.produbanbr.corp\nlogin xb201520\npassword pCAV#1212");
+		ps.append("machine gitlab.produbanbr.corp\nlogin " + login + "\npassword " + senha);
 		ps.close();
-	}
-
-	public static void alteraArquivoDadosLuiz() {
-		PrintStream ps = null;
-		try {
-			ps = new PrintStream("C:/Users/RSI/_netrc");
-		} catch (Exception e) {
-			System.out.println("Falha ao criar o arquivo C:/Users/RSI/_netrc");
-		}
-		ps.append("machine gitlab.produbanbr.corp\nlogin XI324337\npassword elphbbtu");
-		ps.close();
-	}
-
-	public static void terminoThread() {
-		System.out.println("Siglas Analisadas");
 	}
 
 	// Get e Set

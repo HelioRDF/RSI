@@ -97,22 +97,6 @@ public class Analise_CodigoBean implements Serializable {
 		}
 	}
 
-	/**
-	 * Captura a última data de Commit em controle git e carimba na analíse.
-	 */
-
-	/**
-	 * Captura Resultados nulos e seta as regras de Alerta/LIBERADO
-	 */
-	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-	private void setNotaAnterior(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
