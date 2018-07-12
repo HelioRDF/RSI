@@ -157,37 +157,38 @@
 
 
 
-
-
-
-
-
-
-
-	<!-- Analise Dev ______________________________________________________________  -->
+			<!-- Analise Dev ______________________________________________________________  -->
 			<p:tab title="Análise (DEV)" closable="true" disabled="false">
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
 
-		<p:commandButton style="font-size:13px; float:right"
+					<p:commandButton style="font-size:13px; float:right"
 						id="btAtualizarDev" styleClass="add"
-						action="#{analise_CodigoBean.listarInfos}" value="Atualizar"
+						action="#{analise_CodigoDevBean.listarInfos}" value="Atualizar"
 						rendered="true" update=":formTb:fr:dataTableAnaliseDEV"
 						icon=" ui-icon-refresh"></p:commandButton>
+						
+						
+					<h:commandLink style="float:left; margin-right:5px;">
+						<h:graphicImage value="/images/excel2.png" width="24" />
+						<p:dataExporter type="xls" target="dataTableAnaliseDEV"
+							fileName="Analise-DEV" />
+					</h:commandLink>
 
 				</p:fieldset>
 				<p:dataTable id="dataTableAnaliseDEV" rendered="true"
 					rowsPerPageTemplate="12,20,30,50,100" rowIndexVar="rowIndex"
 					emptyMessage="Nenhum Registro encontrado" rows="7" paginator="true"
-					var="dataVar" value="#{analise_CodigoBean.listaAnalise}"
+					var="dataVar" value="#{analise_CodigoDevBean.listaAnalise}"
 					draggableColumns="true" style=" text-align:center;font-size: 12px;"
 					paginatorPosition="top">
 
 					<f:facet name="header">
 
-						<p:outputLabel value="TOTAL: #{analise_CodigoBean.total}" />
+						<p:outputLabel value="TOTAL: #{analise_CodigoDevBean.total}" />
 						<p:commandButton id="toggler" type="button" value="Colunas"
 							style="float:right" icon="ui-icon-calculator" />
-						<p:columnToggler datasource="dataTableAnaliseDEV" trigger="toggler">
+						<p:columnToggler datasource="dataTableAnaliseDEV"
+							trigger="toggler">
 						</p:columnToggler>
 					</f:facet>
 
@@ -216,11 +217,45 @@
 						<p:outputLabel value="#{dataVar.sigla}" />
 					</p:column>
 
+					<p:column headerText="SISTEMA" width="15%"
+						sortBy="#{dataVar.nomeProjeto}" filterBy="#{dataVar.nomeProjeto}">
+						<p:outputLabel value="#{dataVar.nomeProjeto}" />
+					</p:column>
+
+					<p:column headerText="Linhas de Código" width="10%"
+						sortBy="#{dataVar.linhaCodigo}" filterBy="#{dataVar.linhaCodigo}">
+						<p:outputLabel value="#{dataVar.linhaCodigo}" />
+					</p:column>
+
+					<p:column headerText="Bugs" width="10%" sortBy="#{dataVar.bugs}"
+						filterBy="#{dataVar.bugs}">
+						<p:outputLabel value="#{dataVar.bugs}" />
+					</p:column>
+
+					<p:column headerText="Nota" width="10%"
+						sortBy="#{dataVar.notaProjeto}" filterBy="#{dataVar.notaProjeto}">
+						<p:outputLabel value="#{dataVar.notaProjeto}%" />
+					</p:column>
 					
+					
+					<p:column headerText="Debito Técnico" width="10%"
+						sortBy="#{dataVar.debitoTecnico}" filterBy="#{dataVar.debitoTecnico}">
+						<p:outputLabel value="#{dataVar.debitoTecnico}" />
+					</p:column>
+
+					<p:column headerText="DATA CAPTURA" width="11%" id="cap"
+						sortBy="#{dataVar.dataCaptura}" filterBy="#{dataVar.dataCaptura}">
+						<p:outputLabel value="#{dataVar.dataCaptura}">
+							<f:convertDateTime for="cap" pattern="yyyy-MM-dd" locale="pt_BR" />
+						</p:outputLabel>
+					</p:column>
+
+
+
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações após expandir linha -->
 					<p:rowExpansion styleClass="rowEdit">
-	
+
 						<!-- <p:separator style="border: 2px solid #c1c7d9; border-radius: 100px/9px; background-color:  #d4d5e6; height:8px;"> </p:separator>  -->
 						<p:separator style=" height:10px;background-color:#e6e6ff"></p:separator>
 						<br></br>
@@ -534,12 +569,12 @@
 					</p:column>
 
 
-					<p:column headerText="Config" width="12%" exportable="false">
-						<p:commandButton icon="ui-icon-pencil" title="Editar"
-							onclick="PF('dlg2').show();"></p:commandButton>
-						<p:commandButton icon="ui-icon-trash" title="Excluir"
-							onclick="PF('dlg2').show();"></p:commandButton>
-					</p:column>
+<!-- 					<p:column headerText="Config" width="12%" exportable="false"> -->
+<!-- 						<p:commandButton icon="ui-icon-pencil" title="Editar" -->
+<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+<!-- 						<p:commandButton icon="ui-icon-trash" title="Excluir" -->
+<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+<!-- 					</p:column> -->
 
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações após expandir linha -->
@@ -673,12 +708,12 @@
 					</p:column>
 
 
-					<p:column headerText="Config" width="12%" exportable="false">
-						<p:commandButton icon="ui-icon-pencil" title="Editar"
-							onclick="PF('dlg2').show();"></p:commandButton>
-						<p:commandButton icon="ui-icon-trash" title="Excluir"
-							onclick="PF('dlg2').show();"></p:commandButton>
-					</p:column>
+<!-- 					<p:column headerText="Config" width="12%" exportable="false"> -->
+<!-- 						<p:commandButton icon="ui-icon-pencil" title="Editar" -->
+<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+<!-- 						<p:commandButton icon="ui-icon-trash" title="Excluir" -->
+<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+<!-- 					</p:column> -->
 
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações após expandir linha -->
@@ -711,8 +746,6 @@
 			<!-- FIM Controle Git Dev _________________________________________________________________________________ -->
 
 
-
-			<p:tab title="Análise (DEV)" closable="true" disabled="true"></p:tab>
 
 		</p:tabView>
 	</h:form>

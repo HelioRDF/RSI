@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.rsi.bean.Analise_CodigoBean;
 import br.com.rsi.domain.complementos.Automacao_Analise_Codigo;
 import br.com.rsi.util.HibernateUtil;
 
@@ -22,7 +21,7 @@ import br.com.rsi.util.HibernateUtil;
  * 
  */
 
-public class AnaliseCodigoHGDAO extends GenericDAO<Automacao_Analise_Codigo> {
+public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 /**
  * 
  * @return - Retorna uma lista de AnaliseCodigoHK

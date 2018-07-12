@@ -5,11 +5,10 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
-import br.com.rsi.dao.complementos.AnaliseCodigoHGDAO;
+import br.com.rsi.dao.complementos.AnaliseCodigoDevDAO;
 import br.com.rsi.domain.complementos.Automacao_Analise_Codigo;
 
 /**
@@ -23,11 +22,11 @@ import br.com.rsi.domain.complementos.Automacao_Analise_Codigo;
 
 @ManagedBean
 @SessionScoped
-public class Analise_CodigoBean implements Serializable {
+public class Analise_CodigoDevBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Automacao_Analise_Codigo analise;
-	private AnaliseCodigoHGDAO dao;
+	private AnaliseCodigoDevDAO dao;
 	private List<Automacao_Analise_Codigo> listaAnalise;
 	List<Automacao_Analise_Codigo> listaResultado;
 	private int total;
@@ -47,33 +46,8 @@ public class Analise_CodigoBean implements Serializable {
 		}
 	}
 
-	/**
-	 * Editar objeto AnaliseCodigoHGBean
-	 */
-	// -------------------------------------------------------------------------------------------
-	public void editar() {
-		try {
-			analise = new Automacao_Analise_Codigo();
-			dao = new AnaliseCodigoHGDAO();
-			dao.editar(analise);
-			Messages.addGlobalInfo("Editado com sucesso!!!");
-		} catch (Exception e) {
-			Messages.addGlobalError("Erro ao Editar ");
-		}
-	}
 
-	/**
-	 * Selecionar uma linha da tabela AnaliseCodigoHGBean
-	 * @param evento - Seleciona um objeto durante o evento.
-	 */
-	// -------------------------------------------------------------------------------------------
-	public void selecionarAnalise(ActionEvent evento) {
-		try {
-			analise = (Automacao_Analise_Codigo) evento.getComponent().getAttributes().get("meuSelect");
-		} catch (Exception e) {
-			Messages.addGlobalError("Erro ao Editar: ");
-		}
-	}
+
 
 	/**
 	 * Criar uma lista com os objetos AnaliseCodigoHGBean
@@ -82,7 +56,7 @@ public class Analise_CodigoBean implements Serializable {
 	public void listarInfos() {
 		try {
 
-			dao = new AnaliseCodigoHGDAO();
+			dao = new AnaliseCodigoDevDAO();
 			List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listar();
 			;
 			listaAnalise = listaAnaliseTemp;

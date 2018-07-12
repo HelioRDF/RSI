@@ -64,7 +64,7 @@ public class LoginBean implements Serializable {
 				}
 				// Usuário Ok...
 				userlogadoB = true;
-				Faces.redirect("./pages/administrativas/rfcs.xhtml");
+				Faces.redirect("./pages/administrativas/principal.xhtml");
 				usuarioLogado.setUltimoLogin(new Date());
 				usuarioDAO.editar(usuarioLogado);
 			} catch (IOException e) {
