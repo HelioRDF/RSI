@@ -15,8 +15,8 @@ import br.com.rsi.domain.complementos.Automacao_Analise_Codigo;
  * -Classe BEAN AnaliseCodigoHGBean.
  * 
  * @author helio.franca
- * @version v1.7
- * @since N/A
+ * @version v1.8
+ * @since 12-07-2018
  *
  */
 

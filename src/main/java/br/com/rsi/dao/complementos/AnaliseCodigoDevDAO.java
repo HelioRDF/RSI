@@ -16,8 +16,8 @@ import br.com.rsi.util.HibernateUtil;
  * http://www.devmedia.com.br/hibernate-api-criteria-realizando-consultas/29627
  * 
  * @author helio.franca
- * @version v1.7
- * @since N/A
+ * @version v1.8
+ * @since 12-07-2018
  * 
  */
 

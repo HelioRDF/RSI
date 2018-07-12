@@ -13,8 +13,8 @@ import javax.persistence.TemporalType;
  * -Classe POJO AnaliseCodigoHG  entity do DB via Hibernate.
  * 
  * @author helio.franca
- * @version v1.
- * @since  N/A
+ * @version v1.8
+ * @since  12-07-2018
  * 
  */
 
