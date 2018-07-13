@@ -12,10 +12,9 @@ import br.com.rsi.util.HibernateUtil;
 
 /**
  * 
- * [ Detalhes... ] 
+ * [ Detalhes... ]
  * 
- * -Classe DAO ControleGitHK
- * Referencia.
+ * -Classe DAO ControleGitHK Referencia.
  * http://www.devmedia.com.br/hibernate-api-criteria-realizando-consultas/29627
  * 
  * @author helio.franca
@@ -25,13 +24,16 @@ import br.com.rsi.util.HibernateUtil;
  */
 
 public class ControleGitHKDAO extends GenericDAO<ControleGitHK> {
-/**
- * Busca o commit mais recente por sigla, nome do sistema...
- * @param sigla - String
- * @param nomeSitema - String
- * @return - Retorna uma String
- */
-	public String buscarCommit(String sigla, String nomeSitema) {
+	/**
+	 * Busca o commit mais recente por sigla, nome do sistema...
+	 * 
+	 * @param sigla
+	 *            - String
+	 * @param nomeSitema
+	 *            - String
+	 * @return - Retorna uma String
+	 */
+	public String buscarDataCommit(String sigla) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(ControleGitHK.class);
@@ -39,9 +41,9 @@ public class ControleGitHKDAO extends GenericDAO<ControleGitHK> {
 			consulta.setMaxResults(1);
 			consulta.addOrder(Order.desc("dataCommit"));
 			ControleGitHK resultado = (ControleGitHK) consulta.uniqueResult(); // Utilizado para retornar um unico
-								// resultado
-			
-			System.out.println("-- Achou:"+resultado.getSigla());
+			// resultado
+
+			System.out.println("-- Achou:" + resultado.getSigla());
 			return resultado.getDataCommit().toString();
 		} catch (RuntimeException erro) {
 			System.out.println("\n --- XXXX --- Objeto não encontrado: " + sigla);
@@ -52,9 +54,38 @@ public class ControleGitHKDAO extends GenericDAO<ControleGitHK> {
 			sessao.close();
 		}
 	}
-	
+
+	public String buscarAlteracaoCommit(String sigla) {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(ControleGitHK.class);
+			consulta.add(Restrictions.eq("sigla", sigla));
+			consulta.setMaxResults(1);
+			consulta.addOrder(Order.desc("dataCommit"));
+			ControleGitHK resultado = (ControleGitHK) consulta.uniqueResult(); // Utilizado para retornar um unico
+			String alteracao = "N/A";
+			
+			if(resultado.isAlteracao()) {
+				alteracao = "Novo";				
+			}else {
+				alteracao = "Legado";		
+			}
+
+			System.out.println("-- Achou:" + resultado.getSigla());
+			return alteracao;
+		} catch (RuntimeException erro) {
+			System.out.println("\n --- XXXX --- Objeto não encontrado: " + sigla);
+			System.out.println(erro + "\n ---- XXXX ---");
+			return "N/A";
+
+		} finally {
+			sessao.close();
+		}
+	}
+
 	/**
-	 * 	Busca ordenada por alteração
+	 * Busca ordenada por alteração
+	 * 
 	 * @return - Retorna uma lista de ControleGitHK
 	 */
 

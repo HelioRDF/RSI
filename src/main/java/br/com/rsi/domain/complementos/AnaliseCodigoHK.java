@@ -123,12 +123,24 @@ public class AnaliseCodigoHK implements Serializable {
 
 	@Column(name = "Qualidade")
 	private String qualidade;
+	
+	@Column(name = "Tipo")
+	private String tipo;
 
 	// --------------------------------------------------
+	
 	
 
 	public String getUrl() {
 		return url;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getNotaAnterior() {

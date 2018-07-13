@@ -126,11 +126,29 @@ public class Automacao_Analise_Codigo implements Serializable {
 	@Column(name = "ID_Status")
 	private int id_status;
 
+	@Column(name = "Tipo")
+	private String tipo;
 	// --------------------------------------------------
 	
 
 	public String getUrl() {
 		return url;
+	}
+
+	public String getDataCommit() {
+		return dataCommit;
+	}
+
+	public void setDataCommit(String dataCommit) {
+		this.dataCommit = dataCommit;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getNotaAnterior() {

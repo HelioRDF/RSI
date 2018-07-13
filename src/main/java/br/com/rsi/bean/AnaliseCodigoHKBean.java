@@ -12,6 +12,7 @@ import org.omnifaces.util.Messages;
 
 import br.com.rsi.dao.complementos.AnaliseCodigoHKDAO;
 import br.com.rsi.dao.complementos.ControleGitHKDAO;
+import br.com.rsi.dao.complementos.ControleRtcHKDAO;
 import br.com.rsi.domain.complementos.AnaliseCodigoHK;
 
 /**
@@ -66,7 +67,9 @@ public class AnaliseCodigoHKBean implements Serializable {
 
 	/**
 	 * Selecionar uma linha da tabela AnaliseCodigoHKBean
-	 * @param evento - Seleciona um objeto durante o evento.
+	 * 
+	 * @param evento
+	 *            - Seleciona um objeto durante o evento.
 	 */
 	// -------------------------------------------------------------------------------------------
 	public void selecionarAnalise(ActionEvent evento) {
@@ -112,11 +115,34 @@ public class AnaliseCodigoHKBean implements Serializable {
 
 			for (AnaliseCodigoHK obj : listaAnaliseTemp) {
 				ControleGitHKDAO daoGit = new ControleGitHKDAO();
-				String dataCommit = daoGit.buscarCommit(obj.getSigla().trim(), "N/A").toString();
+				ControleRtcHKDAO daoRtc = new ControleRtcHKDAO();
+				String dataCommit = daoGit.buscarDataCommit(obj.getSigla().trim()).toString();
+				String tipo = daoGit.buscarAlteracaoCommit(obj.getSigla().trim()).toString();
+
 				if (!dataCommit.equals("N/A")) {
 					dataCommit = dataCommit.substring(0, 11);
+
+					// System.out.println("\n----Git ----");
+					// System.out.println("Data: "+dataCommit );
+					// System.out.println("Tipo: "+tipo );
+					// System.out.println("------------\n");
+
+				} else {
+
+					dataCommit = daoRtc.buscarDataCommit(obj.getSigla().trim()).toString();
+					if (dataCommit.length() > 8) {
+						dataCommit = dataCommit.substring(0, 11);
+					}
+
+					tipo = daoRtc.buscarAlteracaoCommit(obj.getSigla().trim()).toString();
+					// System.out.println("\n----RTC ----");
+					// System.out.println("Data: "+dataCommit );
+					// System.out.println("Tipo: "+tipo );
+					// System.out.println("------------\n");
 				}
 				obj.setDataCommit(dataCommit);
+				obj.setTipo(tipo);
+
 				dao.editar(obj);
 				Messages.addGlobalInfo("Data de Commit atualizada! " + obj.getSigla());
 			}

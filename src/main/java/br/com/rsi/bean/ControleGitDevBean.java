@@ -128,7 +128,6 @@ public class ControleGitDevBean implements Serializable {
 				sigla = celula1.getContents().toString().trim().toUpperCase();
 				sistema = celula2.getContents().toString().trim().toUpperCase();
 				caminho = celula3.getContents().toString().trim().toUpperCase();
-		
 
 				// Encerra a leitura quando encontra linha vazia
 				if (sigla.isEmpty()) {
@@ -196,8 +195,6 @@ public class ControleGitDevBean implements Serializable {
 		return dataFinal;
 	}
 
-
-
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public ControleGitDev getControle() {
@@ -251,4 +248,5 @@ public class ControleGitDevBean implements Serializable {
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 
+	
 }

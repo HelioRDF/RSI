@@ -120,6 +120,12 @@
 								locale="pt_BR" />
 						</p:outputLabel>
 					</p:column>
+
+					<p:column headerText="Tipo" width="10%" sortBy="#{dataVar.tipo}"
+						filterBy="#{dataVar.tipo}">
+						<p:outputLabel value="#{dataVar.tipo}" />
+					</p:column>
+
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações após expandir linha -->
 					<p:rowExpansion styleClass="rowEdit">
@@ -166,8 +172,8 @@
 						action="#{analise_CodigoDevBean.listarInfos}" value="Atualizar"
 						rendered="true" update=":formTb:fr:dataTableAnaliseDEV"
 						icon=" ui-icon-refresh"></p:commandButton>
-						
-						
+
+
 					<h:commandLink style="float:left; margin-right:5px;">
 						<h:graphicImage value="/images/excel2.png" width="24" />
 						<p:dataExporter type="xls" target="dataTableAnaliseDEV"
@@ -236,10 +242,11 @@
 						sortBy="#{dataVar.notaProjeto}" filterBy="#{dataVar.notaProjeto}">
 						<p:outputLabel value="#{dataVar.notaProjeto}%" />
 					</p:column>
-					
-					
+
+
 					<p:column headerText="Debito Técnico" width="10%"
-						sortBy="#{dataVar.debitoTecnico}" filterBy="#{dataVar.debitoTecnico}">
+						sortBy="#{dataVar.debitoTecnico}"
+						filterBy="#{dataVar.debitoTecnico}">
 						<p:outputLabel value="#{dataVar.debitoTecnico}" />
 					</p:column>
 
@@ -248,6 +255,19 @@
 						<p:outputLabel value="#{dataVar.dataCaptura}">
 							<f:convertDateTime for="cap" pattern="yyyy-MM-dd" locale="pt_BR" />
 						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="COMMIT" width="11%" id="commitD"
+						sortBy="#{dataVar.dataCommit}" filterBy="#{dataVar.dataCommit}">
+						<p:outputLabel value="#{dataVar.dataCommit}">
+							<f:convertDateTime for="commitD" pattern="yyyy-MM-dd"
+								locale="pt_BR" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="Tipo" width="10%" sortBy="#{dataVar.tipo}"
+						filterBy="#{dataVar.tipo}">
+						<p:outputLabel value="#{dataVar.tipo}" />
 					</p:column>
 
 
@@ -569,12 +589,12 @@
 					</p:column>
 
 
-<!-- 					<p:column headerText="Config" width="12%" exportable="false"> -->
-<!-- 						<p:commandButton icon="ui-icon-pencil" title="Editar" -->
-<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
-<!-- 						<p:commandButton icon="ui-icon-trash" title="Excluir" -->
-<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
-<!-- 					</p:column> -->
+					<!-- 					<p:column headerText="Config" width="12%" exportable="false"> -->
+					<!-- 						<p:commandButton icon="ui-icon-pencil" title="Editar" -->
+					<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+					<!-- 						<p:commandButton icon="ui-icon-trash" title="Excluir" -->
+					<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+					<!-- 					</p:column> -->
 
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações após expandir linha -->
@@ -708,12 +728,12 @@
 					</p:column>
 
 
-<!-- 					<p:column headerText="Config" width="12%" exportable="false"> -->
-<!-- 						<p:commandButton icon="ui-icon-pencil" title="Editar" -->
-<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
-<!-- 						<p:commandButton icon="ui-icon-trash" title="Excluir" -->
-<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
-<!-- 					</p:column> -->
+					<!-- 					<p:column headerText="Config" width="12%" exportable="false"> -->
+					<!-- 						<p:commandButton icon="ui-icon-pencil" title="Editar" -->
+					<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+					<!-- 						<p:commandButton icon="ui-icon-trash" title="Excluir" -->
+					<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+					<!-- 					</p:column> -->
 
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações após expandir linha -->
@@ -761,7 +781,7 @@
 
 
 
-		<!-- Controle RTC HK_________________________________________________________________________________ -->
+			<!-- Controle RTC HK_________________________________________________________________________________ -->
 			<p:tab title="RTC (HK)" closable="true"
 				disabled="#{!usuarioBean.usuarioLogado.perfilDev}">
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
@@ -860,7 +880,7 @@
 
 						<p:panelGrid columns="1" columnClasses="label,value"
 							style="text-align:left;">
-	
+
 							<p:outputLabel value="Caminho: #{dataVar.caminho}" />
 							<p:outputLabel
 								value="Data Verificação #{dataVar.dataVerificacao}" />
@@ -890,7 +910,7 @@
 
 
 
-		<!-- Controle RTC DEV_________________________________________________________________________________ -->
+			<!-- Controle RTC DEV_________________________________________________________________________________ -->
 			<p:tab title="RTC (Dev)" closable="true"
 				disabled="#{!usuarioBean.usuarioLogado.perfilDev}">
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
@@ -989,7 +1009,7 @@
 
 						<p:panelGrid columns="1" columnClasses="label,value"
 							style="text-align:left;">
-	
+
 							<p:outputLabel value="Caminho: #{dataVar.caminho}" />
 							<p:outputLabel
 								value="Data Verificação #{dataVar.dataVerificacao}" />

@@ -25,7 +25,7 @@ import br.com.rsi.util.HibernateUtil;
 
 public class ControleRtcHKDAO extends GenericDAO<ControleRtcHK> {
 	/**
-	 * Busca o commit mais recente por sigla, nome do sistema...
+	 * Busca  o commit mais recente por sigla, nome do sistema...
 	 * 
 	 * @param sigla
 	 *            - String
@@ -33,7 +33,7 @@ public class ControleRtcHKDAO extends GenericDAO<ControleRtcHK> {
 	 *            - String
 	 * @return - Retorna uma String
 	 */
-	public String buscarCommit(String sigla, String nomeSitema) {
+	public String buscarDataCommit(String sigla) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(ControleRtcHK.class);
@@ -45,6 +45,34 @@ public class ControleRtcHKDAO extends GenericDAO<ControleRtcHK> {
 
 			System.out.println("-- Achou:" + resultado.getSigla());
 			return resultado.getDataCommit().toString();
+		} catch (RuntimeException erro) {
+			System.out.println("\n --- XXXX --- Objeto não encontrado: " + sigla);
+			System.out.println(erro + "\n ---- XXXX ---");
+			return "N/A";
+
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	public String buscarAlteracaoCommit(String sigla) {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(ControleRtcHK.class);
+			consulta.add(Restrictions.eq("sigla", sigla));
+			consulta.setMaxResults(1);
+			consulta.addOrder(Order.desc("dataCommit"));
+			ControleRtcHK resultado = (ControleRtcHK) consulta.uniqueResult(); // Utilizado para retornar um unico
+			String alteracao = "N/A";
+			
+			if(resultado.isAlteracao()) {
+				alteracao = "Novo";				
+			}else {
+				alteracao = "Legado";		
+			}
+
+			System.out.println("-- Achou:" + resultado.getSigla());
+			return alteracao;
 		} catch (RuntimeException erro) {
 			System.out.println("\n --- XXXX --- Objeto não encontrado: " + sigla);
 			System.out.println(erro + "\n ---- XXXX ---");
