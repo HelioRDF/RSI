@@ -252,7 +252,7 @@ public class ControleRtcHKBean implements Serializable {
 
 		path = path + "Log_" + sigla + ".txt";
 		File file = new File(path);
-		String siglaTemp = "01-01-1900", commitTemp, dataTemp;
+		String siglaTemp, commitTemp, dataTemp = "01/01/1900" ;
 
 		try {
 
@@ -287,7 +287,7 @@ public class ControleRtcHKBean implements Serializable {
 
 				}
 				if (linha == 3) {
-					
+					dataTemp = info;
 					String array[] = new String[2];
 					array = dataTemp.split(":");
 					dataTemp = array[1].trim();
@@ -297,7 +297,7 @@ public class ControleRtcHKBean implements Serializable {
 						System.out.println("\n Data Nula \n");
 
 					} else {
-						dataTemp = info;
+						dataTemp = "01/01/1900";
 						System.out.println("\n Achou Data  \n");
 						obj.setDataCommitAnt(obj.getDataCommit());
 					}
