@@ -3,13 +3,13 @@ package br.com.rsi.bean;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,15 +38,12 @@ import jxl.Workbook;
 @ManagedBean
 @SessionScoped
 public class ControleRtcHKBean implements Serializable {
-	static final Runtime run = Runtime.getRuntime();
-	static Process pro;
-	static BufferedReader read;
+
 	private static final long serialVersionUID = 1L;
 	private ControleRtcHK controle;
 	private ControleRtcHKDAO dao;
 	private List<ControleRtcHK> listaControle;
-	private String pathSigla;
-	String path;
+
 	private int total;
 	static String CAMINHO = "";
 
@@ -96,10 +93,6 @@ public class ControleRtcHKBean implements Serializable {
 			listaControle = dao.listar();
 			total = listaControle.size();
 
-			for (ControleRtcHK obj : listaControle) {
-				System.out.println("--------------" + obj);
-			}
-
 			Messages.addGlobalInfo("Lista Atualizada!");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -133,13 +126,11 @@ public class ControleRtcHKBean implements Serializable {
 			for (int i = 1; i < linhas; i++) {
 				Cell celula1 = sheet.getCell(0, i); // coluna 1 -Sigla
 				Cell celula2 = sheet.getCell(1, i); // coluna 2 -Sistema
-				Cell celula3 = sheet.getCell(2, i); // coluna 4 - pacote
-				Cell celula4 = sheet.getCell(3, i); // coluna 3 - caminho
+				Cell celula3 = sheet.getCell(2, i); // coluna 3 - caminho
 
 				sigla = celula1.getContents().toString().trim().toUpperCase();
 				sistema = celula2.getContents().toString().trim().toUpperCase();
-
-				caminho = celula4.getContents().toString().trim().toUpperCase();
+				caminho = celula3.getContents().toString().trim().toUpperCase();
 
 				// Encerra a leitura quando encontra linha vazia
 				if (sigla.isEmpty()) {
@@ -209,13 +200,13 @@ public class ControleRtcHKBean implements Serializable {
 	}
 
 	/**
-	 * Chama o Runnable do gitlog
+	 * Chama o Runnable do Log RTC
 	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public void gerarLogGit() {
+	public void gerarLogRTC() {
 		try {
-			new Thread(gitLog).start();
-			Messages.addGlobalInfo("Git log em execução!");
+			new Thread(rtcLog).start();
+			Messages.addGlobalInfo("RTC log em execução!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			Messages.addGlobalError("Erro ao executar Git Log!");
@@ -223,196 +214,111 @@ public class ControleRtcHKBean implements Serializable {
 	}
 
 	/**
-	 * Runnable para acionar o comando gitlog e capturar as informações.
+	 * Runnable para acionar o comando RTClog e capturar as informações.
 	 */
 	// -------------------------------------------------------------------------------------
-	private static Runnable gitLog = new Runnable() {
+	private static Runnable rtcLog = new Runnable() {
 		public void run() {
 			List<ControleRtcHK> listaControle;
 			ControleRtcHKDAO dao = new ControleRtcHKDAO();
 			listaControle = dao.listar();
 
-			for (ControleRtcHK ControleRtcHK : listaControle) {
-				ControleRtcHK entidade = dao.buscar(ControleRtcHK.getCodigo());
-				String pathSigla = "cd " + entidade.getCaminho();
-				;
-				String comandoGit = "git log --stat -1 --date=format:%d/%m/%Y";
-				String[] cmds = { pathSigla, comandoGit };
-				StringBuilder log = new StringBuilder();
-				log.append("\n \n");
-				String author = "", dataCommit = "", descricaoLog;
-				Date dataVerificacao = new Date();
-
+			for (ControleRtcHK obj : listaControle) {
+				lerLogRtc(obj);
 				try {
-					ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
-					builder.redirectErrorStream(true);
-					Process p = builder.start();
-
-					BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-					String line;
-					int i = 0;
-					while (true) {
-						i++;
-						line = r.readLine();
-
-						if (i == 2 && line.contains("Author")) {
-							author = line;
-						}
-						if (i == 3 && line.contains("Date")) {
-							dataCommit = line;
-						}
-
-						if (i == 3 && line.contains("Author")) {
-							author = line;
-						}
-						if (i == 4 && line.contains("Date")) {
-							dataCommit = line;
-						}
-
-						if (line == null) {
-							break;
-						}
-						log.append(i + ": " + line + "\n");
-
-					}
-					author = author.substring(7, author.length()).trim();
-					dataCommit = dataCommit.substring(5, dataCommit.length()).trim();
-					descricaoLog = log.toString();
-
-					ControleRtcHK.setDataCommitAnt(ControleRtcHK.getDataCommit());
-					ControleRtcHK.setDataCommit(ControleRtcHKBean.validadorData(dataCommit, "Data Commit"));
-					Date dataAtual = ControleRtcHK.getDataCommit();
-					Date dataAnterior = ControleRtcHK.getDataCommitAnt();
-					dataAnterior = formatadorData(dataAnterior);
-
-					if (dataAtual.equals(dataAnterior)) {
-						ControleRtcHK.setAlteracao(false);
-					} else {
-						ControleRtcHK.setAlteracao(true);
-					}
-
-					dataVerificacao = new Date();
-					ControleRtcHK.setDataVerificacao(dataVerificacao);
-					ControleRtcHK.setDescricaoLog(descricaoLog);
 
 				} catch (Exception e) {
 					System.err.println("---------------Erro: -" + e.getStackTrace());
-					author = "----------";
-
-					descricaoLog = "null";
-					ControleRtcHK.setDescricaoLog(descricaoLog);
 				} finally {
-					dao.editar(ControleRtcHK);
-
+					dao.editar(obj);
 				}
 			}
-
 		}
 	};
 
 	/**
-	 * Método Git Pull que chama uma nova Thread (gitPull)
-	 */
-	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public void atualizarGit() {
-
-		try {
-			alteraLoginGit("xb201520", "pCAV#1212");
-			new Thread(gitPull).start();
-
-			alteraLoginGit("XI324337", "elphbbtu");
-			new Thread(gitPull).start();
-
-			Messages.addGlobalInfo("Git pull em execução!");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			Messages.addGlobalError("Erro ao executar Git pull!");
-		}
-	}
-
-	/**
-	 * Metodo para formatar Data
+	 * Faz a leitura de um arquivo txt e trata as informações
 	 * 
-	 * @param data
-	 *            - recebe uma data
-	 * @return - retorna um objeto do tipo Date
-	 * @author andre.graca
-	 */
-	public static Date formatadorData(Date data) {
-		Calendar c = Calendar.getInstance();
-		c.setTime(data);
-		String dataString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/"
-				+ c.get(Calendar.YEAR);
-		// System.out.println(dataString);
-		return ControleRtcHKBean.validadorData(dataString, "Data Anterior");
-	}
-
-	/**
-	 * Runnable para acionar o gitpull e atualizar os pacotes das aplicações
+	 * @param path
+	 *            - Caminho do arquivo Txt
+	 * @param sigla
+	 *            - Sigla do Log
 	 */
 	// -------------------------------------------------------------------------------------
-	private static Runnable gitPull = new Runnable() {
-		public void run() {
-			List<ControleRtcHK> listaControle;
-			ControleRtcHKDAO dao = new ControleRtcHKDAO();
-			listaControle = dao.listar();
+	public static void lerLogRtc(ControleRtcHK obj) {
 
-			for (ControleRtcHK ControleRtcHK : listaControle) {
-				ControleRtcHK entidade = dao.buscar(ControleRtcHK.getCodigo());
-				String pathSigla = "cd " + entidade.getCaminho();
+		String sigla = obj.getSigla();
+		String path = obj.getCaminho();
 
-				String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
-				String[] cmds = { pathSigla, comandoGit };
-				StringBuilder log = new StringBuilder();
-				log.append("\n \n");
+		path = path + "Log_" + sigla + ".txt";
+		File file = new File(path);
+		String siglaTemp = "01-01-1900", commitTemp, dataTemp;
 
-				try {
-					ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
-					builder.redirectErrorStream(true);
-					Process p = builder.start();
+		try {
 
-					BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-					String line;
-					int i = 0;
-					while (true) {
-						i++;
-						line = r.readLine();
-						if (line == null) {
-							break;
-						}
-						log.append(i + ": " + line + "\n");
-						System.out.println(line);
-					}
-					// Messages.addGlobalInfo("Executado com sucesso!");
-				} catch (Exception e) {
-					// Messages.addGlobalError("Caminho não encontrado ... :\n"
-					// +
-					// ControleRtcHKDev.getNomeSistema());
-				} finally {
-					dao.editar(ControleRtcHK);
+			FileReader fileReader = new FileReader(file);
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream(file.getAbsolutePath()), "UTF-8"));
+			String info = null;
+			int linha = 0;
+			while ((info = reader.readLine()) != null) {
+				linha++;
+
+				if (linha == 1) {
+					siglaTemp = info;
+					String array[] = new String[2];
+					array = siglaTemp.split(":");
+					siglaTemp = array[1].trim();
+					System.out.println("\n ----------------------------- \n");
+					System.out.println("- Sigla: " + siglaTemp);
 
 				}
+				if (linha == 2) {
+					commitTemp = info;
+					String array[] = new String[2];
+					array = commitTemp.split(":");
+					commitTemp = array[1].trim();
+					System.out.println("- Commit: " + commitTemp);
+					if (commitTemp.equalsIgnoreCase("True")) {
+						obj.setAlteracao(true);
+					} else {
+						obj.setAlteracao(false);
+					}
+
+				}
+				if (linha == 3) {
+					dataTemp = info;
+					String array[] = new String[2];
+					array = dataTemp.split(":");
+					dataTemp = array[1].trim();
+					System.out.println("- Data: " + dataTemp);
+					System.out.println("\n ----------------------------- \n");
+					if (obj.getDataCommit() == null) {
+						System.out.println("\n Data Nula \n");
+
+					} else {
+						System.out.println("\n Achou Data  \n");
+						obj.setDataCommitAnt(obj.getDataCommit());
+					}
+
+					obj.setDataCommit(validadorData(dataTemp, ""));
+				}
+
 			}
 
-		}
-	};
+			info = reader.readLine();
+			fileReader.close();
+			reader.close();
 
-	/**
-	 * Metodos para escrever no arquivo C:/Users/andre.graca/_netrc Este arquivo
-	 * salva o login do GitLab na maquina, o que auxilia no git pull para contas
-	 * diferentes.
-	 * 
-	 * @author andre.graca
-	 */
-	public static void alteraLoginGit(String login, String senha) {
-		PrintStream ps = null;
-		try {
-			ps = new PrintStream("C:/Users/andre.graca/_netrc");
 		} catch (Exception e) {
-			System.out.println("Falha ao criar o arquivo C:/Users/andre.graca/_netrc");
+			System.out.println("xxxxxxxx " + path);
+			// TODO: handle exception
 		}
-		ps.append("machine gitlab.produbanbr.corp\nlogin " + login + "\npassword " + senha);
-		ps.close();
+
+	}
+
+	public void teste() {
+		gerarLogRTC();
 	}
 
 	// Get e Set
@@ -433,14 +339,6 @@ public class ControleRtcHKBean implements Serializable {
 		this.listaControle = listaControle;
 	}
 
-	public String getPathSigla() {
-		return pathSigla;
-	}
-
-	public void setPathSigla(String pathSigla) {
-		this.pathSigla = pathSigla;
-	}
-
 	public int getTotal() {
 		return total;
 	}
@@ -455,15 +353,6 @@ public class ControleRtcHKBean implements Serializable {
 
 	public static void setCAMINHO(String cAMINHO) {
 		CAMINHO = cAMINHO;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-		CAMINHO = path;
 	}
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
