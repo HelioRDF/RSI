@@ -287,7 +287,7 @@ public class ControleRtcHKBean implements Serializable {
 
 				}
 				if (linha == 3) {
-					dataTemp = info;
+					
 					String array[] = new String[2];
 					array = dataTemp.split(":");
 					dataTemp = array[1].trim();
@@ -297,6 +297,7 @@ public class ControleRtcHKBean implements Serializable {
 						System.out.println("\n Data Nula \n");
 
 					} else {
+						dataTemp = info;
 						System.out.println("\n Achou Data  \n");
 						obj.setDataCommitAnt(obj.getDataCommit());
 					}
