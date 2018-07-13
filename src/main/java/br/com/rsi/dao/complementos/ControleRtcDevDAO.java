@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import br.com.rsi.domain.complementos.ControleRtcDev;
 import br.com.rsi.domain.complementos.ControleRtcHK;
 import br.com.rsi.util.HibernateUtil;
 
@@ -23,7 +24,7 @@ import br.com.rsi.util.HibernateUtil;
  * 
  */
 
-public class ControleRtcDevDAO extends GenericDAO<ControleRtcHK> {
+public class ControleRtcDevDAO extends GenericDAO<ControleRtcDev> {
 	/**
 	 * Busca o commit mais recente por sigla, nome do sistema...
 	 * 

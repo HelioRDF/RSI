@@ -18,16 +18,14 @@ import javax.faces.bean.SessionScoped;
 
 import org.omnifaces.util.Messages;
 
-import br.com.rsi.alertaGit.GitList;
-import br.com.rsi.dao.complementos.ControleRtcHKDAO;
-import br.com.rsi.domain.complementos.ControleRtcHK;
-import br.com.rsi.email.EnviarEmail;
+import br.com.rsi.dao.complementos.ControleRtcDevDAO;
+import br.com.rsi.domain.complementos.ControleRtcDev;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 
 /**
- * -Classe BEAN ControleRtcHKBean.
+ * -Classe BEAN ControleRtcDevBean.
  * 
  * @author helio.franca
  * @version v1.8
@@ -42,39 +40,18 @@ public class ControleRtcDevBean implements Serializable {
 	static Process pro;
 	static BufferedReader read;
 	private static final long serialVersionUID = 1L;
-	private ControleRtcHK controle;
-	private ControleRtcHKDAO dao;
-	private List<ControleRtcHK> listaControle;
+	private ControleRtcDev controle;
+	private ControleRtcDevDAO dao;
+	private List<ControleRtcDev> listaControle;
 	private String pathSigla;
 	String path;
 	private int total;
 	static String CAMINHO = "";
 
-	/**
-	 * Dispara o envio de E-mail
-	 */
-	// -------------------------------------------------------------------------------------
-	public void enviarEmail() {
-		Messages.addGlobalWarn("Teste");
-		EnviarEmail email = new EnviarEmail();
-		ControleRtcHKDAO gitDao = new ControleRtcHKDAO();
-		String resultado = "";
-		List<ControleRtcHK> git;
-		git = gitDao.listarOrdenandoAlteracao();
 
-		for (ControleRtcHK obj : git) {
-
-			GitList list = new GitList();
-			resultado += list.alertaGit(obj.getSigla(), obj.getNomeSistema(), obj.getDataCommit(),
-					obj.getDataCommitAnt(), obj.isAlteracao());
-			System.out.println(resultado);
-		}
-		email.emailHtml(resultado, "TESTE HK");
-
-	}
 
 	/**
-	 * Salva objeto do tipo ControleRtcHK
+	 * Salva objeto do tipo ControleRtcDev
 	 */
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
@@ -87,16 +64,16 @@ public class ControleRtcDevBean implements Serializable {
 	}
 
 	/**
-	 * Lista os objetos do tipo ControleRtcHK
+	 * Lista os objetos do tipo ControleRtcDev
 	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void listarInfos() {
 		try {
-			dao = new ControleRtcHKDAO();
+			dao = new ControleRtcDevDAO();
 			listaControle = dao.listar();
 			total = listaControle.size();
 			
-			for (ControleRtcHK obj : listaControle) {
+			for (ControleRtcDev obj : listaControle) {
 				System.out.println("--------------"+obj);				
 			}
 			
@@ -114,8 +91,8 @@ public class ControleRtcDevBean implements Serializable {
 	 */
 	// -------------------------------------------------------------------------------------------
 	public void salvarPlanilha() {
-		controle = new ControleRtcHK();
-		dao = new ControleRtcHKDAO();
+		controle = new ControleRtcDev();
+		dao = new ControleRtcDevDAO();
 		String sigla, sistema, caminho, pacote;
 		Date dateC = new Date();
 
@@ -165,14 +142,14 @@ public class ControleRtcDevBean implements Serializable {
 	}
 
 	/**
-	 * Limpa as informações da tabela ControleRtcHK no banco de dados
+	 * Limpa as informações da tabela ControleRtcDev no banco de dados
 	 */
 	// -------------------------------------------------------------------------------------
 	public void limparDB() {
 		try {
 			listarInfos();
-			for (ControleRtcHK ControleRtcHK : listaControle) {
-				ControleRtcHK entidade = dao.buscar(ControleRtcHK.getCodigo());
+			for (ControleRtcDev ControleRtcDev : listaControle) {
+				ControleRtcDev entidade = dao.buscar(ControleRtcDev.getCodigo());
 				dao.excluir(entidade);
 			}
 		} catch (Exception e) {
@@ -228,12 +205,12 @@ public class ControleRtcDevBean implements Serializable {
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitLog = new Runnable() {
 		public void run() {
-			List<ControleRtcHK> listaControle;
-			ControleRtcHKDAO dao = new ControleRtcHKDAO();
+			List<ControleRtcDev> listaControle;
+			ControleRtcDevDAO dao = new ControleRtcDevDAO();
 			listaControle = dao.listar();
 
-			for (ControleRtcHK ControleRtcHK : listaControle) {
-				ControleRtcHK entidade = dao.buscar(ControleRtcHK.getCodigo());
+			for (ControleRtcDev ControleRtcDev : listaControle) {
+				ControleRtcDev entidade = dao.buscar(ControleRtcDev.getCodigo());
 				String pathSigla = "cd " + entidade.getCaminho();
 				;
 				String comandoGit = "git log --stat -1 --date=format:%d/%m/%Y";
@@ -280,30 +257,30 @@ public class ControleRtcDevBean implements Serializable {
 					descricaoLog = log.toString();
 
 		
-					ControleRtcHK.setDataCommitAnt(ControleRtcHK.getDataCommit());
-					ControleRtcHK.setDataCommit(ControleRtcHKBean.validadorData(dataCommit, "Data Commit"));
-					Date dataAtual = ControleRtcHK.getDataCommit();
-					Date dataAnterior = ControleRtcHK.getDataCommitAnt();
+					ControleRtcDev.setDataCommitAnt(ControleRtcDev.getDataCommit());
+					ControleRtcDev.setDataCommit(ControleRtcDevBean.validadorData(dataCommit, "Data Commit"));
+					Date dataAtual = ControleRtcDev.getDataCommit();
+					Date dataAnterior = ControleRtcDev.getDataCommitAnt();
 					dataAnterior = formatadorData(dataAnterior);
 
 					if (dataAtual.equals(dataAnterior)) {
-						ControleRtcHK.setAlteracao(false);
+						ControleRtcDev.setAlteracao(false);
 					} else {
-						ControleRtcHK.setAlteracao(true);
+						ControleRtcDev.setAlteracao(true);
 					}
 
 					dataVerificacao = new Date();
-					ControleRtcHK.setDataVerificacao(dataVerificacao);
-					ControleRtcHK.setDescricaoLog(descricaoLog);
+					ControleRtcDev.setDataVerificacao(dataVerificacao);
+					ControleRtcDev.setDescricaoLog(descricaoLog);
 
 				} catch (Exception e) {
 					System.err.println("---------------Erro: -" + e.getStackTrace());
 					author = "----------";
 				
 					descricaoLog = "null";
-					ControleRtcHK.setDescricaoLog(descricaoLog);
+					ControleRtcDev.setDescricaoLog(descricaoLog);
 				} finally {
-					dao.editar(ControleRtcHK);
+					dao.editar(ControleRtcDev);
 
 				}
 			}
@@ -345,7 +322,7 @@ public class ControleRtcDevBean implements Serializable {
 		String dataString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/"
 				+ c.get(Calendar.YEAR);
 		// System.out.println(dataString);
-		return ControleRtcHKBean.validadorData(dataString, "Data Anterior");
+		return ControleRtcDevBean.validadorData(dataString, "Data Anterior");
 	}
 
 	/**
@@ -354,12 +331,12 @@ public class ControleRtcDevBean implements Serializable {
 	// -------------------------------------------------------------------------------------
 	private static Runnable gitPull = new Runnable() {
 		public void run() {
-			List<ControleRtcHK> listaControle;
-			ControleRtcHKDAO dao = new ControleRtcHKDAO();
+			List<ControleRtcDev> listaControle;
+			ControleRtcDevDAO dao = new ControleRtcDevDAO();
 			listaControle = dao.listar();
 
-			for (ControleRtcHK ControleRtcHK : listaControle) {
-				ControleRtcHK entidade = dao.buscar(ControleRtcHK.getCodigo());
+			for (ControleRtcDev ControleRtcDev : listaControle) {
+				ControleRtcDev entidade = dao.buscar(ControleRtcDev.getCodigo());
 				String pathSigla = "cd " + entidade.getCaminho();
 
 				String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
@@ -388,9 +365,9 @@ public class ControleRtcDevBean implements Serializable {
 				} catch (Exception e) {
 					// Messages.addGlobalError("Caminho não encontrado ... :\n"
 					// +
-					// ControleRtcHKDev.getNomeSistema());
+					// ControleRtcDevDev.getNomeSistema());
 				} finally {
-					dao.editar(ControleRtcHK);
+					dao.editar(ControleRtcDev);
 
 				}
 			}
@@ -418,19 +395,19 @@ public class ControleRtcDevBean implements Serializable {
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public ControleRtcHK getControle() {
+	public ControleRtcDev getControle() {
 		return controle;
 	}
 
-	public void setControle(ControleRtcHK controle) {
+	public void setControle(ControleRtcDev controle) {
 		this.controle = controle;
 	}
 
-	public List<ControleRtcHK> getListaControle() {
+	public List<ControleRtcDev> getListaControle() {
 		return listaControle;
 	}
 
-	public void setListaControle(List<ControleRtcHK> listaControle) {
+	public void setListaControle(List<ControleRtcDev> listaControle) {
 		this.listaControle = listaControle;
 	}
 

@@ -86,7 +86,7 @@ public class FileUploadView {
 	 * @param event - Evento
 	 */
 	// -----------------------------------------------------------------------------
-	public void handleFileUploadGit(FileUploadEvent event) {
+	public void handleFileUploadGitHK(FileUploadEvent event) {
 		new File("C:\\TempCargaRFC").mkdir();
 		try {
 			UploadedFile arq = event.getFile();
@@ -128,6 +128,59 @@ public class FileUploadView {
 			ex.printStackTrace();
 		}
 		ControleGitDevBean bean = new ControleGitDevBean();
+		bean.salvarPlanilha();
+	}
+	
+	
+	/**
+	 * handleFileUpload p/ Controle RTC Dev
+	 * @param event - Evento
+	 */
+	// -----------------------------------------------------------------------------
+	public void handleFileUploadRtcDev(FileUploadEvent event) {
+		new File("C:\\TempCargaRFC").mkdir();
+		try {
+			UploadedFile arq = event.getFile();
+			InputStream in = new BufferedInputStream(arq.getInputstream());
+			File file = new File("C:/TempCargaRFC/" + arq.getFileName());
+			ControleRtcDevBean.CAMINHO = file.getAbsolutePath();
+			FileOutputStream fout = new FileOutputStream(file);
+			while (in.available() != 0) {
+				fout.write(in.read());
+			}
+			fout.close();
+		} catch (Exception ex) {
+			Messages.addGlobalError("Falha ao carregar arquivo:");
+			ex.printStackTrace();
+		}
+		ControleRtcDevBean bean = new ControleRtcDevBean();
+		bean.salvarPlanilha();
+	}
+	
+	
+	
+	/**
+	 * handleFileUpload p/ Controle RTC HK
+	 * @param event - Evento
+	 */
+	// -----------------------------------------------------------------------------
+	public void handleFileUploadRtcHK(FileUploadEvent event) {
+		new File("C:\\TempCargaRFC").mkdir();
+		try {
+			UploadedFile arq = event.getFile();
+			InputStream in = new BufferedInputStream(arq.getInputstream());
+			File file = new File("C:/TempCargaRFC/" + arq.getFileName());
+			ControleRtcHKBean.CAMINHO = file.getAbsolutePath();
+			FileOutputStream fout = new FileOutputStream(file);
+			while (in.available() != 0) {
+				fout.write(in.read());
+			}
+			fout.close();
+		} catch (Exception ex) {
+			Messages.addGlobalError("Falha ao carregar arquivo:");
+			ex.printStackTrace();
+		}
+		ControleRtcHKBean bean = new ControleRtcHKBean();
 		bean.salvarPlanilha();
 	}
 }

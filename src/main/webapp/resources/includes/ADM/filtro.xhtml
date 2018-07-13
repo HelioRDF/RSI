@@ -9,65 +9,95 @@
 	<h:form id="formFiltro">
 		<!-- Atualizar table -->
 
-<br></br>
-	
-<p:fieldset legend="Carga Excel/SQL-Server" toggleable="true" toggleSpeed="500" style="font-size:11px;" collapsed="true">
+		<br></br>
+
+		<p:fieldset legend="Carga Excel/SQL-Server" toggleable="true"
+			toggleSpeed="500" style="font-size:11px;" collapsed="true">
 
 
-				<p:outputLabel value="Carregar Controle de Siglas:"
-					style=" font-size: 12px;text-align:left;margin: 3px 10px 0px 5px; width:90%; " />
-				<p:fileUpload cancelLabel="Cancelar" uploadLabel="Carregar"
-					label="Abrir" value="#{controleSiglasBean.path}"
-					invalidFileMessage="Arquivo inválido, utilizar formato .xls"
-					fileUploadListener="#{fileUploadView.handleFileUploadControle}"
-					mode="advanced" dragDropSupport="true"
-					style="margin:5px 5px; font-size: 12px; width:95%;"
-					update="formFiltro" sizeLimit="900000" allowTypes="/(\.|\/)(xls)$/" />
 
-				<p:separator></p:separator>
-				
-				<p:outputLabel value="Carregar RFCs:"
-					style=" font-size: 12px; word-spacing:8px; text-align:left;margin: 3px 10px 0px 5px; width:90%; " />
-				<p:fileUpload cancelLabel="Cancelar" uploadLabel="Carregar"
-					disabled="#{!usuarioBean.usuarioLogado.perfilHk}" label="Abrir"
-					invalidFileMessage="Arquivo inválido, utilizar formato .xls"
-					value="#{rFCBean.caminho}"
-					fileUploadListener="#{fileUploadView.handleFileUpload}"
-					mode="advanced" dragDropSupport="true"
-					style="margin:5px 5px; font-size: 12px; width:95%;"
-					update="formFiltro" sizeLimit="900000" allowTypes="/(\.|\/)(xls)$/" />
-					
-				<p:separator></p:separator>
+			<p:outputLabel value="Carregar Controle de Siglas:"
+				style=" font-size: 12px;text-align:left;margin: 3px 10px 0px 5px; width:90%; " />
+			<p:fileUpload cancelLabel="Cancelar" uploadLabel="Carregar"
+				label="Abrir" value="#{controleSiglasBean.path}"
+				invalidFileMessage="Arquivo inválido, utilizar formato .xls"
+				fileUploadListener="#{fileUploadView.handleFileUploadControle}"
+				mode="advanced" dragDropSupport="true"
+				style="margin:5px 5px; font-size: 12px; width:95%;"
+				update="formFiltro" sizeLimit="900000" allowTypes="/(\.|\/)(xls)$/" />
 
-				<p:outputLabel value="Carga Git (HK):"
-					style=" font-size: 12px;text-align:left;margin: 3px 10px 0px 5px; width:90%; " />
-				<p:fileUpload cancelLabel="Cancelar" uploadLabel="Carregar"
-					disabled="#{!usuarioBean.usuarioLogado.perfilHk}" label="Abrir"
-					value="#{controleGitBean.path}"
-					invalidFileMessage="Arquivo inválido, utilizar formato .xls"
-					fileUploadListener="#{fileUploadView.handleFileUploadGit}"
-					mode="advanced" dragDropSupport="true"
-					style="margin:5px 5px; font-size: 12px; width:95%;"
-					update="formFiltro" sizeLimit="900000" allowTypes="/(\.|\/)(xls)$/" />
-					
-				<p:separator></p:separator>
-				
-				<p:outputLabel value="Carga Git (Dev):"
-					style=" font-size: 12px;text-align:left;margin: 3px 10px 0px 5px; width:90%; " />
-				<p:fileUpload cancelLabel="Cancelar" uploadLabel="Carregar"
-					disabled="#{!usuarioBean.usuarioLogado.perfilDev}" label="Abrir"
-					value="#{controleGitDevBean.path}"
-					invalidFileMessage="Arquivo inválido, utilizar formato .xls"
-					fileUploadListener="#{fileUploadView.handleFileUploadGitDev}"
-					mode="advanced" dragDropSupport="true"
-					style="margin:5px 5px; font-size: 12px; width:95%;"
-					update="formFiltro" sizeLimit="900000" allowTypes="/(\.|\/)(xls)$/" />
+			<p:separator></p:separator>
 
-				<p:separator></p:separator>
+			<p:outputLabel value="Carregar RFCs:"
+				style=" font-size: 12px; word-spacing:8px; text-align:left;margin: 3px 10px 0px 5px; width:90%; " />
+			<p:fileUpload cancelLabel="Cancelar" uploadLabel="Carregar"
+				disabled="#{!usuarioBean.usuarioLogado.perfilHk}" label="Abrir"
+				invalidFileMessage="Arquivo inválido, utilizar formato .xls"
+				value="#{rFCBean.caminho}"
+				fileUploadListener="#{fileUploadView.handleFileUpload}"
+				mode="advanced" dragDropSupport="true"
+				style="margin:5px 5px; font-size: 12px; width:95%;"
+				update="formFiltro" sizeLimit="900000" allowTypes="/(\.|\/)(xls)$/" />
 
-				<p:messages id="msgRFC" closable="true" />
+			<p:separator></p:separator>
 
-		 </p:fieldset>
+			<p:outputLabel value="Carga Git (HK):"
+				style=" font-size: 12px;text-align:left;margin: 3px 10px 0px 5px; width:90%; " />
+			<p:fileUpload cancelLabel="Cancelar" uploadLabel="Carregar"
+				disabled="#{!usuarioBean.usuarioLogado.perfilHk}" label="Abrir"
+				value="#{controleGitBean.path}"
+				invalidFileMessage="Arquivo inválido, utilizar formato .xls"
+				fileUploadListener="#{fileUploadView.handleFileUploadGitHK}"
+				mode="advanced" dragDropSupport="true"
+				style="margin:5px 5px; font-size: 12px; width:95%;"
+				update="formFiltro" sizeLimit="900000" allowTypes="/(\.|\/)(xls)$/" />
+
+			<p:separator></p:separator>
+
+			<p:outputLabel value="Carga Git (Dev):"
+				style=" font-size: 12px;text-align:left;margin: 3px 10px 0px 5px; width:90%; " />
+			<p:fileUpload cancelLabel="Cancelar" uploadLabel="Carregar"
+				disabled="#{!usuarioBean.usuarioLogado.perfilDev}" label="Abrir"
+				value="#{controleGitDevBean.path}"
+				invalidFileMessage="Arquivo inválido, utilizar formato .xls"
+				fileUploadListener="#{fileUploadView.handleFileUploadGitDev}"
+				mode="advanced" dragDropSupport="true"
+				style="margin:5px 5px; font-size: 12px; width:95%;"
+				update="formFiltro" sizeLimit="900000" allowTypes="/(\.|\/)(xls)$/" />
+
+			<p:separator></p:separator>
+
+
+			<p:outputLabel value="Carga RTC (Dev):"
+				style=" font-size: 12px;text-align:left;margin: 3px 10px 0px 5px; width:90%; " />
+			<p:fileUpload cancelLabel="Cancelar" uploadLabel="Carregar"
+				disabled="#{!usuarioBean.usuarioLogado.perfilDev}" label="Abrir"
+				value="#{controleRtcDevBean.path}"
+				invalidFileMessage="Arquivo inválido, utilizar formato .xls"
+				fileUploadListener="#{fileUploadView.handleFileUploadRtcDev}"
+				mode="advanced" dragDropSupport="true"
+				style="margin:5px 5px; font-size: 12px; width:95%;"
+				update="formFiltro" sizeLimit="900000" allowTypes="/(\.|\/)(xls)$/" />
+
+			<p:separator></p:separator>
+
+
+			<p:outputLabel value="Carga RTC (HK):"
+				style=" font-size: 12px;text-align:left;margin: 3px 10px 0px 5px; width:90%; " />
+			<p:fileUpload cancelLabel="Cancelar" uploadLabel="Carregar"
+				disabled="#{!usuarioBean.usuarioLogado.perfilHk}" label="Abrir"
+				value="#{controleRtcHKBean.path}"
+				invalidFileMessage="Arquivo inválido, utilizar formato .xls"
+				fileUploadListener="#{fileUploadView.handleFileUploadRtcHK}"
+				mode="advanced" dragDropSupport="true"
+				style="margin:5px 5px; font-size: 12px; width:95%;"
+				update="formFiltro" sizeLimit="900000" allowTypes="/(\.|\/)(xls)$/" />
+
+			<p:separator></p:separator>
+
+			<p:messages id="msgRFC" closable="true" />
+
+		</p:fieldset>
 
 
 
