@@ -167,6 +167,12 @@
 			<p:tab title="Análise (DEV)" closable="true" disabled="false">
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
 
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						styleClass="add" action="#{analise_CodigoDevBean.DataCommit}"
+						value="Data Commit" icon="   ui-icon-calendar"></p:commandButton>
+
 					<p:commandButton style="font-size:13px; float:right"
 						id="btAtualizarDev" styleClass="add"
 						action="#{analise_CodigoDevBean.listarInfos}" value="Atualizar"

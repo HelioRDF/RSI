@@ -8,7 +8,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.rsi.domain.complementos.ControleRtcDev;
-import br.com.rsi.domain.complementos.ControleRtcHK;
 import br.com.rsi.util.HibernateUtil;
 
 /**
@@ -32,16 +31,16 @@ public class ControleRtcDevDAO extends GenericDAO<ControleRtcDev> {
 	 *            - String
 	 * @param nomeSitema
 	 *            - String
-	 * @return - Retorna uma String
+	 * @return - Retorna uma String com a Data
 	 */
-	public String buscarCommit(String sigla, String nomeSitema) {
+	public String buscarDataCommit(String sigla) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
-			Criteria consulta = sessao.createCriteria(ControleRtcHK.class);
+			Criteria consulta = sessao.createCriteria(ControleRtcDev.class);
 			consulta.add(Restrictions.eq("sigla", sigla));
 			consulta.setMaxResults(1);
 			consulta.addOrder(Order.desc("dataCommit"));
-			ControleRtcHK resultado = (ControleRtcHK) consulta.uniqueResult(); // Utilizado para retornar um unico
+			ControleRtcDev resultado = (ControleRtcDev) consulta.uniqueResult(); // Utilizado para retornar um unico
 			// resultado
 
 			System.out.println("-- Achou:" + resultado.getSigla());
@@ -57,18 +56,56 @@ public class ControleRtcDevDAO extends GenericDAO<ControleRtcDev> {
 	}
 
 	/**
+	 * Busca o commit mais recente por sigla, nome do sistema...
+	 * 
+	 * @param sigla
+	 *            - String
+	 * @param nomeSitema
+	 *            - String
+	 * @return - Retorna uma String com tipo Legado/Novo
+	 */
+
+	public String buscarAlteracaoCommit(String sigla) {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(ControleRtcDev.class);
+			consulta.add(Restrictions.eq("sigla", sigla));
+			consulta.setMaxResults(1);
+			consulta.addOrder(Order.desc("dataCommit"));
+			ControleRtcDev resultado = (ControleRtcDev) consulta.uniqueResult(); // Utilizado para retornar um unico
+			String alteracao = "N/A";
+
+			if (resultado.isAlteracao()) {
+				alteracao = "Novo";
+			} else {
+				alteracao = "Legado";
+			}
+
+			System.out.println("-- Achou:" + resultado.getSigla());
+			return alteracao;
+		} catch (RuntimeException erro) {
+			System.out.println("\n --- XXXX --- Objeto não encontrado: " + sigla);
+			System.out.println(erro + "\n ---- XXXX ---");
+			return "N/A";
+
+		} finally {
+			sessao.close();
+		}
+	}
+
+	/**
 	 * Busca ordenada por alteração
 	 * 
-	 * @return - Retorna uma lista de ControleRtcHK
+	 * @return - Retorna uma lista de ControleRtcDev
 	 */
 
 	@SuppressWarnings("unchecked")
-	public List<ControleRtcHK> listarOrdenandoAlteracao() {
+	public List<ControleRtcDev> listarOrdenandoAlteracao() {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
-			Criteria consulta = sessao.createCriteria(ControleRtcHK.class);
+			Criteria consulta = sessao.createCriteria(ControleRtcDev.class);
 			consulta.addOrder(Order.desc("alteracao"));
-			List<ControleRtcHK> resultado = consulta.list();
+			List<ControleRtcDev> resultado = consulta.list();
 			return resultado;
 
 		} catch (RuntimeException erro) {

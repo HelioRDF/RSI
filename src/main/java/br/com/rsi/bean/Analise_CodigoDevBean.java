@@ -9,6 +9,8 @@ import javax.faces.bean.SessionScoped;
 import org.omnifaces.util.Messages;
 
 import br.com.rsi.dao.complementos.AnaliseCodigoDevDAO;
+import br.com.rsi.dao.complementos.ControleGitDevDAO;
+import br.com.rsi.dao.complementos.ControleRtcDevDAO;
 import br.com.rsi.domain.complementos.Automacao_Analise_Codigo;
 
 /**
@@ -67,6 +69,58 @@ public class Analise_CodigoDevBean implements Serializable {
 			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
 			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ERRO:" + e.getMessage() + e.getCause());
+		} finally {
+		}
+	}
+
+	/**
+	 * Captura a última data de Commit e tipo  em controle git/rtc e carimba na analíse.
+	 */
+
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+	public void DataCommit() {
+		try {
+
+			dao = new AnaliseCodigoDevDAO();
+			List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listarParaDataCommit();
+
+			for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
+				ControleGitDevDAO daoGit = new ControleGitDevDAO();
+				ControleRtcDevDAO daoRtc = new ControleRtcDevDAO();
+				String dataCommit = daoGit.buscarDataCommit(obj.getSigla().trim()).toString();
+				String tipo = daoGit.buscarAlteracaoCommit(obj.getSigla().trim()).toString();
+
+				if (!dataCommit.equals("N/A")) {
+					dataCommit = dataCommit.substring(0, 11);
+
+					 System.out.println("\n----Git ----");
+					 System.out.println("Data: "+dataCommit );
+					 System.out.println("Tipo: "+tipo );
+					 System.out.println("------------\n");
+
+				} else {
+
+					dataCommit = daoRtc.buscarDataCommit(obj.getSigla().trim()).toString();
+					if (dataCommit.length() > 8) {
+						dataCommit = dataCommit.substring(0, 11);
+					}
+
+					tipo = daoRtc.buscarAlteracaoCommit(obj.getSigla().trim()).toString();
+					 System.out.println("\n----RTC ----");
+					 System.out.println("Data: "+dataCommit );
+					 System.out.println("Tipo: "+tipo );
+					 System.out.println("------------\n");
+					
+				}
+				obj.setDataCommit(dataCommit);
+				obj.setTipo(tipo);
+
+				dao.editar(obj);
+				Messages.addGlobalInfo("Data de Commit atualizada! " + obj.getSigla());
+			}
+
+		} catch (Exception e) {
+			Messages.addGlobalError("Erro ao  Atualizar Lista.");
 		} finally {
 		}
 	}

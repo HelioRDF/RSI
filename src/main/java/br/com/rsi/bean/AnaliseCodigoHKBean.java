@@ -19,8 +19,8 @@ import br.com.rsi.domain.complementos.AnaliseCodigoHK;
  * -Classe BEAN AnaliseCodigoHKBean.
  * 
  * @author helio.franca
- * @version v1.7
- * @since N/A
+ * @version v1.8
+ * @since 13-07-2018
  *
  */
 
@@ -103,7 +103,7 @@ public class AnaliseCodigoHKBean implements Serializable {
 	}
 
 	/**
-	 * Captura a última data de Commit em controle git e carimba na analíse.
+	 * Captura a última data de Commit e tipo  em controle git/rtc e carimba na analíse.
 	 */
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
