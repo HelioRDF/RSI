@@ -318,9 +318,7 @@ public class ControleRtcHKBean implements Serializable {
 
 	}
 
-	public void teste() {
-		gerarLogRTC();
-	}
+
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------

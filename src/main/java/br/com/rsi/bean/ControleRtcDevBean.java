@@ -1,7 +1,14 @@
 package br.com.rsi.bean;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -139,6 +146,155 @@ public class ControleRtcDevBean implements Serializable {
 			System.out.println(e.getCause());
 		}
 	}
+	
+	
+	/**
+	 * Chama o Runnable do Log RTC
+	 */
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+	public void gerarLogRTC() {
+		try {
+			new Thread(rtcLog).start();
+			Messages.addGlobalInfo("RTC log em execução!");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			Messages.addGlobalError("Erro ao executar Git Log!");
+		}
+	}
+
+	/**
+	 * Runnable para acionar o comando RTClog e capturar as informações.
+	 */
+	// -------------------------------------------------------------------------------------
+	private static Runnable rtcLog = new Runnable() {
+		public void run() {
+			List<ControleRtcDev> listaControle;
+			ControleRtcDevDAO dao = new ControleRtcDevDAO();
+			listaControle = dao.listar();
+
+			for (ControleRtcDev obj : listaControle) {
+				lerLogRtc(obj);
+				try {
+
+				} catch (Exception e) {
+					System.err.println("---------------Erro: -" + e.getStackTrace());
+				} finally {
+					dao.editar(obj);
+				}
+			}
+		}
+	};
+	
+	/**
+	 * Faz a leitura de um arquivo txt e trata as informações
+	 * 
+	 * @param path
+	 *            - Caminho do arquivo Txt
+	 * @param sigla
+	 *            - Sigla do Log
+	 */
+	// -------------------------------------------------------------------------------------
+	public static void lerLogRtc(ControleRtcDev obj) {
+
+		String sigla = obj.getSigla();
+		String path = obj.getCaminho();
+
+		path = path + "Log_" + sigla + ".txt";
+		File file = new File(path);
+		String siglaTemp, commitTemp, dataTemp = "01/01/1900" ;
+
+		try {
+
+			FileReader fileReader = new FileReader(file);
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream(file.getAbsolutePath()), "UTF-8"));
+			String info = null;
+			int linha = 0;
+			while ((info = reader.readLine()) != null) {
+				linha++;
+
+				if (linha == 1) {
+					siglaTemp = info;
+					String array[] = new String[2];
+					array = siglaTemp.split(":");
+					siglaTemp = array[1].trim();
+					System.out.println("\n ----------------------------- \n");
+					System.out.println("- Sigla: " + siglaTemp);
+
+				}
+				if (linha == 2) {
+					commitTemp = info;
+					String array[] = new String[2];
+					array = commitTemp.split(":");
+					commitTemp = array[1].trim();
+					System.out.println("- Commit: " + commitTemp);
+					if (commitTemp.equalsIgnoreCase("True")) {
+						obj.setAlteracao(true);
+					} else {
+						obj.setAlteracao(false);
+					}
+
+				}
+				if (linha == 3) {
+					dataTemp = info;
+					String array[] = new String[2];
+					array = dataTemp.split(":");
+					dataTemp = array[1].trim();
+					System.out.println("- Data: " + dataTemp);
+					System.out.println("\n ----------------------------- \n");
+					if (obj.getDataCommit() == null) {
+						System.out.println("\n Data Nula \n");
+
+					} else {
+						dataTemp = "01/01/1900";
+						System.out.println("\n Achou Data  \n");
+						obj.setDataCommitAnt(obj.getDataCommit());
+					}
+
+					obj.setDataCommit(validadorData(dataTemp, ""));
+				}
+
+			}
+
+			info = reader.readLine();
+			fileReader.close();
+			reader.close();
+
+		} catch (Exception e) {
+			System.out.println("xxxxxxxx " + path);
+			// TODO: handle exception
+		}
+
+	}
+	
+	/**
+	 * Valida e converte uma objeto do tipo data
+	 * 
+	 * @param dataInfo
+	 *            - data para validara
+	 * @param msg
+	 *            - mensagem opcional
+	 * @return - retorna um objeto do tipo data
+	 */
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+	public static Date validadorData(String dataInfo, String msg) {
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+		Date dataFinal = new Date();
+		if (dataInfo.isEmpty()) {
+			dataFinal = null;
+		} else {
+			try {
+				dataFinal = (Date) formatter.parse(dataInfo);
+			} catch (ParseException e) {
+				dataFinal = null;
+				System.out.println("\n-----------------------------------------Erro em data" + msg);
+				e.printStackTrace();
+			}
+		}
+		return dataFinal;
+	}
+
+
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
