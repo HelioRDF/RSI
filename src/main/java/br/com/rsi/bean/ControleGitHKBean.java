@@ -97,8 +97,7 @@ public class ControleGitHKBean implements Serializable {
 			dao = new ControleGitHKDAO();
 			listaControle = dao.listar();
 			total = listaControle.size();
-			
-	
+
 			Messages.addGlobalInfo("Lista Atualizada!");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -234,7 +233,6 @@ public class ControleGitHKBean implements Serializable {
 			for (ControleGitHK ControleGitHK : listaControle) {
 				ControleGitHK entidade = dao.buscar(ControleGitHK.getCodigo());
 				String pathSigla = "cd " + entidade.getCaminho();
-				;
 				String comandoGit = "git log --stat -1 --date=format:%d/%m/%Y";
 				String[] cmds = { pathSigla, comandoGit };
 				StringBuilder log = new StringBuilder();
@@ -296,14 +294,13 @@ public class ControleGitHKBean implements Serializable {
 					ControleGitHK.setDescricaoLog(descricaoLog);
 
 				} catch (Exception e) {
-					System.err.println("---------------Erro: -" + e.getStackTrace());
+					System.err.println("---------------Erro: -" + e.getMessage());
 					author = "----------";
 					ControleGitHK.setAuthor(author);
 					descricaoLog = "null";
 					ControleGitHK.setDescricaoLog(descricaoLog);
 				} finally {
 					dao.editar(ControleGitHK);
-
 				}
 			}
 
@@ -317,12 +314,7 @@ public class ControleGitHKBean implements Serializable {
 	public void atualizarGit() {
 
 		try {
-			alteraLoginGit("xb201520", "pCAV#1212");
 			new Thread(gitPull).start();
-
-			alteraLoginGit("XI324337", "elphbbtu");
-			new Thread(gitPull).start();
-
 			Messages.addGlobalInfo("Git pull em execução!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -356,44 +348,48 @@ public class ControleGitHKBean implements Serializable {
 			List<ControleGitHK> listaControle;
 			ControleGitHKDAO dao = new ControleGitHKDAO();
 			listaControle = dao.listar();
+			int contasGit = 2;
+			alteraLoginGit("xb201520", "pCAV#1212");
+			while (contasGit > 0) {
+				for (ControleGitHK ControleGitHK : listaControle) {
+					ControleGitHK entidade = dao.buscar(ControleGitHK.getCodigo());
+					String pathSigla = "cd " + entidade.getCaminho();
 
-			for (ControleGitHK ControleGitHK : listaControle) {
-				ControleGitHK entidade = dao.buscar(ControleGitHK.getCodigo());
-				String pathSigla = "cd " + entidade.getCaminho();
+					String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
+					String[] cmds = { pathSigla, comandoGit };
+					StringBuilder log = new StringBuilder();
+					log.append("\n \n");
 
-				String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
-				String[] cmds = { pathSigla, comandoGit };
-				StringBuilder log = new StringBuilder();
-				log.append("\n \n");
+					try {
+						ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
+						builder.redirectErrorStream(true);
+						Process p = builder.start();
 
-				try {
-					ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
-					builder.redirectErrorStream(true);
-					Process p = builder.start();
-
-					BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-					String line;
-					int i = 0;
-					while (true) {
-						i++;
-						line = r.readLine();
-						if (line == null) {
-							break;
+						BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+						String line;
+						int i = 0;
+						while (true) {
+							i++;
+							line = r.readLine();
+							if (line == null) {
+								break;
+							}
+							log.append(i + ": " + line + "\n");
+							System.out.println(line);
 						}
-						log.append(i + ": " + line + "\n");
-						System.out.println(line);
+						// Messages.addGlobalInfo("Executado com sucesso!");
+					} catch (Exception e) {
+						// Messages.addGlobalError("Caminho não encontrado ...
+						// :\n"
+						// +
+						// ControleGitHKDev.getNomeSistema());
+					} finally {
+						dao.editar(ControleGitHK);
 					}
-					// Messages.addGlobalInfo("Executado com sucesso!");
-				} catch (Exception e) {
-					// Messages.addGlobalError("Caminho não encontrado ... :\n"
-					// +
-					// ControleGitHKDev.getNomeSistema());
-				} finally {
-					dao.editar(ControleGitHK);
-
 				}
+				contasGit--;
+				alteraLoginGit("XI324337", "elphbbtu");
 			}
-
 		}
 	};
 

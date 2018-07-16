@@ -244,9 +244,7 @@ public class ControleRtcDevBean implements Serializable {
 					System.out.println("\n ----------------------------- \n");
 					if (obj.getDataCommit() == null) {
 						System.out.println("\n Data Nula \n");
-
 					} else {
-						dataTemp = "01/01/1900";
 						System.out.println("\n Achou Data  \n");
 						obj.setDataCommitAnt(obj.getDataCommit());
 					}
@@ -264,7 +262,6 @@ public class ControleRtcDevBean implements Serializable {
 			System.out.println("xxxxxxxx " + path);
 			// TODO: handle exception
 		}
-
 	}
 	
 	/**

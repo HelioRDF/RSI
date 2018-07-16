@@ -49,7 +49,6 @@ public class ControleGitDevBean implements Serializable {
 	private int total;
 	static String CAMINHO = "";
 
-
 	/**
 	 * Dispara o envio de E-mail
 	 */
@@ -110,7 +109,7 @@ public class ControleGitDevBean implements Serializable {
 	public void salvarPlanilha() {
 		controle = new ControleGitDev();
 		dao = new ControleGitDevDAO();
-		String sigla, sistema, caminho;
+		String sigla, sistema, caminho,pacote;
 		Date dateC = new Date();
 
 		// Carrega a planilha
@@ -127,11 +126,13 @@ public class ControleGitDevBean implements Serializable {
 			for (int i = 1; i < linhas; i++) {
 				Cell celula1 = sheet.getCell(0, i); // coluna 1 -Sigla
 				Cell celula2 = sheet.getCell(1, i); // coluna 2 -Sistema
-				Cell celula3 = sheet.getCell(2, i); // coluna 3 - caminho
+				Cell celula3 = sheet.getCell(2, i); // coluna 4 - pacote
+				Cell celula4 = sheet.getCell(3, i); // coluna 3 - caminho
 
 				sigla = celula1.getContents().toString().trim().toUpperCase();
 				sistema = celula2.getContents().toString().trim().toUpperCase();
-				caminho = celula3.getContents().toString().trim().toUpperCase();
+				pacote = celula3.getContents().toString().trim().toUpperCase();
+				caminho = celula4.getContents().toString().trim().toUpperCase();
 
 				// Encerra a leitura quando encontra linha vazia
 				if (sigla.isEmpty()) {
@@ -143,6 +144,7 @@ public class ControleGitDevBean implements Serializable {
 					controle.setSigla(sigla);
 					controle.setNomeSistema(sistema);
 					controle.setCaminho(caminho);
+					controle.setPacote(pacote);
 					controle.setNomeArquivo(CAMINHO);
 					controle.setDataVerificacao(dateC);
 					salvar();
@@ -198,8 +200,7 @@ public class ControleGitDevBean implements Serializable {
 		}
 		return dataFinal;
 	}
-	
-	
+
 	/**
 	 * Chama o Runnable do gitlog
 	 */
@@ -310,11 +311,7 @@ public class ControleGitDevBean implements Serializable {
 	public void atualizarGit() {
 
 		try {
-			
-			alteraLoginGit("xb201520", "pCAV#1212");
-			Thread.sleep(3000);
-			alteraLoginGit("XI324337", "elphbbtu");
-
+			new Thread(gitPull).start();
 			Messages.addGlobalInfo("Git pull em execução!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -348,46 +345,49 @@ public class ControleGitDevBean implements Serializable {
 			List<ControleGitDev> listaControle;
 			ControleGitDevDAO dao = new ControleGitDevDAO();
 			listaControle = dao.listar();
-			
-			
+			int contasGit = 2;
+			alteraLoginGit("xb201520", "pCAV#1212");
+			while (contasGit > 0) {
+				for (ControleGitDev ControleGitDev : listaControle) {
+					ControleGitDev entidade = dao.buscar(ControleGitDev.getCodigo());
+					String pathSigla = "cd " + entidade.getCaminho();
 
-			for (ControleGitDev ControleGitDev : listaControle) {
-				ControleGitDev entidade = dao.buscar(ControleGitDev.getCodigo());
-				String pathSigla = "cd " + entidade.getCaminho();
+					String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
+					String[] cmds = { pathSigla, comandoGit };
+					StringBuilder log = new StringBuilder();
+					log.append("\n \n");
 
-				String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
-				String[] cmds = { pathSigla, comandoGit };
-				StringBuilder log = new StringBuilder();
-				log.append("\n \n");
+					try {
+						ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
+						builder.redirectErrorStream(true);
+						Process p = builder.start();
 
-				try {
-					ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
-					builder.redirectErrorStream(true);
-					Process p = builder.start();
-
-					BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-					String line;
-					int i = 0;
-					while (true) {
-						i++;
-						line = r.readLine();
-						if (line == null) {
-							break;
+						BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+						String line;
+						int i = 0;
+						while (true) {
+							i++;
+							line = r.readLine();
+							if (line == null) {
+								break;
+							}
+							log.append(i + ": " + line + "\n");
+							System.out.println(line);
 						}
-						log.append(i + ": " + line + "\n");
-						System.out.println(line);
-					}
-					// Messages.addGlobalInfo("Executado com sucesso!");
-				} catch (Exception e) {
-					// Messages.addGlobalError("Caminho não encontrado ... :\n"
-					// +
-					// ControleGitDevDev.getNomeSistema());
-				} finally {
-					dao.editar(ControleGitDev);
-	
-				}
-			}
+						// Messages.addGlobalInfo("Executado com sucesso!");
+					} catch (Exception e) {
+						// Messages.addGlobalError("Caminho não encontrado ...
+						// :\n"
+						// +
+						// ControleGitDevDev.getNomeSistema());
+					} finally {
+						dao.editar(ControleGitDev);
 
+					}
+				}
+				contasGit--;
+				alteraLoginGit("XI324337", "elphbbtu");
+			}
 		}
 	};
 
@@ -407,7 +407,6 @@ public class ControleGitDevBean implements Serializable {
 		}
 		ps.append("machine gitlab.produbanbr.corp\nlogin " + login + "\npassword " + senha);
 		ps.close();
-		new Thread(gitPull).start();
 	}
 
 	// Get e Set
@@ -463,5 +462,4 @@ public class ControleGitDevBean implements Serializable {
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	
 }
