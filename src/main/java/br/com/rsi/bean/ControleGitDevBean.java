@@ -312,6 +312,7 @@ public class ControleGitDevBean implements Serializable {
 		try {
 			
 			alteraLoginGit("xb201520", "pCAV#1212");
+			Thread.sleep(3000);
 			alteraLoginGit("XI324337", "elphbbtu");
 
 			Messages.addGlobalInfo("Git pull em execução!");
