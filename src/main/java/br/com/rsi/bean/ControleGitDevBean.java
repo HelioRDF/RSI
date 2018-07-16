@@ -49,6 +49,7 @@ public class ControleGitDevBean implements Serializable {
 	private int total;
 	static String CAMINHO = "";
 
+
 	/**
 	 * Dispara o envio de E-mail
 	 */
@@ -309,11 +310,9 @@ public class ControleGitDevBean implements Serializable {
 	public void atualizarGit() {
 
 		try {
+			
 			alteraLoginGit("xb201520", "pCAV#1212");
-			new Thread(gitPull).start();
-
 			alteraLoginGit("XI324337", "elphbbtu");
-			new Thread(gitPull).start();
 
 			Messages.addGlobalInfo("Git pull em execução!");
 		} catch (Exception e) {
@@ -348,6 +347,8 @@ public class ControleGitDevBean implements Serializable {
 			List<ControleGitDev> listaControle;
 			ControleGitDevDAO dao = new ControleGitDevDAO();
 			listaControle = dao.listar();
+			
+			
 
 			for (ControleGitDev ControleGitDev : listaControle) {
 				ControleGitDev entidade = dao.buscar(ControleGitDev.getCodigo());
@@ -382,7 +383,7 @@ public class ControleGitDevBean implements Serializable {
 					// ControleGitDevDev.getNomeSistema());
 				} finally {
 					dao.editar(ControleGitDev);
-
+	
 				}
 			}
 
@@ -405,6 +406,7 @@ public class ControleGitDevBean implements Serializable {
 		}
 		ps.append("machine gitlab.produbanbr.corp\nlogin " + login + "\npassword " + senha);
 		ps.close();
+		new Thread(gitPull).start();
 	}
 
 	// Get e Set
