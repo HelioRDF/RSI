@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:form id="formTb">
+		<p:growl id="msgGrowl" life="3000" />
+		<!-- _________________________________________________________________________________________________________________________________ -->
+		<!-- Tabelas com informações RFC/Inspeção  -->
+
+		<p:tabView id="fr" style="font-size:14px;">
+
+
+			<!-- Analise Dev ______________________________________________________________  -->
+			<p:tab title="Análise (DEV)" closable="true" disabled="false">
+				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
+
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						styleClass="add" action="#{analise_CodigoDevBean.DataCommit}"
+						value="Data Commit" icon="   ui-icon-calendar"></p:commandButton>
+
+					<p:commandButton style="font-size:13px; float:right"
+						id="btAtualizarDev" styleClass="add"
+						action="#{analise_CodigoDevBean.listarInfos}" value="Atualizar"
+						rendered="true" update=":formTb:fr:dataTableAnaliseDEV"
+						icon=" ui-icon-refresh"></p:commandButton>
+
+
+					<h:commandLink style="float:left; margin-right:5px;">
+						<h:graphicImage value="/images/excel2.png" width="24" />
+						<p:dataExporter type="xls" target="dataTableAnaliseDEV"
+							fileName="Analise-DEV" />
+					</h:commandLink>
+
+				</p:fieldset>
+				<p:dataTable id="dataTableAnaliseDEV" rendered="true"
+					rowsPerPageTemplate="12,20,30,50,100" rowIndexVar="rowIndex"
+					emptyMessage="Nenhum Registro encontrado" rows="7" paginator="true"
+					var="dataVar" value="#{analise_CodigoDevBean.listaAnalise}"
+					draggableColumns="true" style=" text-align:center;font-size: 12px;"
+					paginatorPosition="top">
+
+					<f:facet name="header">
+
+						<p:outputLabel value="TOTAL: #{analise_CodigoDevBean.total}" />
+						<p:commandButton id="toggler" type="button" value="Colunas"
+							style="float:right" icon="ui-icon-calculator" />
+						<p:columnToggler datasource="dataTableAnaliseDEV"
+							trigger="toggler">
+						</p:columnToggler>
+					</f:facet>
+
+
+
+					<!-- _________________________________________________________________________________________________________________________________ -->
+					<!-- Informações das Colunas -->
+					<p:column headerText="Ver" width="4%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
+					</p:column>
+					<!-- <p:column headerText="Linhas" width="9%" sortBy="#{rowIndex}"> -->
+					<!-- #{rowIndex+1} -->
+					<!-- </p:column> -->
+					<p:column headerText="ID" width="9%" sortBy="#{dataVar.id}"
+						filterBy="#{dataVar.id}">
+						<p:outputLabel value="#{dataVar.id}" />
+					</p:column>
+					<p:column headerText="GESTOR" width="13%"
+						sortBy="#{dataVar.painelGestor}"
+						filterBy="#{dataVar.painelGestor}">
+						<p:outputLabel value="#{dataVar.painelGestor}" />
+					</p:column>
+					<p:column headerText="SIGLA" width="10%" sortBy="#{dataVar.sigla}"
+						filterBy="#{dataVar.sigla}">
+						<p:outputLabel value="#{dataVar.sigla}" />
+					</p:column>
+
+					<p:column headerText="SISTEMA" width="15%"
+						sortBy="#{dataVar.nomeProjeto}" filterBy="#{dataVar.nomeProjeto}">
+						<p:outputLabel value="#{dataVar.nomeProjeto}" />
+					</p:column>
+
+					<p:column headerText="Linhas de Código" width="10%"
+						sortBy="#{dataVar.linhaCodigo}" filterBy="#{dataVar.linhaCodigo}">
+						<p:outputLabel value="#{dataVar.linhaCodigo}" />
+					</p:column>
+
+					<p:column headerText="Bugs" width="10%" sortBy="#{dataVar.bugs}"
+						filterBy="#{dataVar.bugs}">
+						<p:outputLabel value="#{dataVar.bugs}" />
+					</p:column>
+
+					<p:column headerText="Nota" width="10%"
+						sortBy="#{dataVar.notaProjeto}" filterBy="#{dataVar.notaProjeto}">
+						<p:outputLabel value="#{dataVar.notaProjeto}%" />
+					</p:column>
+
+
+					<p:column headerText="Debito Técnico" width="10%"
+						sortBy="#{dataVar.debitoTecnico}"
+						filterBy="#{dataVar.debitoTecnico}">
+						<p:outputLabel value="#{dataVar.debitoTecnico}" />
+					</p:column>
+
+					<p:column headerText="DATA CAPTURA" width="11%" id="cap"
+						sortBy="#{dataVar.dataCaptura}" filterBy="#{dataVar.dataCaptura}">
+						<p:outputLabel value="#{dataVar.dataCaptura}">
+							<f:convertDateTime for="cap" pattern="yyyy-MM-dd" locale="pt_BR" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="COMMIT" width="11%" id="commitD"
+						sortBy="#{dataVar.dataCommit}" filterBy="#{dataVar.dataCommit}">
+						<p:outputLabel value="#{dataVar.dataCommit}">
+							<f:convertDateTime for="commitD" pattern="yyyy-MM-dd"
+								locale="pt_BR" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="Tipo" width="10%" sortBy="#{dataVar.tipo}"
+						filterBy="#{dataVar.tipo}">
+						<p:outputLabel value="#{dataVar.tipo}" />
+					</p:column>
+
+
+
+					<!-- _________________________________________________________________________________________________________________________________ -->
+					<!-- Informações após expandir linha -->
+					<p:rowExpansion styleClass="rowEdit">
+
+						<!-- <p:separator style="border: 2px solid #c1c7d9; border-radius: 100px/9px; background-color:  #d4d5e6; height:8px;"> </p:separator>  -->
+						<p:separator style=" height:10px;background-color:#e6e6ff"></p:separator>
+						<br></br>
+					</p:rowExpansion>
+				</p:dataTable>
+		</p:tab>
+
+			<!-- Controle Git Dev_________________________________________________________________________________ -->
+			<p:tab title="Git (Dev)" closable="true"
+				disabled="#{!usuarioBean.usuarioLogado.perfilDev}">
+				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
+
+
+					<h:commandLink style="float:left; margin-right:5px;">
+						<h:graphicImage value="/images/excel2.png" width="24" />
+						<p:dataExporter type="xls" target="dataTableGitDev"
+							fileName="Git-Dev" />
+					</h:commandLink>
+
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						styleClass="add" action="#{controleGitDevBean.enviarEmail}"
+						value="Enviar Email" icon="ui-icon-mail-closed"></p:commandButton>
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#adff00ba;"
+						styleClass="add" action="#{controleGitDevBean.atualizarGit}"
+						value="Git Pull" icon=" ui-icon-arrowstop-1-s"></p:commandButton>
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#0400ff;"
+						styleClass="add" action="#{controleGitDevBean.gerarLogGit}"
+						value="Gerar Log" icon=" ui-icon-check"></p:commandButton>
+
+					<p:commandButton style="font-size:13px; float:right"
+						rendered="true" update=":formTb:fr:dataTableGitDev:"
+						styleClass="add" action="#{controleGitDevBean.listarInfos}"
+						value="Atualizar" icon=" ui-icon-refresh" />
+
+				</p:fieldset>
+				<p:dataTable id="dataTableGitDev" rendered="true"
+					rowsPerPageTemplate="12,20,30,50,100" rowIndexVar="rowIndex"
+					emptyMessage="Nenhum Registro encontrado" rows="7" paginator="true"
+					var="dataVar" value="#{controleGitDevBean.listaControle}"
+					draggableColumns="true" style=" text-align:center;font-size: 12px;"
+					paginatorPosition="top">
+					<f:facet name="header">
+						<p:outputLabel value="TOTAL: #{controleGitDevBean.total}" />
+						<p:commandButton id="toggler" type="button" value="Colunas"
+							style="float:right" icon="ui-icon-calculator" />
+						<p:columnToggler datasource="dataTableGitDev" trigger="toggler">
+						</p:columnToggler>
+					</f:facet>
+					<!-- _________________________________________________________________________________________________________________________________ -->
+					<!-- Informações das Colunas -->
+					<p:column headerText="Ver" width="4%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
+					</p:column>
+					<!-- <p:column headerText="Linhas" width="9%" sortBy="#{rowIndex}"> -->
+					<!-- #{rowIndex+1} -->
+					<!-- </p:column> -->
+					<p:column headerText="ID" width="10%" sortBy="#{dataVar.codigo}"
+						filterBy="#{dataVar.codigo}">
+						<p:outputLabel value="#{dataVar.codigo}" />
+					</p:column>
+					<p:column headerText="SIGLA" width="10%" sortBy="#{dataVar.sigla}"
+						filterBy="#{dataVar.sigla}">
+						<p:outputLabel value="#{dataVar.sigla}" />
+					</p:column>
+					<p:column headerText="Sistema" width="30%"
+						sortBy="#{dataVar.nomeSistema}" filterBy="#{dataVar.nomeSistema}">
+						<p:outputLabel value="#{dataVar.nomeSistema}" />
+					</p:column>
+
+					<p:column headerText="Pacote" width="30%"
+						sortBy="#{dataVar.pacote}" filterBy="#{dataVar.pacote}">
+						<p:outputLabel value="#{dataVar.pacote}" />
+					</p:column>
+
+					<p:column headerText="Data Commit" width="30%"
+						sortBy="#{dataVar.dataCommit}" filterBy="#{dataVar.dataCommit}">
+						<p:outputLabel value="#{dataVar.dataCommit}">
+							<f:convertDateTime for="cadastro" pattern="yyyy-MM-dd"
+								locale="pt_BR" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="Commit Ant" width="30%"
+						sortBy="#{dataVar.dataCommitAnt}"
+						filterBy="#{dataVar.dataCommitAnt}">
+						<p:outputLabel value="#{dataVar.dataCommitAnt}">
+							<f:convertDateTime for="cadastro" pattern="yyyy-MM-dd"
+								locale="pt_BR" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="Alteração" width="10%"
+						sortBy="#{dataVar.alteracao}" filterBy="#{dataVar.alteracao}">
+						<p:outputLabel value="#{dataVar.alteracao}" />
+					</p:column>
+
+
+					<!-- 					<p:column headerText="Config" width="12%" exportable="false"> -->
+					<!-- 						<p:commandButton icon="ui-icon-pencil" title="Editar" -->
+					<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+					<!-- 						<p:commandButton icon="ui-icon-trash" title="Excluir" -->
+					<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+					<!-- 					</p:column> -->
+
+					<!-- _________________________________________________________________________________________________________________________________ -->
+					<!-- Informações após expandir linha -->
+					<p:rowExpansion styleClass="rowEdit">
+
+						<p:panelGrid columns="1" columnClasses="label,value"
+							style="text-align:left;">
+							<p:outputLabel value="Author: #{dataVar.author}" />
+							<p:outputLabel value="Caminho: #{dataVar.caminho}" />
+							<p:outputLabel
+								value="Data Verificação #{dataVar.dataVerificacao}" />
+							<p:outputLabel value="Arquivo Carga: #{dataVar.nomeArquivo}" />
+
+							<p:column>
+								<br></br>
+
+
+								<h:inputTextarea cols="100" rows="25" readonly="true"
+									title="Git Log:" value="Git Log... #{dataVar.descricaoLog}" />
+								<br></br>
+							</p:column>
+
+						</p:panelGrid>
+						<!-- <p:separator style="border: 2px solid #c1c7d9; border-radius: 100px/9px; background-color:  #d4d5e6; height:8px;"> </p:separator>  -->
+						<p:separator style=" height:10px;background-color:#e6e6ff"></p:separator>
+						<br></br>
+					</p:rowExpansion>
+				</p:dataTable>
+			</p:tab>
+			<!-- FIM Controle Git Dev _________________________________________________________________________________ -->
+
+
+			<!-- Controle RTC DEV_________________________________________________________________________________ -->
+			<p:tab title="RTC (Dev)" closable="true"
+				disabled="#{!usuarioBean.usuarioLogado.perfilDev}">
+				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
+
+
+					<h:commandLink style="float:left; margin-right:5px;">
+						<h:graphicImage value="/images/excel2.png" width="24" />
+						<p:dataExporter type="xls" target="dataTableRtcDev"
+							fileName="Git-Dev" />
+					</h:commandLink>
+
+
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#0400ff;"
+						styleClass="add" action="#{controleRtcDevBean.gerarLogRTC}"
+						value="Gerar Log RTC" icon=" ui-icon-check"></p:commandButton>
+
+					<p:commandButton style="font-size:13px; float:right"
+						rendered="true" update=":formTb:fr:dataTableRtcDev:"
+						styleClass="add" action="#{controleRtcDevBean.listarInfos}"
+						value="Atualizar" icon=" ui-icon-refresh" />
+
+				</p:fieldset>
+				<p:dataTable id="dataTableRtcDev" rendered="true"
+					rowsPerPageTemplate="12,20,30,50,100" rowIndexVar="rowIndex"
+					emptyMessage="Nenhum Registro encontrado" rows="7" paginator="true"
+					var="dataVar" value="#{controleRtcDevBean.listaControle}"
+					draggableColumns="true" style=" text-align:center;font-size: 12px;"
+					paginatorPosition="top">
+					<f:facet name="header">
+						<p:outputLabel value="TOTAL: #{controleRtcDevBean.total}" />
+						<p:commandButton id="toggler" type="button" value="Colunas"
+							style="float:right" icon="ui-icon-calculator" />
+						<p:columnToggler datasource="dataTableRtcDev" trigger="toggler">
+						</p:columnToggler>
+					</f:facet>
+					<!-- _________________________________________________________________________________________________________________________________ -->
+					<!-- Informações das Colunas -->
+					<p:column headerText="Ver" width="4%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
+					</p:column>
+
+					<p:column headerText="ID" width="10%" sortBy="#{dataVar.codigo}"
+						filterBy="#{dataVar.codigo}">
+						<p:outputLabel value="#{dataVar.codigo}" />
+					</p:column>
+					<p:column headerText="SIGLA" width="10%" sortBy="#{dataVar.sigla}"
+						filterBy="#{dataVar.sigla}">
+						<p:outputLabel value="#{dataVar.sigla}" />
+					</p:column>
+					<p:column headerText="Sistema" width="30%"
+						sortBy="#{dataVar.nomeSistema}" filterBy="#{dataVar.nomeSistema}">
+						<p:outputLabel value="#{dataVar.nomeSistema}" />
+					</p:column>
+
+
+					<p:column headerText="Data Commit" width="30%"
+						sortBy="#{dataVar.dataCommit}" filterBy="#{dataVar.dataCommit}">
+						<p:outputLabel value="#{dataVar.dataCommit}">
+							<f:convertDateTime for="cadastro" pattern="yyyy-MM-dd"
+								locale="pt_BR" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="Commit Ant" width="30%"
+						sortBy="#{dataVar.dataCommitAnt}"
+						filterBy="#{dataVar.dataCommitAnt}">
+						<p:outputLabel value="#{dataVar.dataCommitAnt}">
+							<f:convertDateTime for="cadastro" pattern="yyyy-MM-dd"
+								locale="pt_BR" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="Alteração" width="10%"
+						sortBy="#{dataVar.alteracao}" filterBy="#{dataVar.alteracao}">
+						<p:outputLabel value="#{dataVar.alteracao}" />
+					</p:column>
+
+
+
+
+					<!-- _________________________________________________________________________________________________________________________________ -->
+					<!-- Informações após expandir linha -->
+					<p:rowExpansion styleClass="rowEdit">
+
+						<p:panelGrid columns="1" columnClasses="label,value"
+							style="text-align:left;">
+
+							<p:outputLabel value="Caminho: #{dataVar.caminho}" />
+							<p:outputLabel
+								value="Data Verificação #{dataVar.dataVerificacao}" />
+							<p:outputLabel value="Arquivo Carga: #{dataVar.nomeArquivo}" />
+
+							<p:column>
+								<br></br>
+
+
+								<h:inputTextarea cols="100" rows="25" readonly="true"
+									title="Git Log:" value="Git Log... #{dataVar.descricaoLog}" />
+								<br></br>
+							</p:column>
+
+						</p:panelGrid>
+						<!-- <p:separator style="border: 2px solid #c1c7d9; border-radius: 100px/9px; background-color:  #d4d5e6; height:8px;"> </p:separator>  -->
+						<p:separator style=" height:10px;background-color:#e6e6ff"></p:separator>
+						<br></br>
+					</p:rowExpansion>
+				</p:dataTable>
+			</p:tab>
+			<!-- FIM Controle RTC Dev _________________________________________________________________________________ -->
+
+
+
+		</p:tabView>
+	</h:form>
+</ui:composition>
