@@ -62,10 +62,7 @@
 
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações das Colunas -->
-					<p:column headerText="Ver" width="4%" exportable="false">
-						<!-- Expandir infos -->
-						<p:rowToggler />
-					</p:column>
+
 					<!-- <p:column headerText="Linhas" width="9%" sortBy="#{rowIndex}"> -->
 					<!-- #{rowIndex+1} -->
 					<!-- </p:column> -->
@@ -130,6 +127,11 @@
 					<p:column headerText="Tipo" width="10%" sortBy="#{dataVar.tipo}"
 						filterBy="#{dataVar.tipo}">
 						<p:outputLabel value="#{dataVar.tipo}" />
+					</p:column>
+
+					<p:column headerText="Ver" width="4%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
 					</p:column>
 
 					<!-- _________________________________________________________________________________________________________________________________ -->
@@ -323,10 +325,13 @@
 					</f:facet>
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações das Colunas -->
-					<p:column headerText="Ver" width="4%" exportable="false">
-						<!-- Expandir infos -->
-						<p:rowToggler />
+					<p:column width="10%;" headerText="Alteração"
+						sortBy="#{dataVar.alteracao}" filterBy="#{dataVar.alteracao}">
+						<h:graphicImage styleClass="led"
+							value="/images/#{dataVar.alteracao}.png">
+						</h:graphicImage>
 					</p:column>
+
 					<!-- <p:column headerText="Linhas" width="9%" sortBy="#{rowIndex}"> -->
 					<!-- #{rowIndex+1} -->
 					<!-- </p:column> -->
@@ -348,7 +353,7 @@
 						<p:outputLabel value="#{dataVar.pacote}" />
 					</p:column>
 
-					<p:column headerText="Data Commit" width="30%"
+					<p:column headerText="Data Commit" width="25%"
 						sortBy="#{dataVar.dataCommit}" filterBy="#{dataVar.dataCommit}">
 						<p:outputLabel value="#{dataVar.dataCommit}">
 							<f:convertDateTime for="cadastro" pattern="yyyy-MM-dd"
@@ -356,7 +361,7 @@
 						</p:outputLabel>
 					</p:column>
 
-					<p:column headerText="Commit Ant" width="30%"
+					<p:column headerText="Commit Ant" width="25%"
 						sortBy="#{dataVar.dataCommitAnt}"
 						filterBy="#{dataVar.dataCommitAnt}">
 						<p:outputLabel value="#{dataVar.dataCommitAnt}">
@@ -365,11 +370,10 @@
 						</p:outputLabel>
 					</p:column>
 
-					<p:column headerText="Alteração" width="10%"
-						sortBy="#{dataVar.alteracao}" filterBy="#{dataVar.alteracao}">
-						<p:outputLabel value="#{dataVar.alteracao}" />
+					<p:column headerText="Ver" width="4%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
 					</p:column>
-
 
 					<!-- 					<p:column headerText="Config" width="12%" exportable="false"> -->
 					<!-- 						<p:commandButton icon="ui-icon-pencil" title="Editar" -->
@@ -452,9 +456,13 @@
 					</f:facet>
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações das Colunas -->
-					<p:column headerText="Ver" width="4%" exportable="false">
-						<!-- Expandir infos -->
-						<p:rowToggler />
+
+
+					<p:column width="10%;" headerText="Alteração"
+						sortBy="#{dataVar.alteracao}" filterBy="#{dataVar.alteracao}">
+						<h:graphicImage styleClass="led"
+							value="/images/#{dataVar.alteracao}.png">
+						</h:graphicImage>
 					</p:column>
 
 					<p:column headerText="ID" width="10%" sortBy="#{dataVar.codigo}"
@@ -488,12 +496,12 @@
 						</p:outputLabel>
 					</p:column>
 
-					<p:column headerText="Alteração" width="10%"
-						sortBy="#{dataVar.alteracao}" filterBy="#{dataVar.alteracao}">
-						<p:outputLabel value="#{dataVar.alteracao}" />
+
+
+					<p:column headerText="Ver" width="4%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
 					</p:column>
-
-
 
 
 					<!-- _________________________________________________________________________________________________________________________________ -->

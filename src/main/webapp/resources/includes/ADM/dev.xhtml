@@ -58,10 +58,7 @@
 
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações das Colunas -->
-					<p:column headerText="Ver" width="4%" exportable="false">
-						<!-- Expandir infos -->
-						<p:rowToggler />
-					</p:column>
+
 					<!-- <p:column headerText="Linhas" width="9%" sortBy="#{rowIndex}"> -->
 					<!-- #{rowIndex+1} -->
 					<!-- </p:column> -->
@@ -69,6 +66,7 @@
 						filterBy="#{dataVar.id}">
 						<p:outputLabel value="#{dataVar.id}" />
 					</p:column>
+
 					<p:column headerText="GESTOR" width="13%"
 						sortBy="#{dataVar.painelGestor}"
 						filterBy="#{dataVar.painelGestor}">
@@ -125,7 +123,11 @@
 						filterBy="#{dataVar.tipo}">
 						<p:outputLabel value="#{dataVar.tipo}" />
 					</p:column>
-
+					
+					<p:column headerText="Ver" width="4%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
+					</p:column>
 
 
 					<!-- _________________________________________________________________________________________________________________________________ -->
@@ -137,7 +139,7 @@
 						<br></br>
 					</p:rowExpansion>
 				</p:dataTable>
-		</p:tab>
+			</p:tab>
 
 			<!-- Controle Git Dev_________________________________________________________________________________ -->
 			<p:tab title="Git (Dev)" closable="true"
@@ -188,10 +190,14 @@
 					</f:facet>
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações das Colunas -->
-					<p:column headerText="Ver" width="4%" exportable="false">
-						<!-- Expandir infos -->
-						<p:rowToggler />
+
+					<p:column width="10%;" headerText="Alteração"
+						sortBy="#{dataVar.alteracao}" filterBy="#{dataVar.alteracao}">
+						<h:graphicImage styleClass="led"
+							value="/images/#{dataVar.alteracao}.png">
+						</h:graphicImage>
 					</p:column>
+
 					<!-- <p:column headerText="Linhas" width="9%" sortBy="#{rowIndex}"> -->
 					<!-- #{rowIndex+1} -->
 					<!-- </p:column> -->
@@ -199,6 +205,8 @@
 						filterBy="#{dataVar.codigo}">
 						<p:outputLabel value="#{dataVar.codigo}" />
 					</p:column>
+
+
 					<p:column headerText="SIGLA" width="10%" sortBy="#{dataVar.sigla}"
 						filterBy="#{dataVar.sigla}">
 						<p:outputLabel value="#{dataVar.sigla}" />
@@ -213,7 +221,7 @@
 						<p:outputLabel value="#{dataVar.pacote}" />
 					</p:column>
 
-					<p:column headerText="Data Commit" width="30%"
+					<p:column headerText="Data Commit" width="25%"
 						sortBy="#{dataVar.dataCommit}" filterBy="#{dataVar.dataCommit}">
 						<p:outputLabel value="#{dataVar.dataCommit}">
 							<f:convertDateTime for="cadastro" pattern="yyyy-MM-dd"
@@ -221,7 +229,7 @@
 						</p:outputLabel>
 					</p:column>
 
-					<p:column headerText="Commit Ant" width="30%"
+					<p:column headerText="Commit Ant" width="25%"
 						sortBy="#{dataVar.dataCommitAnt}"
 						filterBy="#{dataVar.dataCommitAnt}">
 						<p:outputLabel value="#{dataVar.dataCommitAnt}">
@@ -230,10 +238,12 @@
 						</p:outputLabel>
 					</p:column>
 
-					<p:column headerText="Alteração" width="10%"
-						sortBy="#{dataVar.alteracao}" filterBy="#{dataVar.alteracao}">
-						<p:outputLabel value="#{dataVar.alteracao}" />
+					<p:column headerText="Ver" width="5%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
 					</p:column>
+
+
 
 
 					<!-- 					<p:column headerText="Config" width="12%" exportable="false"> -->
@@ -314,10 +324,14 @@
 					</f:facet>
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações das Colunas -->
-					<p:column headerText="Ver" width="4%" exportable="false">
-						<!-- Expandir infos -->
-						<p:rowToggler />
+
+					<p:column width="10%;" headerText="Alteração"
+						sortBy="#{dataVar.alteracao}" filterBy="#{dataVar.alteracao}">
+						<h:graphicImage styleClass="led"
+							value="/images/#{dataVar.alteracao}.png">
+						</h:graphicImage>
 					</p:column>
+
 
 					<p:column headerText="ID" width="10%" sortBy="#{dataVar.codigo}"
 						filterBy="#{dataVar.codigo}">
@@ -350,12 +364,12 @@
 						</p:outputLabel>
 					</p:column>
 
-					<p:column headerText="Alteração" width="10%"
-						sortBy="#{dataVar.alteracao}" filterBy="#{dataVar.alteracao}">
-						<p:outputLabel value="#{dataVar.alteracao}" />
+
+
+					<p:column headerText="Ver" width="4%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
 					</p:column>
-
-
 
 
 					<!-- _________________________________________________________________________________________________________________________________ -->
