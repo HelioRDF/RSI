@@ -10,11 +10,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * -Classe POJO AnaliseCodigoHG  entity do DB via Hibernate.
+ * -Classe POJO AnaliseCodigoHG entity do DB via Hibernate.
  * 
  * @author helio.franca
  * @version v1.8
- * @since  12-07-2018
+ * @since 12-07-2018
  * 
  */
 
@@ -35,22 +35,22 @@ public class Automacao_Analise_Codigo implements Serializable {
 
 	@Column(name = "Sigla", length = 100)
 	private String sigla;
-	
-	@Column(name = "DataCommit") 
+
+	@Column(name = "DataCommit")
 	private String dataCommit;
 
 	@Column(name = "Data")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataSonar;
 
-	@Column(name = "Versao",length = 500 )
+	@Column(name = "Versao", length = 500)
 	private String versao;
 
 	@Column(name = "DataCaptura")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCaptura;
 
-	@Column(name = "Nome_Projeto", length = 500 )
+	@Column(name = "Nome_Projeto", length = 500)
 	private String nomeProjeto;
 
 	@Column(name = "Linhas_Codigo")
@@ -80,23 +80,23 @@ public class Automacao_Analise_Codigo implements Serializable {
 	@Column(name = "Issues_Severity_Muito_Baixa")
 	private int issuesMuitoBaixa;
 
-	@Column(name = "Vulnerability_Severity_Muito_Alta",nullable = true)
+	@Column(name = "Vulnerability_Severity_Muito_Alta", nullable = true)
 	private int vulnerabilityMuitoAlta;
 
-	@Column(name = "Vulnerability_Severity_Alta",nullable = true)
+	@Column(name = "Vulnerability_Severity_Alta", nullable = true)
 	private int vulnerabilityAlta;
 
-	@Column(name = "Vulnerability_Severity_Media",nullable = true)
+	@Column(name = "Vulnerability_Severity_Media", nullable = true)
 	private int vulnerabilityMedia;
 
-	@Column(name = "Vulnerability_Severity_Baixa",nullable = true)
+	@Column(name = "Vulnerability_Severity_Baixa", nullable = true)
 	private int vulnerabilityBaixa;
 
-	@Column(name = "Vulnerability_Severity_Muito_Baixa",nullable = true)
+	@Column(name = "Vulnerability_Severity_Muito_Baixa", nullable = true)
 	private int vulnerabilityMuitoBaixa;
 
 	@Column(name = "Descricao")
-	
+
 	private String descricao;
 
 	@Column(name = "Debito_Tecnico")
@@ -113,7 +113,7 @@ public class Automacao_Analise_Codigo implements Serializable {
 
 	@Column(name = "Nota_Projeto")
 	private String notaProjeto;
-	
+
 	@Column(name = "Nota_Anterior")
 	private String notaAnterior;
 
@@ -123,13 +123,9 @@ public class Automacao_Analise_Codigo implements Serializable {
 	@Column(name = "Qualidade")
 	private String qualidade;
 
-	@Column(name = "ID_Status")
-	private int id_status;
-
 	@Column(name = "Tipo")
 	private String tipo;
 	// --------------------------------------------------
-	
 
 	public String getUrl() {
 		return url;
@@ -390,26 +386,9 @@ public class Automacao_Analise_Codigo implements Serializable {
 	public String getQualidade() {
 		return qualidade;
 	}
+
 	public void setQualidade(String qualidade) {
 		this.qualidade = qualidade;
 	}
-	
-	public void  getID_Status(int id_status) {
-	this.id_status = id_status; 
-	
-	}
-	
-	  public int getID_Status() {
-		  return id_status; 
-	}
-	  
-//public String getDataCommit() {
-	//return dataCommit;
-	//
 
-	//PUBLIC tDataCommit(String dataCommit) {
-		//is.dataCommit = dataCommit;
-	//
-
-	
 }
