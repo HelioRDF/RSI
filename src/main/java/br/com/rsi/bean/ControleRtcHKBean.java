@@ -251,6 +251,7 @@ public class ControleRtcHKBean implements Serializable {
 		String path = obj.getCaminho();
 		Date dataAtual = null;
 		Date dataAnt = null;
+		Date dataVerificacao = new Date();
 
 		path = path + "Log_" + sigla + ".txt";
 		File file = new File(path);
@@ -305,9 +306,11 @@ public class ControleRtcHKBean implements Serializable {
 					}
 
 					obj.setDataCommit(validadorData(dataTemp, ""));
+					obj.setDataVerificacao(dataVerificacao);
 					dataAtual = obj.getDataCommit();
 					if (!dataAtual.equals(dataAnt)) {
 						obj.setDataCommitAnt(dataAnt);
+
 					}
 
 				}
