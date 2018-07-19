@@ -198,6 +198,8 @@ public class ControleRtcDevBean implements Serializable {
 
 		String sigla = obj.getSigla();
 		String path = obj.getCaminho();
+		Date dataAtual = null;
+		Date dataAnt = null;
 
 		path = path + "Log_" + sigla + ".txt";
 		File file = new File(path);
@@ -250,6 +252,10 @@ public class ControleRtcDevBean implements Serializable {
 					}
 
 					obj.setDataCommit(validadorData(dataTemp, ""));
+					dataAtual = obj.getDataCommit();
+					if (!dataAtual.equals(dataAnt)) {
+						obj.setDataCommitAnt(dataAnt);
+					}
 				}
 
 			}

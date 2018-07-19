@@ -205,7 +205,7 @@ public class ControleGitDevBean implements Serializable {
 	 * Chama o Runnable do gitlog
 	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public void gerarLogGit() {
+	public static void gerarLogGit() {
 		try {
 			new Thread(gitLog).start();
 			Messages.addGlobalInfo("Git log em execução!");
@@ -388,6 +388,7 @@ public class ControleGitDevBean implements Serializable {
 				contasGit--;
 				alteraLoginGit("XI324337", "elphbbtu");
 			}
+			gerarLogGit();
 		}
 	};
 

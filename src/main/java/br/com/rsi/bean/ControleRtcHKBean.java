@@ -249,10 +249,12 @@ public class ControleRtcHKBean implements Serializable {
 
 		String sigla = obj.getSigla();
 		String path = obj.getCaminho();
+		Date dataAtual = null;
+		Date dataAnt = null;
 
 		path = path + "Log_" + sigla + ".txt";
 		File file = new File(path);
-		String siglaTemp, commitTemp, dataTemp = "01/01/1900" ;
+		String siglaTemp, commitTemp, dataTemp = "01/01/1900";
 
 		try {
 
@@ -288,6 +290,7 @@ public class ControleRtcHKBean implements Serializable {
 				}
 				if (linha == 3) {
 					dataTemp = info;
+
 					String array[] = new String[2];
 					array = dataTemp.split(":");
 					dataTemp = array[1].trim();
@@ -297,10 +300,16 @@ public class ControleRtcHKBean implements Serializable {
 						System.out.println("\n Data Nula \n");
 					} else {
 						System.out.println("\n Achou Data  \n");
-						obj.setDataCommitAnt(obj.getDataCommit());
+						dataAnt = obj.getDataCommit();
+
 					}
 
 					obj.setDataCommit(validadorData(dataTemp, ""));
+					dataAtual = obj.getDataCommit();
+					if (!dataAtual.equals(dataAnt)) {
+						obj.setDataCommitAnt(dataAnt);
+					}
+
 				}
 
 			}
@@ -314,7 +323,7 @@ public class ControleRtcHKBean implements Serializable {
 			// TODO: handle exception
 		}
 	}
-	
+
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public ControleRtcHK getControle() {
