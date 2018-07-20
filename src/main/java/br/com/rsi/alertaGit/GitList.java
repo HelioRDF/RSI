@@ -23,7 +23,7 @@ public class GitList {
 	 * @return - Retorna uma linha para tabela HTML
 	 * 
 	 */
-	public String alertaGit(String sigla, String sistema, Date dataCommit, Date dataAnt, boolean alteracao) {
+	public String alertaGit(String sigla, String sistema,String pacote, Date dataCommit, Date dataAnt, boolean alteracao) {
 		String resultado;
 		StringBuffer estiloH2 = new StringBuffer();
 		String dataTxt = "---";
@@ -56,15 +56,17 @@ public class GitList {
 
 		// Caso esteja Ok
 		if (alteracao) {
-			resultado = " <tr><td> &ensp;  &ensp; &ensp; <img src='http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-8/128/Accept-icon.png' width='20' height='20' align='BASELINE' /> </td>"
+			resultado = " <tr><td> &ensp;  &ensp; &ensp; <img src='https://cdn.pixabay.com/photo/2016/06/01/07/41/green-1428507_960_720.png' width='20' height='20' align='center' /> </td>"
 					+ "<td> &ensp; &ensp;" + sigla + " </td>" + "<td> &ensp; &ensp;" + sistema + " </td>"
+						+ "<td> &ensp; &ensp;" + pacote + " </td>" 
 					+ "<td> &ensp; &ensp;" + dataTxt + " </td>" + "<td> &ensp; &ensp;" + dataTxtAnt + " </td>"
 					+ "</tr>";
 
 			// Caso de erro
 		} else {
-			resultado = " <tr><td> &ensp;  &ensp; &ensp; <img src='https://cdn.icon-icons.com/icons2/1380/PNG/512/vcsconflicting_93497.png' width='20' height='20' align='BASELINE' /> </td>"
+			resultado = " <tr><td> &ensp;  &ensp; &ensp; <img src='https://cdn.icon-icons.com/icons2/1380/PNG/512/vcsconflicting_93497.png' width='20' height='20' align='center' /> </td>"
 					+ "<td> &ensp; &ensp;" + sigla + " </td>" + "<td> &ensp; &ensp;" + sistema + " </td>"
+						+ "<td> &ensp; &ensp;" + pacote + " </td>" 
 					+ "<td> &ensp; &ensp;" + dataTxt + " </td>" + "<td> &ensp; &ensp;" + dataTxtAnt + " </td>"
 					+ "</tr>";
 		}

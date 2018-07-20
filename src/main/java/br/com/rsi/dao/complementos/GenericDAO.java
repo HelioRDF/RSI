@@ -169,7 +169,6 @@ public class GenericDAO<Entidade> {
 		} finally {
 			sessao.close();
 		}
-
 	}
 
 	/**

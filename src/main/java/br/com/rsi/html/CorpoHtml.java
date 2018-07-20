@@ -29,9 +29,10 @@ public class CorpoHtml {
 				"		// width='213' height='59' align='BASELINE' />&ensp;  Monitor! <h3> ");
 		msgs.append("<div>");
 		msgs.append("<table border='1'>");
-		msgs.append("<tr style=\"background-color:#93a6ad;\"><td>&ensp; ALTERAÇÃO &ensp;  &ensp;</td>");
+		msgs.append("<tr style=\"background-color:#2f75b5; color:#fff;\"><td>&ensp; ALTERAÇÃO &ensp;  &ensp;</td>");
 		msgs.append("<td>&ensp; SIGLA &ensp;  &ensp;</td>");
 		msgs.append("<td>&ensp; &ensp; SISTEMA &ensp;  &ensp;</td>");
+		msgs.append("<td>&ensp; &ensp; Pacote &ensp;  &ensp;</td>");
 		msgs.append("<td>&ensp; COMMIT &ensp;  &ensp; &ensp;</td>");
 		msgs.append("<td>&ensp; COMMIT_ANT &ensp;  &ensp;</td></tr>");
 		msgs.append(resultado);

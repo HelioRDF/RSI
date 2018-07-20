@@ -67,7 +67,7 @@ public class ControleGitHKBean implements Serializable {
 		for (ControleGitHK obj : git) {
 
 			GitList list = new GitList();
-			resultado += list.alertaGit(obj.getSigla(), obj.getNomeSistema(), obj.getDataCommit(),
+			resultado += list.alertaGit(obj.getSigla(), obj.getNomeSistema(),obj.getPacote(), obj.getDataCommit(),
 					obj.getDataCommitAnt(), obj.isAlteracao());
 			System.out.println(resultado);
 		}
