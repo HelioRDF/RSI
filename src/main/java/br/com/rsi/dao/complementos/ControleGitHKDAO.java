@@ -103,7 +103,7 @@ public class ControleGitHKDAO extends GenericDAO<ControleGitHK> {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(ControleGitHK.class);
-			consulta.add(Restrictions.eq("alteracao", false));
+			consulta.add(Restrictions.eq("alteracao", true));
 			consulta.addOrder(Order.desc("alteracao"));
 			List<ControleGitHK> resultado = consulta.list();
 			return resultado;

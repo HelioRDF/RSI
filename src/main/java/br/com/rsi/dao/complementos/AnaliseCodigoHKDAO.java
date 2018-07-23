@@ -114,5 +114,27 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 			sessao.close();
 		}
 	}
+	
+	/**
+	 * 
+	 * @param codigo - Int
+	 * @return - Retorna um objeto filtrado por código
+	 */
+	@SuppressWarnings("unchecked")
+	public AnaliseCodigoHK buscarPorID(int codigo) {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
+			consulta.add(Restrictions.idEq(codigo)); // Realiza uma consulta baseada no ID.
+			AnaliseCodigoHK resultado = (AnaliseCodigoHK) consulta.uniqueResult(); // Utilizado para retornar um unico resultado
+			return resultado;
+
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
 
 }

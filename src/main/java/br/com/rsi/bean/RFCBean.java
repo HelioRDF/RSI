@@ -14,8 +14,10 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import br.com.rsi.alertaEmail.InspecaoList;
 import br.com.rsi.dao.complementos.RFCDAO;
 import br.com.rsi.domain.complementos.RFC;
+import br.com.rsi.email.EnviarEmail;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -40,6 +42,33 @@ public class RFCBean implements Serializable {
 	private int total;
 	static String CAMINHO = "";
 	String siglaAtual;
+	
+	
+	
+	
+	/**
+	 * Dispara o envio de E-mail
+	 */
+	// -------------------------------------------------------------------------------------
+	public void enviarEmail() {
+		Messages.addGlobalWarn("Teste");
+		System.out.println("----xxxxxxxxxxxxxxx");
+		EnviarEmail email = new EnviarEmail();
+		RFCDAO daoRFC  = new RFCDAO();
+		String resultado = "";
+		List<RFC> rfcs;
+		rfcs = daoRFC.listarRfcEscopo();
+
+		for (RFC obj : rfcs) {
+
+			InspecaoList list = new InspecaoList();
+			resultado += list.alertaInspecao(obj);
+			
+			System.out.println(resultado);
+		}
+		email.emailHtmlInspecao(resultado, "TESTE e E-Mail HK");
+
+	}
 
 /**
  * 	Salvar objeto do tipo RFC

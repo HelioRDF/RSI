@@ -2,7 +2,6 @@
 package br.com.rsi.bean;
 
 import java.io.BufferedReader;
-
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -19,9 +18,8 @@ import javax.faces.bean.SessionScoped;
 
 import org.omnifaces.util.Messages;
 
-import br.com.rsi.alertaGit.GitList;
+import br.com.rsi.alertaEmail.GitList;
 import br.com.rsi.dao.complementos.ControleGitHKDAO;
-
 import br.com.rsi.domain.complementos.ControleGitHK;
 import br.com.rsi.email.EnviarEmail;
 import jxl.Cell;
@@ -71,7 +69,7 @@ public class ControleGitHKBean implements Serializable {
 					obj.getDataCommitAnt(), obj.isAlteracao());
 			System.out.println(resultado);
 		}
-		email.emailHtml(resultado, "TESTE HK");
+		email.emailHtml(resultado, "TESTE e E-Mail HK");
 
 	}
 

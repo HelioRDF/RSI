@@ -166,10 +166,6 @@
 			</p:tab>
 
 
-
-
-
-
 			<!--  RFC________________________________________________________________________________________ -->
 			<p:tab title="RFCs" closable="true" disabled="false">
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
@@ -180,11 +176,11 @@
 					</h:commandLink>
 
 					<p:commandButton style="font-size:13px;margin-left:5px;float:right"
-						styleClass="add" value="Incluir" onclick="PF('dlg2').show();"
+					action="#{rFCBean.enviarEmail}" value="Enviar E-mail" 
 						icon="ui-icon-plusthick"></p:commandButton>
 
 					<p:commandButton style="font-size:13px; float:right"
-						rendered="true" styleClass="add" action="#{rFCBean.listarInfos}"
+						rendered="true" styleClass="add" action="#{rFCBean.listarInfos}" 
 						value="Atualizar" update=":formTb:fr:dataTableRFC:"
 						icon=" ui-icon-refresh"></p:commandButton>
 

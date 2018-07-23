@@ -1,4 +1,4 @@
-package br.com.rsi.alertaGit;
+package br.com.rsi.alertaEmail;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
