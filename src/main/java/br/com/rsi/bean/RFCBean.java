@@ -144,14 +144,14 @@ public class RFCBean implements Serializable {
 	public void salvarPlanilha() {
 		rFC = new RFC();
 		daoRFC = new RFCDAO();
-		String codRfc, codProj, sigla, observacao, status, codVazio, codInspecao;
+		String codRfc, codProj, sigla, observacao, status, codVazio, codInspecao, lider, emailLider;
 		String dataCadastro = "";
 		String dataInspecao = "";
 		Date dateC = new Date();
 		Date dateI = new Date();
 		String salvarSigla;
 		int setCodInspecaoInt = 0;
-		int setCodInspecaoAnteriorInt = 0;
+	
 
 		// Carrega a planilha
 		Workbook workbook = null;
@@ -178,6 +178,9 @@ public class RFCBean implements Serializable {
 			Cell celulaCodVazio = sheet.getCell(9, i); // coluna 7 - Cod_Vazio
 
 			Cell celula11 = sheet.getCell(10, i); // coluna 10 - Salvar no Banco
+			Cell celula12 = sheet.getCell(10, i); // coluna 11 - Lider QA
+			Cell celula13 = sheet.getCell(10, i); // coluna 12 - Email Lider
+			
 
 			codRfc = celulaRFC.getContents().toString().trim().toUpperCase(); // Coluna 1:COD_RFC
 			codProj = celulaCodProj.getContents().toString().trim().toUpperCase(); // Coluna 2:COD_PROJ
@@ -190,6 +193,9 @@ public class RFCBean implements Serializable {
 			codInspecao = celulaCodInsp.getContents().toString().trim().toUpperCase(); // Coluna 9:Cod_Inspeção
 																						// Anterior
 			salvarSigla = celula11.getContents().toString().trim().toUpperCase();// Coluna 11:Salvar no Banco
+			
+			 lider= celula12.getContents().toString().trim().toUpperCase();// Lider
+			emailLider = celula13.getContents().toString().trim().toUpperCase();// Email Lider
 
 			// Encerra a leitura quando encontra linha vazia
 			if (sigla.isEmpty()) {
@@ -201,7 +207,7 @@ public class RFCBean implements Serializable {
 			} catch (Exception e) {
 				System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Cod Inspeção - Erro XXXXXXXXXXXXXXX");
 				setCodInspecaoInt = 0;
-				setCodInspecaoAnteriorInt = 0;
+		
 			}
 
 			if (!salvarSigla.isEmpty()) {
@@ -217,7 +223,9 @@ public class RFCBean implements Serializable {
 				rFC.setStatus(status);
 				rFC.setCodVazio(codVazio);
 				rFC.setCodInspecao(setCodInspecaoInt);
-				rFC.setCodInspecaoAnterior(setCodInspecaoAnteriorInt);
+				rFC.setLider(lider);
+				rFC.setEmailLider(emailLider);
+		
 				siglaAtual = sigla;
 				salvar();
 			}

@@ -1,7 +1,6 @@
 package br.com.rsi.alertaEmail;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import br.com.rsi.dao.complementos.AnaliseCodigoHKDAO;
 import br.com.rsi.domain.complementos.AnaliseCodigoHK;
@@ -35,30 +34,19 @@ public class InspecaoList {
 		String dataTxt = inspecaoObj.getDataCaptura().toString();
 		String dataCommit = inspecaoObj.getDataCommit().toString();
 
-		try {
-			
-		
+		try {	
 			SimpleDateFormat formatar = new SimpleDateFormat("dd-MM-yyyy");
-		
 			dataTxt = formatar.format(inspecaoObj.getDataCaptura());
-			
-			
-			
 			String array[] = new String[3];
 			array = dataCommit.split("-");
-			
 			System.out.println("inicio XXXXXXXXXXXXXXXXX------------------------------\n");
 			System.out.println( dataCommit);
-			System.out.println("\n Fim XXXXXXXXXXXXXXXXXXX------------------------------");
-			
-			 dataCommit = array[2]+"-"+array[1]+"-"+array[0];
+			System.out.println("\n Fim XXXXXXXXXXXXXXXXXXX------------------------------");	
+			dataCommit = array[2]+"-"+array[1]+"-"+array[0];
 		
-
-
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
 
 		estiloH2.append("margin:5px;");
 		estiloH2.append("color:green;");
@@ -71,11 +59,27 @@ public class InspecaoList {
 		estiloH3.append("color:red;");
 		estiloH3.append("font:12px;");
 		estiloH3.append("padding-left:10px;");
+		String corResultado = "style='color:blue;'";
+		String imgCommit = "https://image.freepik.com/icones-gratis/ponto-de-interrogacao-em-um-esboco-do-circulo_318-53407.jpg";
+
+		if (inspecaoObj.getResultado().equalsIgnoreCase("Alerta")) {
+			corResultado = "style='color:orange;'";
+		} else {
+			corResultado = "style='color:#12d812;'";
+		}
+		
+		if(inspecaoObj.getTipo().equalsIgnoreCase("Legado")) {
+			imgCommit = "https://cdn.icon-icons.com/icons2/1380/PNG/512/vcsconflicting_93497.png";
+		}else {	
+			imgCommit = "https://cdn.pixabay.com/photo/2016/06/01/07/41/green-1428507_960_720.png";
+		}	
 		
 		
-
-		resultado = " <tr><td> &ensp;   <img src='https://cdn.pixabay.com/photo/2016/06/01/07/41/green-1428507_960_720.png' width='20' height='20'  align='center' /> </td>"
-
+		//	https://cdn.icon-icons.com/icons2/1380/PNG/512/vcsconflicting_93497.png
+		//	https://image.freepik.com/icones-gratis/ponto-de-interrogacao-em-um-esboco-do-circulo_318-53407.jpg
+		//	https://cdn.pixabay.com/photo/2016/06/01/07/41/green-1428507_960_720.png
+		
+		resultado = " <tr><td> &ensp;   <img src='"+imgCommit+"' width='20' height='20'  align='center' /> </td>"
 				+ "<td> &ensp; " + inspecaoObj.getPainelGestor() + " </td>"
 				+ "<td> &ensp; " + obj.getSigla() + " </td>"
 				+ "<td> &ensp; " + inspecaoObj.getLinhaCodigo() + " </td>"
@@ -84,12 +88,11 @@ public class InspecaoList {
 				+ "<td> &ensp; " + inspecaoObj.getNotaProjeto() + "% </td>"
 				+ "<td> &ensp; " + inspecaoObj.getNotaAnterior()+ "% </td>"
 				+ "<td> &ensp; " + dataTxt + " </td>"
-							+ "<td> &ensp; " + dataCommit+ " </td>"
-					+ "<td> &ensp; " + obj.getCodRfc() + "&ensp; </td>" 
+				+ "<td> &ensp; " + dataCommit+ " </td>"
+				+ "<td> &ensp; " + obj.getCodRfc() + "&ensp; </td>" 
 				+ "<td> &ensp; " + obj.getCodProj() + "&ensp; </td>" 	
-						+ "<td> &ensp; " + inspecaoObj.getResultado() + "&ensp; </td>" 
+				+ "<td "+corResultado+"> &ensp; " + inspecaoObj.getResultado() + "&ensp; </td>" 
 				+ "</tr>";
-
 		return resultado;
 	}
 

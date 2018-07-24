@@ -61,10 +61,13 @@ public class RFC extends GenericDomain {
 	private int codInspecao;
 
 	@Column(nullable = true)
-	private int codInspecaoAnterior;
+	private String  lider;
 
 	@Column(nullable = true)
 	private String inspecionar;
+	
+	@Column(nullable = true)
+	private String emailLider;
 
 	// --------------------------------------------------
 
@@ -74,6 +77,15 @@ public class RFC extends GenericDomain {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+	
+
+	public String getEmailLider() {
+		return emailLider;
+	}
+
+	public void setEmailLider(String emailLider) {
+		this.emailLider = emailLider;
 	}
 
 	public String getSigla() {
@@ -148,12 +160,15 @@ public class RFC extends GenericDomain {
 		this.inspecionar = inspecionar;
 	}
 
-	public int getCodInspecaoAnterior() {
-		return codInspecaoAnterior;
+	public String getLider() {
+		return lider;
 	}
 
-	public void setCodInspecaoAnterior(int codInspecaoAnterior) {
-		this.codInspecaoAnterior = codInspecaoAnterior;
+	public void setLider(String lider) {
+		this.lider = lider;
 	}
+
+
+	
 
 }
