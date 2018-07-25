@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
  * 
  * @author helio.franca
  * @version v1.7
- * @since  N/A
+ * @since N/A
  * 
  */
 
@@ -28,6 +28,9 @@ public class AnaliseCodigoHK implements Serializable {
 	@Id
 	private int id;
 
+	@Column(name = "ID_MODULO")
+	private int idModulo;
+
 	@Column(name = "URL", length = 500)
 	private String url;
 
@@ -36,7 +39,7 @@ public class AnaliseCodigoHK implements Serializable {
 
 	@Column(name = "Sigla")
 	private String sigla;
-	
+
 	@Column(name = "DataCommit")
 	private String dataCommit;
 
@@ -44,14 +47,14 @@ public class AnaliseCodigoHK implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataSonar;
 
-	@Column(name = "Versao",length = 500 )
+	@Column(name = "Versao", length = 500)
 	private String versao;
 
 	@Column(name = "DataCaptura")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCaptura;
 
-	@Column(name = "Nome_Projeto", length = 500 )
+	@Column(name = "Nome_Projeto", length = 500)
 	private String nomeProjeto;
 
 	@Column(name = "Linhas_Codigo")
@@ -81,19 +84,19 @@ public class AnaliseCodigoHK implements Serializable {
 	@Column(name = "Issues_Severity_Muito_Baixa")
 	private int issuesMuitoBaixa;
 
-	@Column(name = "Vulnerability_Severity_Muito_Alta",nullable = true)
+	@Column(name = "Vulnerability_Severity_Muito_Alta", nullable = true)
 	private int vulnerabilityMuitoAlta;
 
-	@Column(name = "Vulnerability_Severity_Alta",nullable = true)
+	@Column(name = "Vulnerability_Severity_Alta", nullable = true)
 	private int vulnerabilityAlta;
 
-	@Column(name = "Vulnerability_Severity_Media",nullable = true)
+	@Column(name = "Vulnerability_Severity_Media", nullable = true)
 	private int vulnerabilityMedia;
 
-	@Column(name = "Vulnerability_Severity_Baixa",nullable = true)
+	@Column(name = "Vulnerability_Severity_Baixa", nullable = true)
 	private int vulnerabilityBaixa;
 
-	@Column(name = "Vulnerability_Severity_Muito_Baixa",nullable = true)
+	@Column(name = "Vulnerability_Severity_Muito_Baixa", nullable = true)
 	private int vulnerabilityMuitoBaixa;
 
 	@Column(name = "Descricao")
@@ -114,7 +117,7 @@ public class AnaliseCodigoHK implements Serializable {
 
 	@Column(name = "Nota_Projeto")
 	private String notaProjeto;
-	
+
 	@Column(name = "Nota_Anterior")
 	private String notaAnterior;
 
@@ -123,13 +126,11 @@ public class AnaliseCodigoHK implements Serializable {
 
 	@Column(name = "Qualidade")
 	private String qualidade;
-	
+
 	@Column(name = "Tipo")
 	private String tipo;
 
 	// --------------------------------------------------
-	
-	
 
 	public String getUrl() {
 		return url;
@@ -395,5 +396,12 @@ public class AnaliseCodigoHK implements Serializable {
 		this.dataCommit = dataCommit;
 	}
 
-	
+	public int getIdModulo() {
+		return idModulo;
+	}
+
+	public void setIdModulo(int idModulo) {
+		this.idModulo = idModulo;
+	}
+
 }

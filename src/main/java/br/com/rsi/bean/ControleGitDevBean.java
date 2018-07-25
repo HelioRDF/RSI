@@ -17,10 +17,8 @@ import javax.faces.bean.SessionScoped;
 
 import org.omnifaces.util.Messages;
 
-import br.com.rsi.alertaEmail.GitList;
 import br.com.rsi.dao.complementos.ControleGitDevDAO;
 import br.com.rsi.domain.complementos.ControleGitDev;
-import br.com.rsi.email.EnviarEmail;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -29,8 +27,8 @@ import jxl.Workbook;
  * -Classe BEAN ControleGitDevBean.
  * 
  * @author helio.franca
- * @version v1.9
- * @since 13-07-2018
+ * @version v2.0.5
+ * @since 25-07-2018
  *
  */
 

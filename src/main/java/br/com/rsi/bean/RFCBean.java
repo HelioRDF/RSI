@@ -178,8 +178,8 @@ public class RFCBean implements Serializable {
 			Cell celulaCodVazio = sheet.getCell(9, i); // coluna 7 - Cod_Vazio
 
 			Cell celula11 = sheet.getCell(10, i); // coluna 10 - Salvar no Banco
-			Cell celula12 = sheet.getCell(10, i); // coluna 11 - Lider QA
-			Cell celula13 = sheet.getCell(10, i); // coluna 12 - Email Lider
+			Cell celula12 = sheet.getCell(11, i); // coluna 11 - Lider QA
+			Cell celula13 = sheet.getCell(12, i); // coluna 12 - Email Lider
 			
 
 			codRfc = celulaRFC.getContents().toString().trim().toUpperCase(); // Coluna 1:COD_RFC

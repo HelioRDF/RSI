@@ -28,8 +28,8 @@ import jxl.Workbook;
  * -Classe BEAN ControleRtcHKBean.
  * 
  * @author helio.franca
- * @version v1.8
- * @since 12-07-2018
+ * @version v2.0.5
+ * @since 25-07-2018
  *
  */
 
