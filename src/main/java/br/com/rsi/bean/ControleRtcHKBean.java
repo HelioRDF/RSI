@@ -18,10 +18,8 @@ import javax.faces.bean.SessionScoped;
 
 import org.omnifaces.util.Messages;
 
-import br.com.rsi.alertaGit.GitList;
 import br.com.rsi.dao.complementos.ControleRtcHKDAO;
 import br.com.rsi.domain.complementos.ControleRtcHK;
-import br.com.rsi.email.EnviarEmail;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -47,28 +45,7 @@ public class ControleRtcHKBean implements Serializable {
 	private int total;
 	static String CAMINHO = "";
 
-	/**
-	 * Dispara o envio de E-mail
-	 */
-	// -------------------------------------------------------------------------------------
-	public void enviarEmail() {
-		Messages.addGlobalWarn("Teste");
-		EnviarEmail email = new EnviarEmail();
-		ControleRtcHKDAO gitDao = new ControleRtcHKDAO();
-		String resultado = "";
-		List<ControleRtcHK> git;
-		git = gitDao.listarOrdenandoAlteracao();
 
-		for (ControleRtcHK obj : git) {
-
-			GitList list = new GitList();
-			resultado += list.alertaGit(obj.getSigla(), obj.getNomeSistema(), obj.getDataCommit(),
-					obj.getDataCommitAnt(), obj.isAlteracao());
-			System.out.println(resultado);
-		}
-		email.emailHtml(resultado, "TESTE HK");
-
-	}
 
 	/**
 	 * Salva objeto do tipo ControleRtcHK
@@ -249,6 +226,8 @@ public class ControleRtcHKBean implements Serializable {
 
 		String sigla = obj.getSigla();
 		String path = obj.getCaminho();
+		StringBuilder log = new StringBuilder();
+		
 		Date dataAtual = null;
 		Date dataAnt = null;
 		Date dataVerificacao = new Date();
@@ -266,6 +245,9 @@ public class ControleRtcHKBean implements Serializable {
 			int linha = 0;
 			while ((info = reader.readLine()) != null) {
 				linha++;
+				log.append("\n");
+				log.append(info);
+				
 
 				if (linha == 1) {
 					siglaTemp = info;
@@ -318,6 +300,7 @@ public class ControleRtcHKBean implements Serializable {
 			}
 
 			info = reader.readLine();
+			obj.setDescricaoLog(log.toString());
 			fileReader.close();
 			reader.close();
 

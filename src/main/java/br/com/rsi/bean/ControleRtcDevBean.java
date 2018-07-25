@@ -198,6 +198,8 @@ public class ControleRtcDevBean implements Serializable {
 
 		String sigla = obj.getSigla();
 		String path = obj.getCaminho();
+		StringBuilder log = new StringBuilder();
+		
 		Date dataAtual = null;
 		Date dataAnt = null;
 		Date dataVerificacao = new Date();
@@ -205,7 +207,7 @@ public class ControleRtcDevBean implements Serializable {
 		path = path + "Log_" + sigla + ".txt";
 		File file = new File(path);
 		String siglaTemp, commitTemp, dataTemp = "01/01/1900" ;
-
+	
 		try {
 
 			FileReader fileReader = new FileReader(file);
@@ -215,7 +217,9 @@ public class ControleRtcDevBean implements Serializable {
 			int linha = 0;
 			while ((info = reader.readLine()) != null) {
 				linha++;
-
+				log.append("\n");
+				log.append(info);
+				
 				if (linha == 1) {
 					siglaTemp = info;
 					String array[] = new String[2];
@@ -263,6 +267,7 @@ public class ControleRtcDevBean implements Serializable {
 			}
 
 			info = reader.readLine();
+			obj.setDescricaoLog(log.toString());
 			fileReader.close();
 			reader.close();
 

@@ -176,11 +176,11 @@
 					</h:commandLink>
 
 					<p:commandButton style="font-size:13px;margin-left:5px;float:right"
-					action="#{rFCBean.enviarEmail}" value="Enviar E-mail" 
+						action="#{rFCBean.enviarEmail}" value="Enviar E-mail"
 						icon="ui-icon-plusthick"></p:commandButton>
 
 					<p:commandButton style="font-size:13px; float:right"
-						rendered="true" styleClass="add" action="#{rFCBean.listarInfos}" 
+						rendered="true" styleClass="add" action="#{rFCBean.listarInfos}"
 						value="Atualizar" update=":formTb:fr:dataTableRFC:"
 						icon=" ui-icon-refresh"></p:commandButton>
 
@@ -234,6 +234,11 @@
 						sortBy="#{dataVar.inspecionar}" filterBy="#{dataVar.inspecionar}">
 						<p:outputLabel value="#{dataVar.inspecionar}" />
 					</p:column>
+
+					<p:column headerText="Líder" width="12%"
+						sortBy="#{dataVar.lider}" filterBy="#{dataVar.lider}">
+						<p:outputLabel value="#{dataVar.lider}" />
+					</p:column>
 					<p:column headerText="Config" width="12%" exportable="false">
 						<p:commandButton icon="ui-icon-pencil" title="Editar"
 							onclick="PF('dlg2').show();"></p:commandButton>
@@ -246,8 +251,6 @@
 						<p:panelGrid columns="1" columnClasses="label,value"
 							style="text-align:left;">
 							<p:outputLabel value="Cod.Inspeção: #{dataVar.codInspecao}" />
-							<p:outputLabel
-								value="Cod.Inspeção Anterior: #{dataVar.codInspecaoAnterior}" />
 							<p:column headerText="Data">
 								<p:outputLabel value="Cadastro: "></p:outputLabel>
 								<h:outputText value="#{dataVar.dataCadastro}" id="cadastro"
@@ -258,6 +261,7 @@
 							</p:column>
 							<p:outputLabel value="Cod.Vazio: #{dataVar.codVazio}" />
 							<p:outputLabel value="Status: #{dataVar.status}" />
+							<p:outputLabel value="Email Líder: #{dataVar.emailLider}" />
 							<p:column>
 								<h:outputLabel value="Descrição: "
 									style="float:left;margin:20px 10px 0px 0px;" />
@@ -514,7 +518,7 @@
 
 
 								<h:inputTextarea cols="100" rows="25" readonly="true"
-									title="Git Log:" value="Git Log... #{dataVar.descricaoLog}" />
+									title="Git Log:" value="RTC Log... #{dataVar.descricaoLog}" />
 								<br></br>
 							</p:column>
 

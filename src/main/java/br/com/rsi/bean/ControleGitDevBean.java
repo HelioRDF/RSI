@@ -17,7 +17,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.omnifaces.util.Messages;
 
-import br.com.rsi.alertaGit.GitList;
+import br.com.rsi.alertaEmail.GitList;
 import br.com.rsi.dao.complementos.ControleGitDevDAO;
 import br.com.rsi.domain.complementos.ControleGitDev;
 import br.com.rsi.email.EnviarEmail;
@@ -48,29 +48,6 @@ public class ControleGitDevBean implements Serializable {
 	String path;
 	private int total;
 	static String CAMINHO = "";
-
-	/**
-	 * Dispara o envio de E-mail
-	 */
-	// -------------------------------------------------------------------------------------
-	public void enviarEmail() {
-		Messages.addGlobalWarn("Teste");
-		EnviarEmail email = new EnviarEmail();
-		ControleGitDevDAO gitDao = new ControleGitDevDAO();
-		String resultado = "";
-		List<ControleGitDev> git;
-		git = gitDao.listarOrdenandoAlteracao();
-
-		for (ControleGitDev obj : git) {
-
-			GitList list = new GitList();
-			resultado += list.alertaGit(obj.getSigla(), obj.getNomeSistema(), obj.getDataCommit(),
-					obj.getDataCommitAnt(), obj.isAlteracao());
-			System.out.println(resultado);
-		}
-		email.emailHtml(resultado, "TESTE DEV");
-
-	}
 
 	/**
 	 * // Salvar um objeto do tipo ControleGitDev
