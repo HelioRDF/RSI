@@ -6,7 +6,7 @@ package br.com.rsi.html;
  * @since 26/06/2018
  * @version 1.2
  */
-public class CorpoHtml {
+public class CorpoHtmlGIT {
 
 	/**
 	 * Cria o corpo HTML p/ Email
@@ -26,13 +26,13 @@ public class CorpoHtml {
 		msgs.append("<body style=\"background:#fff;font-family:Courier, monospace; \">");
 		msgs.append("<h4> <img\r\n" + 
 				"		// src='http://intranet.rsinet.com.br/sites/default/files/rsi_logo_0.png'\r\n" + 
-				"		// width='213' height='59' align='BASELINE' />&ensp;  Monitor automático! </h4> ");
+				"		// width='213' height='59' align='BASELINE' />&ensp;  Monitor automático GIT. </h4> ");
 		msgs.append("<div>");
 		
 		msgs.append(" <br></br> <span> Prezado Gestor(a) ");
 		msgs.append(lider);
 		msgs.append(",</span> <br></br>");
-		msgs.append("<span>Segue abaixo o resultado da inspeção de código referente a RFC  com status em “Testing”, retornado do Remedy.   </span>  ");
+		msgs.append("<span>Segue abaixo relação de siglas com atualizações no repositório GIT. </span>  ");
 
 		msgs.append("<br></br>");
 		msgs.append("<table border='1'>");

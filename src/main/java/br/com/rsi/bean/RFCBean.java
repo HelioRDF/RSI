@@ -65,8 +65,9 @@ public class RFCBean implements Serializable {
 			resultado += list.alertaInspecao(obj);
 			
 			System.out.println(resultado);
+			
 		}
-		email.emailHtmlInspecao(resultado, "TESTE e E-Mail HK");
+		email.emailHtmlInspecao(resultado, "Monitor de inspeção/RFC");
 
 	}
 

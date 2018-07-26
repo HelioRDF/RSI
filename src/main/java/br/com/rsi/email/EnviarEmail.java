@@ -3,7 +3,7 @@ package br.com.rsi.email;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.HtmlEmail;
 
-import br.com.rsi.html.CorpoHtml;
+import br.com.rsi.html.CorpoHtmlGIT;
 import br.com.rsi.html.CorpoHtmlInspecao;
 
 //http://www.devmedia.com.br/utilizando-a-api-commons-email-para-enviar-e-mails/3306
@@ -40,7 +40,7 @@ public class EnviarEmail {
 	 * @param resultado - String
 	 * @param titulo - String
 	 */
-	public void emailHtml(String resultado, String titulo) {
+	public void emailHtmlGIT(String resultado, String titulo) {
 
 		try {
 
@@ -64,7 +64,7 @@ public class EnviarEmail {
 			email.setSubject(titulo);
 			email.setStartTLSEnabled(true);
 
-			String textoHtml = CorpoHtml.bodyHTML(resultado,"Líder de QA");
+			String textoHtml = CorpoHtmlGIT.bodyHTML(resultado,"Líder de QA");
 
 			// set the html message
 			email.setHtmlMsg(textoHtml);
@@ -153,7 +153,7 @@ public class EnviarEmail {
 			email.setSubject(titulo);
 			email.setStartTLSEnabled(true);
 
-			String textoHtml = CorpoHtml.bodyHTML(resultado,"Líder de QA");
+			String textoHtml = CorpoHtmlGIT.bodyHTML(resultado,"Líder de QA");
 
 			// set the html message
 			email.setHtmlMsg(textoHtml);

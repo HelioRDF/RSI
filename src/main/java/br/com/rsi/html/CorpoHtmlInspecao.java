@@ -26,7 +26,7 @@ public class CorpoHtmlInspecao {
 		msgs.append("<body style=\"background:#fff;font-family:Courier, monospace; font-size:12px; \">");
 		msgs.append("<h4> <img\r\n" + 
 				"		// src='http://intranet.rsinet.com.br/sites/default/files/rsi_logo_0.png'\r\n" + 
-				"		// width='213' height='59' align='BASELINE' />&ensp;  Monitor automático! </h4> ");
+				"		// width='213' height='59' align='BASELINE' />&ensp;  Monitor automático INSPEÇÃO/RFC. </h4> ");
 		msgs.append("<div>");
 		
 		msgs.append(" <br></br> <span> Prezado Gestor(a) ");
@@ -36,7 +36,7 @@ public class CorpoHtmlInspecao {
 
 		msgs.append("<br></br>");
 		msgs.append("<table border='1'>");
-		msgs.append("<tr style=\"background-color:#2f75b5; color:#fff;\"><td> Commit  </td>");
+		msgs.append("<tr style=\"background-color:#771111; color:#fff;\"><td> Commit  </td>");
 	
 		msgs.append("<td>&ensp; Gestor de Entrega  &ensp;</td>");
 		msgs.append("<td>&ensp; Sigla  &ensp;</td>");

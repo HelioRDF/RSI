@@ -75,10 +75,7 @@ public class InspecaoList {
 		}	
 		
 		
-		//	https://cdn.icon-icons.com/icons2/1380/PNG/512/vcsconflicting_93497.png
-		//	https://image.freepik.com/icones-gratis/ponto-de-interrogacao-em-um-esboco-do-circulo_318-53407.jpg
-		//	https://cdn.pixabay.com/photo/2016/06/01/07/41/green-1428507_960_720.png
-		
+	
 		resultado = " <tr><td> &ensp;   <img src='"+imgCommit+"' width='20' height='20'  align='center' /> </td>"
 				+ "<td> &ensp; " + inspecaoObj.getPainelGestor() + " </td>"
 				+ "<td> &ensp; " + obj.getSigla() + " </td>"

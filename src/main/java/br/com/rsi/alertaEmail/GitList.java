@@ -34,7 +34,7 @@ public class GitList {
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 			dataTxt = format.format(dataTemp);
 
-			java.util.Date dataTempAnt = dataCommit;
+			java.util.Date dataTempAnt = dataAnt;
 			SimpleDateFormat formatAnt = new SimpleDateFormat("dd/MM/yyyy");
 			dataTxtAnt = formatAnt.format(dataTempAnt);
 
@@ -58,16 +58,18 @@ public class GitList {
 		if (alteracao) {
 			resultado = " <tr><td> &ensp;  &ensp; &ensp; <img src='https://cdn.pixabay.com/photo/2016/06/01/07/41/green-1428507_960_720.png' width='20' height='20' align='center' /> </td>"
 					+ "<td> &ensp; &ensp;" + sigla + " </td>" + "<td> &ensp; &ensp;" + sistema + " </td>"
-						+ "<td> &ensp; &ensp;" + pacote + " </td>" 
-					+ "<td> &ensp; &ensp;" + dataTxt + " </td>" + "<td> &ensp; &ensp;" + dataTxtAnt + " </td>"
+					+ "<td> &ensp; &ensp;" + pacote + " </td>" 
+					+ "<td> &ensp; &ensp;" + dataTxt + " </td>" 
+					+ "<td> &ensp; &ensp;" + dataTxtAnt + " </td>"
 					+ "</tr>";
 
 			// Caso de erro
 		} else {
 			resultado = " <tr><td> &ensp;  &ensp; &ensp; <img src='https://cdn.icon-icons.com/icons2/1380/PNG/512/vcsconflicting_93497.png' width='20' height='20' align='center' /> </td>"
 					+ "<td> &ensp; &ensp;" + sigla + " </td>" + "<td> &ensp; &ensp;" + sistema + " </td>"
-						+ "<td> &ensp; &ensp;" + pacote + " </td>" 
-					+ "<td> &ensp; &ensp;" + dataTxt + " </td>" + "<td> &ensp; &ensp;" + dataTxtAnt + " </td>"
+					+ "<td> &ensp; &ensp;" + pacote + " </td>" 
+					+ "<td> &ensp; &ensp;" + dataTxt + " </td>"
+					+ "<td> &ensp; &ensp;" + dataTxtAnt + " </td>"
 					+ "</tr>";
 		}
 

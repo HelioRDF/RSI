@@ -69,7 +69,7 @@ public class ControleGitHKBean implements Serializable {
 					obj.getDataCommitAnt(), obj.isAlteracao());
 			System.out.println(resultado);
 		}
-		email.emailHtml(resultado, "TESTE e E-Mail HK");
+		email.emailHtmlGIT(resultado, "Monitor GIT");
 
 	}
 
