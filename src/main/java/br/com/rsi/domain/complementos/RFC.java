@@ -68,6 +68,9 @@ public class RFC extends GenericDomain {
 	
 	@Column(nullable = true)
 	private String emailLider;
+	
+	@Column(nullable = true)
+	private boolean enviarEmail;
 
 	// --------------------------------------------------
 
@@ -79,6 +82,14 @@ public class RFC extends GenericDomain {
 		this.dataCadastro = dataCadastro;
 	}
 	
+
+	public boolean isEnviarEmail() {
+		return enviarEmail;
+	}
+
+	public void setEnviarEmail(boolean enviarEmail) {
+		this.enviarEmail = enviarEmail;
+	}
 
 	public String getEmailLider() {
 		return emailLider;

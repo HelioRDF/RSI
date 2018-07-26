@@ -7,10 +7,17 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<h:form id="formTb">
 		<p:growl id="msgGrowl" life="3000" />
+
+		<p:dialog widgetVar="statusDialog">
+			<p:graphicImage value="/images/loading6.gif" />
+		</p:dialog>
+
+
 		<!-- _________________________________________________________________________________________________________________________________ -->
 		<!-- Tabelas com informações RFC/Inspeção  -->
 
 		<p:tabView id="fr" style="font-size:14px;">
+
 
 			<!-- Analise HK ______________________________________________________________  -->
 			<p:tab title="Análise (hk)" closable="true" disabled="false">
@@ -41,6 +48,7 @@
 							fileName="Analise-HK" />
 					</h:commandLink>
 
+
 				</p:fieldset>
 				<p:dataTable id="dataTableAnalise" rendered="true"
 					rowsPerPageTemplate="12,20,30,50,100" rowIndexVar="rowIndex"
@@ -51,11 +59,18 @@
 
 					<f:facet name="header">
 
+
+
 						<p:outputLabel value="TOTAL: #{analiseCodigoHKBean.total}" />
 						<p:commandButton id="toggler" type="button" value="Colunas"
 							style="float:right" icon="ui-icon-calculator" />
 						<p:columnToggler datasource="dataTableAnalise" trigger="toggler">
 						</p:columnToggler>
+
+						<!-- Animação de loading -->
+						<p:ajaxStatus onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()" />
+
 					</f:facet>
 
 
@@ -235,8 +250,8 @@
 						<p:outputLabel value="#{dataVar.inspecionar}" />
 					</p:column>
 
-					<p:column headerText="Líder" width="12%"
-						sortBy="#{dataVar.lider}" filterBy="#{dataVar.lider}">
+					<p:column headerText="Líder" width="12%" sortBy="#{dataVar.lider}"
+						filterBy="#{dataVar.lider}">
 						<p:outputLabel value="#{dataVar.lider}" />
 					</p:column>
 					<p:column headerText="Config" width="12%" exportable="false">

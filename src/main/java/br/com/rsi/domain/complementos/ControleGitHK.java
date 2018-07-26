@@ -59,11 +59,24 @@ public class ControleGitHK extends GenericDomain {
 	
 	@Column(nullable = true)
 	private boolean alteracao;
+	
+	@Column(nullable = true)
+	private boolean enviarEmail;
 
 	// --------------------------------------------------
 
+	
+	
 	public boolean isAlteracao() {
 		return alteracao;
+	}
+
+	public boolean isEnviarEmail() {
+		return enviarEmail;
+	}
+
+	public void setEnviarEmail(boolean enviarEmail) {
+		this.enviarEmail = enviarEmail;
 	}
 
 	public void setAlteracao(boolean alteracao) {

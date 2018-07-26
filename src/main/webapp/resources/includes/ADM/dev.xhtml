@@ -7,6 +7,10 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<h:form id="formTb">
 		<p:growl id="msgGrowl" life="3000" />
+		<p:dialog widgetVar="statusDialog">
+			<p:graphicImage value="/images/loading6.gif" />
+		</p:dialog>
+
 		<!-- _________________________________________________________________________________________________________________________________ -->
 		<!-- Tabelas com informações RFC/Inspeção  -->
 
@@ -45,6 +49,8 @@
 					paginatorPosition="top">
 
 					<f:facet name="header">
+											<p:ajaxStatus onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()" />
 
 						<p:outputLabel value="TOTAL: #{analise_CodigoDevBean.total}" />
 						<p:commandButton id="toggler" type="button" value="Colunas"
@@ -123,7 +129,7 @@
 						filterBy="#{dataVar.tipo}">
 						<p:outputLabel value="#{dataVar.tipo}" />
 					</p:column>
-					
+
 					<p:column headerText="Ver" width="4%" exportable="false">
 						<!-- Expandir infos -->
 						<p:rowToggler />

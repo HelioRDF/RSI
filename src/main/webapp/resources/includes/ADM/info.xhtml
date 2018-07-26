@@ -7,6 +7,13 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<h:form id="formTb">
 		<p:growl id="msgGrowl" life="3000" />
+
+		<p:dialog widgetVar="statusDialog">
+			<p:graphicImage value="/images/loading6.gif" />
+		</p:dialog>
+
+
+
 		<!-- _________________________________________________________________________________________________________________________________ -->
 		<!-- Tabelas com informações RFC/Inspeção  -->
 
@@ -28,6 +35,7 @@
 						styleClass="add" action="#{controleSiglasBean.listarInfos}"
 						value="Atualizar" icon=" ui-icon-refresh" />
 				</p:fieldset>
+
 				<p:dataTable id="dataTableControle" rendered="true"
 					rowsPerPageTemplate="12,20,30,50,100" rowIndexVar="rowIndex"
 					emptyMessage="Nenhum Registro encontrado" rows="7" paginator="true"
@@ -35,11 +43,18 @@
 					draggableColumns="true" style=" text-align:center;font-size: 12px;"
 					paginatorPosition="top">
 					<f:facet name="header">
+
 						<p:outputLabel value="TOTAL: #{controleSiglasBean.total}" />
 						<p:commandButton id="toggler" type="button" value="Colunas"
 							style="float:right" icon="ui-icon-calculator" />
 						<p:columnToggler datasource="dataTableControle" trigger="toggler">
 						</p:columnToggler>
+
+
+
+						<!-- Animação de loading -->
+						<p:ajaxStatus onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()" />
 					</f:facet>
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações das Colunas -->

@@ -103,7 +103,8 @@ public class AnaliseCodigoHKBean implements Serializable {
 	}
 
 	/**
-	 * Captura a última data de Commit e tipo  em controle git/rtc e carimba na analíse.
+	 * Captura a última data de Commit e tipo em controle git/rtc e carimba na
+	 * analíse.
 	 */
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -238,6 +239,14 @@ public class AnaliseCodigoHKBean implements Serializable {
 				System.out.println("------ " + resultado);
 			}
 		}
+
+	}
+
+	/**
+	 * Busca o Id do modula da sigla
+	 */
+	public void idModulo() {
+		// Em avaliação.
 
 	}
 

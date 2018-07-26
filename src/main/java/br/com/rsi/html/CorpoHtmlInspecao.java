@@ -32,7 +32,7 @@ public class CorpoHtmlInspecao {
 		msgs.append(" <br></br> <span> Prezado Gestor(a) ");
 		msgs.append(lider);
 		msgs.append(",</span> <br></br>");
-		msgs.append("<span>Segue abaixo o resultado da inspeção de código referente a RFC  com status em “Testing”, retornado do Remedy.   </span>  ");
+		msgs.append("<span>Segue abaixo o resultado da inspeção de código referente as RFCs  com status em “Testing”.   </span>  ");
 
 		msgs.append("<br></br>");
 		msgs.append("<table border='1'>");
