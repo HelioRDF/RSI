@@ -14,8 +14,8 @@ import javax.persistence.TemporalType;
  * -Classe POJO AnaliseCodigoHK, e entity do DB via Hibernate.
  * 
  * @author helio.franca
- * @version v1.7
- * @since N/A
+ * @version v2.0.7
+ * @since 30-07-2018
  * 
  */
 
@@ -27,9 +27,6 @@ public class AnaliseCodigoHK implements Serializable {
 	@Column(nullable = false, name = "ID")
 	@Id
 	private int id;
-
-	@Column(name = "ID_MODULO")
-	private int idModulo;
 
 	@Column(name = "URL", length = 500)
 	private String url;

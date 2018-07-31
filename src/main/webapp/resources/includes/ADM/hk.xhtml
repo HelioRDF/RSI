@@ -255,10 +255,13 @@
 						<p:outputLabel value="#{dataVar.lider}" />
 					</p:column>
 					<p:column headerText="Config" width="12%" exportable="false">
-						<p:commandButton icon="ui-icon-pencil" title="Editar"
-							onclick="PF('dlg2').show();"></p:commandButton>
-						<p:commandButton icon="ui-icon-trash" title="Excluir"
-							onclick="PF('dlg2').show();"></p:commandButton>
+						<!-- 						<p:commandButton icon="ui-icon-pencil" title="Editar" -->
+						<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+						<!-- 						<p:commandButton icon="ui-icon-trash" title="Excluir" -->
+						<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
+						<p:inputSwitch value="#{rFCBean.enviarEmailTemp}">
+							<p:ajax onstart="#{rFCBean}"></p:ajax>
+						</p:inputSwitch>
 					</p:column>
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações após expandir linha -->

@@ -120,7 +120,7 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 	 * @param codigo - Int
 	 * @return - Retorna um objeto filtrado por código
 	 */
-	@SuppressWarnings("unchecked")
+
 	public AnaliseCodigoHK buscarPorID(int codigo) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {

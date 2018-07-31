@@ -155,7 +155,7 @@ public class AnaliseCodigoHKBean implements Serializable {
 	}
 
 	/**
-	 * Captura Resultados nulos e seta as regras de Alerta/LIBERADO
+	 * Captura Resultados nulos e seta as regras de Alerta/LIBERADO + nota anterior
 	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void resultadoVazio() {
@@ -170,34 +170,42 @@ public class AnaliseCodigoHKBean implements Serializable {
 				Messages.addGlobalInfo("Análises concluídas");
 			} else {
 				for (AnaliseCodigoHK analiseCodigoHK : listaResultado) {
-					AnaliseCodigoHKDAO daoTemp = new AnaliseCodigoHKDAO();
-					sigla = analiseCodigoHK.getSigla();
-					int qtdSiglas = daoTemp.qtdList(analiseCodigoHK.getId(), analiseCodigoHK.getSigla(),
-							analiseCodigoHK.getNomeProjeto());
-
-					if (qtdSiglas > 0) {
-						objAnterior = daoTemp.buscarAnterior(analiseCodigoHK.getId(), analiseCodigoHK.getSigla(),
+					
+					try {
+						
+						AnaliseCodigoHKDAO daoTemp = new AnaliseCodigoHKDAO();
+						sigla = analiseCodigoHK.getSigla();
+						int qtdSiglas = daoTemp.qtdList(analiseCodigoHK.getId(), analiseCodigoHK.getSigla(),
 								analiseCodigoHK.getNomeProjeto());
 
-						int notaAtual = Integer.parseInt(analiseCodigoHK.getNotaProjeto());
-						int notaAnterior = Integer.parseInt(objAnterior.getNotaProjeto());
-						analiseCodigoHK.setNotaAnterior(Integer.toString(notaAnterior));
+						if (qtdSiglas > 0) {
+							objAnterior = daoTemp.buscarAnterior(analiseCodigoHK.getId(), analiseCodigoHK.getSigla(),
+									analiseCodigoHK.getNomeProjeto());
 
-						if (notaAtual >= notaAnterior || notaAtual == 100) {
-							analiseCodigoHK.setResultado("LIBERADO");
+							int notaAtual = Integer.parseInt(analiseCodigoHK.getNotaProjeto());
+							int notaAnterior = Integer.parseInt(objAnterior.getNotaProjeto());
+							analiseCodigoHK.setNotaAnterior(Integer.toString(notaAnterior));
+
+							if (notaAtual >= notaAnterior || notaAtual == 100) {
+								analiseCodigoHK.setResultado("LIBERADO");
+
+							} else {
+								analiseCodigoHK.setResultado("ALERTA");
+							}
 
 						} else {
-							analiseCodigoHK.setResultado("ALERTA");
+							System.out.println("\n--- Else 1  --- " + analiseCodigoHK.getId());
+							analiseCodigoHK.setResultado("LIBERADO");
 						}
 
-					} else {
-						System.out.println("\n--- Else 1  --- " + analiseCodigoHK.getId());
-						analiseCodigoHK.setResultado("LIBERADO");
+						dao.editar(analiseCodigoHK); // Salva alteração
+						resultado = analiseCodigoHK.getResultado();
+						Messages.addGlobalInfo(" Sigla: " + sigla + "-" + resultado);
+						
+					} catch (Exception e) {
+						// TODO: handle exception
 					}
-
-					dao.editar(analiseCodigoHK); // Salva alteração
-					resultado = analiseCodigoHK.getResultado();
-					Messages.addGlobalInfo(" Sigla: " + sigla + "-" + resultado);
+				
 
 				} // Fim do For
 			}

@@ -23,7 +23,7 @@ public class Automacao_Analise_Codigo implements Serializable {
 
 	private static final long serialVersionUID = 3440210707050332945L;
 
-	@Column(nullable = false, name = "ID")
+	@Column(nullable = false, name = "ID", insertable=false)
 	@Id
 	private int id;
 
@@ -125,10 +125,22 @@ public class Automacao_Analise_Codigo implements Serializable {
 
 	@Column(name = "Tipo")
 	private String tipo;
+	
+	@Column(name = "Coeficiente")
+	private String coeficiente;
+	
 	// --------------------------------------------------
 
 	public String getUrl() {
 		return url;
+	}
+
+	public String getCoeficiente() {
+		return coeficiente;
+	}
+
+	public void setCoeficiente(String coeficiente) {
+		this.coeficiente = coeficiente;
 	}
 
 	public String getDataCommit() {
@@ -157,10 +169,6 @@ public class Automacao_Analise_Codigo implements Serializable {
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setUrl(String url) {

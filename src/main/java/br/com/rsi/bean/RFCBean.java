@@ -42,10 +42,19 @@ public class RFCBean implements Serializable {
 	private int total;
 	static String CAMINHO = "";
 	String siglaAtual;
+	boolean enviarEmailTemp;
 	
 	
 	
 	
+	public boolean isEnviarEmailTemp() {
+		return enviarEmailTemp;
+	}
+
+	public void setEnviarEmailTemp(boolean enviarEmailTemp) {
+		this.enviarEmailTemp = enviarEmailTemp;
+	}
+
 	/**
 	 * Dispara o envio de E-mail
 	 */
@@ -114,10 +123,10 @@ public class RFCBean implements Serializable {
  * Edita objeto selecionado
  */
 	// -------------------------------------------------------------------------------------------
-	public void editar() {
+	public  void editar() {
 		try {
-			daoRFC = new RFCDAO();
-			daoRFC.merge(rFC);
+		//	daoRFC = new RFCDAO();
+		//	daoRFC.merge(rFC);
 			Messages.addGlobalInfo(" Editado com sucesso!!!");
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Editar ");

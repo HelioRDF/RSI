@@ -124,6 +124,74 @@ public class Analise_CodigoDevBean implements Serializable {
 		} finally {
 		}
 	}
+	
+	/**
+	 * Captura as notas anteriores e seta na inspeção
+	 */
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+	public void notaAnt() {
+		try {
+
+			dao = new AnaliseCodigoDevDAO();
+			listaResultado = dao.listaResultadoVazio();
+			Automacao_Analise_Codigo objAnterior = new Automacao_Analise_Codigo();
+			
+				for (Automacao_Analise_Codigo obj : listaResultado) {
+					
+					try {
+						AnaliseCodigoDevDAO daoTemp = new AnaliseCodigoDevDAO();
+						objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(),obj.getNomeProjeto());
+						obj.setNotaAnterior(objAnterior.getNotaProjeto());	
+						daoTemp.editar(obj);
+						System.out.println("\n------\nSigla:" + obj.getSigla());
+						System.out.println("Nota:" + obj.getNotaProjeto());
+						System.out.println("Nota Ant:" + obj.getNotaAnterior());
+						
+					} catch (Exception e) {
+						System.out.println("------ ERRO:" + e.getMessage() + e.getCause());
+					}
+
+					
+				} // Fim do For
+			
+		} catch (Exception e) {
+			System.out.println("----- ERRO:" + e.getMessage() + e.getCause());
+		}
+	}
+
+	
+	/**
+	 * Calcula a nota mensal do gestor
+	 */
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+	public void notaMensalGestor() {
+		try {
+
+			dao = new AnaliseCodigoDevDAO();
+			listaResultado = dao.listaResultadoVazio();
+			Automacao_Analise_Codigo objAnterior = new Automacao_Analise_Codigo();
+			
+				for (Automacao_Analise_Codigo obj : listaResultado) {
+					
+					try {
+						AnaliseCodigoDevDAO daoTemp = new AnaliseCodigoDevDAO();
+						objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(),obj.getNomeProjeto());
+						obj.setNotaAnterior(objAnterior.getNotaProjeto());	
+						daoTemp.editar(obj);
+						System.out.println("\n------\nSigla:" + obj.getSigla());
+						System.out.println("Nota:" + obj.getNotaProjeto());
+						System.out.println("Nota Ant:" + obj.getNotaAnterior());
+						
+					} catch (Exception e) {
+						System.out.println("------ ERRO:" + e.getMessage() + e.getCause());
+					}
+					
+				} // Fim do For
+			
+		} catch (Exception e) {
+			System.out.println("----- ERRO:" + e.getMessage() + e.getCause());
+		}
+	}
 
 
 	// Get e Set
