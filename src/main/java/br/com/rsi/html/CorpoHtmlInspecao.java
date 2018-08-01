@@ -29,14 +29,12 @@ public class CorpoHtmlInspecao {
 				"		// width='213' height='59' align='BASELINE' />&ensp;  Monitor automático INSPEÇÃO/RFC. </h4> ");
 		msgs.append("<div>");
 		
-		msgs.append(" <br></br> <span> Prezado Gestor(a) ");
-		msgs.append(lider);
-		msgs.append(",</span> <br></br>");
-		msgs.append("<span>Segue abaixo o resultado da inspeção de código referente as RFCs  com status em “Testing”.   </span>  ");
+		msgs.append(" <br></br>  ");
+			msgs.append("<span>Prezados, segue abaixo o resultado da inspeção de código referente ás RFCs  que foram implantados em HK.   </span>  ");
 
 		msgs.append("<br></br>");
 		msgs.append("<table border='1'>");
-		msgs.append("<tr style=\"background-color:#771111; color:#fff;\"><td> Commit  </td>");
+		msgs.append("<tr style=\"background-color:#771111; color:#fff;\"><td> Alt.Cod  </td>");
 	
 		msgs.append("<td>&ensp; Gestor de Entrega  &ensp;</td>");
 		msgs.append("<td>&ensp; Sigla  &ensp;</td>");
@@ -46,17 +44,18 @@ public class CorpoHtmlInspecao {
 		msgs.append("<td>&ensp; Nota atual  &ensp;</td>");
 		msgs.append("<td>&ensp; Nota Ant  &ensp;</td>");
 		msgs.append("<td>&ensp; Data Captura &ensp;</td>");
-		msgs.append("<td>&ensp; Data  Commit   &ensp;</td>");
+		msgs.append("<td>&ensp; Data.Alt.Cod   &ensp;</td>");
 		msgs.append("<td>&ensp; Cod.RFC   &ensp;</td>");
 		msgs.append("<td>&ensp; Cod.Proj   &ensp;</td>");
+		msgs.append("<td>&ensp; Líder  &ensp;</td>");
 		msgs.append("<td>&ensp; Resultado   &ensp;</td></tr>");
 		
 		msgs.append(resultado);
 		msgs.append("</table>");
 		
 		msgs.append("<br></br><br></br> <img\r\n" + 
-				"		// src='https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/Legenda%20Insp.PNG?alt=media&token=28aeff51-0c75-47fe-92d9-8a38dd98300b'\r\n" + 
-				"		//width='75%' height='75%' align='BASELINE' /> ");
+				"		// src='https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/Legenda.PNG?alt=media&token=d2c573f8-58bd-4662-a35d-ecb7d51a5398'\r\n" + 
+				"		//width='75%' height='75%' align='BASELINE'/> ");
 
 		msgs.append("</div>  " + "</body>");
 

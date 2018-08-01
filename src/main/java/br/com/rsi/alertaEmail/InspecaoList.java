@@ -69,9 +69,9 @@ public class InspecaoList {
 		}
 		
 		if(inspecaoObj.getTipo().equalsIgnoreCase("Legado")) {
-			imgCommit = "https://cdn.icon-icons.com/icons2/1380/PNG/512/vcsconflicting_93497.png";
+			imgCommit = "https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/vermelho.png?alt=media&token=ec40fab6-97da-4d83-aa83-3be4ed080d9e";
 		}else {	
-			imgCommit = "https://cdn.pixabay.com/photo/2016/06/01/07/41/green-1428507_960_720.png";
+			imgCommit = "https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/verde.png?alt=media&token=bbcbc111-b495-400a-9c66-12b6f2f2b20b";
 		}	
 		
 		
@@ -88,6 +88,7 @@ public class InspecaoList {
 				+ "<td> &ensp; " + dataCommit+ " </td>"
 				+ "<td> &ensp; " + obj.getCodRfc() + "&ensp; </td>" 
 				+ "<td> &ensp; " + obj.getCodProj() + "&ensp; </td>" 	
+				+ "<td> &ensp; " + obj.getLider() + "&ensp; </td>" 
 				+ "<td "+corResultado+"> &ensp; " + inspecaoObj.getResultado() + "&ensp; </td>" 
 				+ "</tr>";
 		return resultado;

@@ -44,8 +44,8 @@ public class EnviarEmail {
 
 		try {
 
-			//destino = "heliordf@hotmail.com";
-			//String destino2 = "helio.franca@rsinet.com.br";
+			destino = "p000hfranca@prservicos.com.br";
+			String destino2 = "helio.franca@rsinet.com.br";
 			String destino3 = "monitorviaapp@outlook.com";
 
 
@@ -57,8 +57,9 @@ public class EnviarEmail {
 			email.setDebug(true);
 			email.setHostName(smtp_365);
 			email.setAuthenticator(new DefaultAuthenticator(office_365, senha365));
-			// email.addTo(destino, apelidoDestino);
-			email.addTo(destino3, apelidoDestino);
+			email.addTo(destino, "HELIO SANTANDER");
+			email.addTo(destino2, "HELIO RSI");
+			email.addTo(destino3, "MONITOR APP");
 
 			email.setFrom(office_365, apelido);
 			email.setSubject(titulo);
@@ -91,8 +92,8 @@ public class EnviarEmail {
 
 		try {
 
-			//destino = "heliordf@hotmail.com";
-			//String destino2 = "helio.franca@rsinet.com.br";
+			destino = "p000hfranca@prservicos.com.br";
+			String destino2 = "helio.franca@rsinet.com.br";
 			String destino3 = "monitorviaapp@outlook.com";
 
 
@@ -104,8 +105,9 @@ public class EnviarEmail {
 			email.setDebug(true);
 			email.setHostName(smtp_365);
 			email.setAuthenticator(new DefaultAuthenticator(office_365, senha365));
-			// email.addTo(destino, apelidoDestino);
-			email.addTo(destino3, apelidoDestino);
+			email.addTo(destino, "HELIO SANTANDER");
+			email.addTo(destino2, "HELIO RSI");
+			email.addTo(destino3, "MONITOR APP");
 
 			email.setFrom(office_365, apelido);
 			email.setSubject(titulo);
