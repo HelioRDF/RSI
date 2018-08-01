@@ -36,7 +36,7 @@ public class CorpoHtmlGIT {
 
 		msgs.append("<br></br>");
 		msgs.append("<table border='1'>");
-		msgs.append("<tr style=\"background-color:#2f75b5; color:#fff;\"><td>&ensp; ALTERAÇÃO &ensp;  &ensp;</td>");
+		msgs.append("<tr style=\"background-color:#771111; color:#fff; \"><td>&ensp; ALTERAÇÃO &ensp;  &ensp;</td>");
 		msgs.append("<td>&ensp; SIGLA &ensp;  &ensp;</td>");
 		msgs.append("<td>&ensp; &ensp; SISTEMA &ensp;  &ensp;</td>");
 		msgs.append("<td>&ensp; &ensp; Pacote &ensp;  &ensp;</td>");

@@ -34,7 +34,7 @@ public class CorpoHtmlInspecao {
 
 		msgs.append("<br></br>");
 		msgs.append("<table border='1'>");
-		msgs.append("<tr style=\"background-color:#771111; color:#fff;\"><td> Alt.Cod  </td>");
+		msgs.append("<tr style=\"background-color:#2f75b5; color:#fff;\"><td> Alt.Cod  </td>");
 	
 		msgs.append("<td>&ensp; Gestor de Entrega  &ensp;</td>");
 		msgs.append("<td>&ensp; Sigla  &ensp;</td>");
