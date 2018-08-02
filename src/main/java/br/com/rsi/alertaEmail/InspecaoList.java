@@ -69,14 +69,17 @@ public class InspecaoList {
 		}
 		
 		if(inspecaoObj.getTipo().equalsIgnoreCase("Legado")) {
-			imgCommit = "https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/vermelho.png?alt=media&token=ec40fab6-97da-4d83-aa83-3be4ed080d9e";
+			//imgCommit = "https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/vermelho.png?alt=media&token=ec40fab6-97da-4d83-aa83-3be4ed080d9e";
+			imgCommit="NÃO";
 		}else {	
-			imgCommit = "https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/verde.png?alt=media&token=bbcbc111-b495-400a-9c66-12b6f2f2b20b";
+			//imgCommit = "https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/verde.png?alt=media&token=bbcbc111-b495-400a-9c66-12b6f2f2b20b";
+			imgCommit="SIM";
 		}	
 		
 		
 	
-		resultado = " <tr><td> &ensp;   <img src='"+imgCommit+"' width='20' height='20'  align='center' /> </td>"
+		//resultado = " <tr><td> &ensp;   <img src='"+imgCommit+"' width='20' height='20'  align='center' /> </td>"
+		resultado = " <tr>"
 				+ "<td> &ensp; " + inspecaoObj.getPainelGestor() + " </td>"
 				+ "<td> &ensp; " + obj.getSigla() + " </td>"
 				+ "<td> &ensp; " + inspecaoObj.getLinhaCodigo() + " </td>"
@@ -86,6 +89,7 @@ public class InspecaoList {
 				+ "<td> &ensp; " + inspecaoObj.getNotaAnterior()+ "% </td>"
 				+ "<td> &ensp; " + dataTxt + " </td>"
 				+ "<td> &ensp; " + dataCommit+ " </td>"
+						+ "<td> &ensp; " + imgCommit+ " </td>"
 				+ "<td> &ensp; " + obj.getCodRfc() + "&ensp; </td>" 
 				+ "<td> &ensp; " + obj.getCodProj() + "&ensp; </td>" 	
 				+ "<td> &ensp; " + obj.getLider() + "&ensp; </td>" 

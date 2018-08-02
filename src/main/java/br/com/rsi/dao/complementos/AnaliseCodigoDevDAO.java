@@ -22,19 +22,19 @@ import br.com.rsi.util.HibernateUtil;
  */
 
 public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
-/**
- * 
- * @return - Retorna uma lista de AnaliseCodigoHK
- */
+	/**
+	 * 
+	 * @return - Retorna uma lista de AnaliseCodigoHK
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Automacao_Analise_Codigo> listaResultadoVazio() {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Automacao_Analise_Codigo.class);
-		//	consulta.add(Restrictions.ne("resultado", "LIBERADO"));
-		//	consulta.add(Restrictions.ne("resultado", "BLOQUEADO"));
-		//	consulta.add(Restrictions.isNull("resultado"));
-		//	consulta.add(Restrictions.eq("sigla", "WPC"));
+			// consulta.add(Restrictions.ne("resultado", "LIBERADO"));
+			// consulta.add(Restrictions.ne("resultado", "BLOQUEADO"));
+			// consulta.add(Restrictions.isNull("resultado"));
+			// consulta.add(Restrictions.eq("sigla", "WPC"));
 			consulta.add(Restrictions.isNull("resultado"));
 			consulta.addOrder(Order.desc("id"));
 			List<Automacao_Analise_Codigo> resultado = consulta.list();
@@ -45,14 +45,38 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 			sessao.close();
 		}
 	}
-/**
- * 
- * @param codigo - int
- * @param sigla - String
- * @param projeto - String
- * @return - Retorna uma objeto AnaliseCodigoHG
- */
-	public Automacao_Analise_Codigo buscarAnterior(int codigo, String sigla,String projeto) {
+
+	/**
+	 * 
+	 * @return - Retorna uma lista de Automacao_Analise_Codigo
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Automacao_Analise_Codigo> listaTipoVazio() {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Automacao_Analise_Codigo.class);
+			consulta.add(Restrictions.isNull("tipo"));
+			consulta.addOrder(Order.desc("id"));
+			List<Automacao_Analise_Codigo> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
+	/**
+	 * 
+	 * @param codigo
+	 *            - int
+	 * @param sigla
+	 *            - String
+	 * @param projeto
+	 *            - String
+	 * @return - Retorna uma objeto AnaliseCodigoHG
+	 */
+	public Automacao_Analise_Codigo buscarAnterior(int codigo, String sigla, String projeto) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Automacao_Analise_Codigo.class);
@@ -63,8 +87,10 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 			consulta.add(Restrictions.eq("nomeProjeto", projeto));
 			consulta.setMaxResults(1);
 			consulta.addOrder(Order.desc("id"));
-			Automacao_Analise_Codigo resultado = (Automacao_Analise_Codigo) consulta.uniqueResult(); // Utilizado para retornar um unico
-																					// resultado
+			Automacao_Analise_Codigo resultado = (Automacao_Analise_Codigo) consulta.uniqueResult(); // Utilizado para
+																										// retornar um
+																										// unico
+			// resultado
 			return resultado;
 		} catch (RuntimeException erro) {
 			throw erro;
@@ -72,9 +98,10 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 			sessao.close();
 		}
 	}
+
 	/**
 	 * 
-	 * @return  - Retorna uma  lista AnaliseCodigoHK com dataCommit = Null
+	 * @return - Retorna uma lista AnaliseCodigoHK com dataCommit = Null
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Automacao_Analise_Codigo> listarParaDataCommit() {
@@ -91,14 +118,18 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 			sessao.close();
 		}
 	}
-/**
- * 
- * @param codigo - int
- * @param sigla - string
- * @param projeto - string
- * @return - Retorna a quantidade na lista
- */
-	public int qtdList(int codigo, String sigla, String projeto ) {
+
+	/**
+	 * 
+	 * @param codigo
+	 *            - int
+	 * @param sigla
+	 *            - string
+	 * @param projeto
+	 *            - string
+	 * @return - Retorna a quantidade na lista
+	 */
+	public int qtdList(int codigo, String sigla, String projeto) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Automacao_Analise_Codigo.class);

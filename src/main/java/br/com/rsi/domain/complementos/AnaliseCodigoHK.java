@@ -393,12 +393,5 @@ public class AnaliseCodigoHK implements Serializable {
 		this.dataCommit = dataCommit;
 	}
 
-	public int getIdModulo() {
-		return idModulo;
-	}
-
-	public void setIdModulo(int idModulo) {
-		this.idModulo = idModulo;
-	}
 
 }

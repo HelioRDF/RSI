@@ -22,19 +22,20 @@ import br.com.rsi.util.HibernateUtil;
  */
 
 public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
-/**
- * 
- * @return - Retorna uma lista de AnaliseCodigoHK
- */
+
+	/**
+	 * 
+	 * @return - Retorna uma lista de AnaliseCodigoHK
+	 */
 	@SuppressWarnings("unchecked")
 	public List<AnaliseCodigoHK> listaResultadoVazio() {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
-		//	consulta.add(Restrictions.ne("resultado", "LIBERADO"));
-		//	consulta.add(Restrictions.ne("resultado", "BLOQUEADO"));
-		//	consulta.add(Restrictions.isNull("resultado"));
-		//	consulta.add(Restrictions.eq("sigla", "WPC"));
+			// consulta.add(Restrictions.ne("resultado", "LIBERADO"));
+			// consulta.add(Restrictions.ne("resultado", "BLOQUEADO"));
+			// consulta.add(Restrictions.isNull("resultado"));
+			// consulta.add(Restrictions.eq("sigla", "WPC"));
 			consulta.add(Restrictions.isNull("resultado"));
 			consulta.addOrder(Order.desc("id"));
 			List<AnaliseCodigoHK> resultado = consulta.list();
@@ -45,14 +46,38 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 			sessao.close();
 		}
 	}
-/**
- * 
- * @param codigo - int
- * @param sigla - String
- * @param projeto - String
- * @return - Retorna uma objeto AnaliseCodigoHK
- */
-	public AnaliseCodigoHK buscarAnterior(int codigo, String sigla,String projeto) {
+
+	/**
+	 * 
+	 * @return - Retorna uma lista de AnaliseCodigoHK
+	 */
+	@SuppressWarnings("unchecked")
+	public List<AnaliseCodigoHK> listaTipoVazio() {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
+			consulta.add(Restrictions.isNull("tipo"));
+			consulta.addOrder(Order.desc("id"));
+			List<AnaliseCodigoHK> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
+	/**
+	 * 
+	 * @param codigo
+	 *            - int
+	 * @param sigla
+	 *            - String
+	 * @param projeto
+	 *            - String
+	 * @return - Retorna uma objeto AnaliseCodigoHK
+	 */
+	public AnaliseCodigoHK buscarAnterior(int codigo, String sigla, String projeto) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
@@ -72,9 +97,10 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 			sessao.close();
 		}
 	}
+
 	/**
 	 * 
-	 * @return  - Retorna uma  lista AnaliseCodigoHK com dataCommit = Null
+	 * @return - Retorna uma lista AnaliseCodigoHK com dataCommit = Null
 	 */
 	@SuppressWarnings("unchecked")
 	public List<AnaliseCodigoHK> listarParaDataCommit() {
@@ -91,14 +117,18 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 			sessao.close();
 		}
 	}
-/**
- * 
- * @param codigo - int
- * @param sigla - string
- * @param projeto - string
- * @return - Retorna a quantidade na lista
- */
-	public int qtdList(int codigo, String sigla, String projeto ) {
+
+	/**
+	 * 
+	 * @param codigo
+	 *            - int
+	 * @param sigla
+	 *            - string
+	 * @param projeto
+	 *            - string
+	 * @return - Retorna a quantidade na lista
+	 */
+	public int qtdList(int codigo, String sigla, String projeto) {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
@@ -114,10 +144,11 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 			sessao.close();
 		}
 	}
-	
+
 	/**
 	 * 
-	 * @param codigo - Int
+	 * @param codigo
+	 *            - Int
 	 * @return - Retorna um objeto filtrado por código
 	 */
 
@@ -126,7 +157,8 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 		try {
 			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
 			consulta.add(Restrictions.idEq(codigo)); // Realiza uma consulta baseada no ID.
-			AnaliseCodigoHK resultado = (AnaliseCodigoHK) consulta.uniqueResult(); // Utilizado para retornar um unico resultado
+			AnaliseCodigoHK resultado = (AnaliseCodigoHK) consulta.uniqueResult(); // Utilizado para retornar um unico
+																					// resultado
 			return resultado;
 
 		} catch (RuntimeException erro) {
@@ -135,6 +167,5 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 			sessao.close();
 		}
 	}
-
 
 }

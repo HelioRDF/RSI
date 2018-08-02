@@ -48,9 +48,6 @@ public class Analise_CodigoDevBean implements Serializable {
 		}
 	}
 
-
-
-
 	/**
 	 * Criar uma lista com os objetos AnaliseCodigoHGBean
 	 */
@@ -74,7 +71,8 @@ public class Analise_CodigoDevBean implements Serializable {
 	}
 
 	/**
-	 * Captura a última data de Commit e tipo  em controle git/rtc e carimba na analíse.
+	 * Captura a última data de Commit e tipo em controle git/rtc e carimba na
+	 * analíse.
 	 */
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -93,10 +91,10 @@ public class Analise_CodigoDevBean implements Serializable {
 				if (!dataCommit.equals("N/A")) {
 					dataCommit = dataCommit.substring(0, 11);
 
-					 System.out.println("\n----Git ----");
-					 System.out.println("Data: "+dataCommit );
-					 System.out.println("Tipo: "+tipo );
-					 System.out.println("------------\n");
+					System.out.println("\n----Git ----");
+					System.out.println("Data: " + dataCommit);
+					System.out.println("Tipo: " + tipo);
+					System.out.println("------------\n");
 
 				} else {
 
@@ -106,11 +104,11 @@ public class Analise_CodigoDevBean implements Serializable {
 					}
 
 					tipo = daoRtc.buscarAlteracaoCommit(obj.getSigla().trim()).toString();
-					 System.out.println("\n----RTC ----");
-					 System.out.println("Data: "+dataCommit );
-					 System.out.println("Tipo: "+tipo );
-					 System.out.println("------------\n");
-					
+					System.out.println("\n----RTC ----");
+					System.out.println("Data: " + dataCommit);
+					System.out.println("Tipo: " + tipo);
+					System.out.println("------------\n");
+
 				}
 				obj.setDataCommit(dataCommit);
 				obj.setTipo(tipo);
@@ -124,7 +122,7 @@ public class Analise_CodigoDevBean implements Serializable {
 		} finally {
 		}
 	}
-	
+
 	/**
 	 * Captura as notas anteriores e seta na inspeção
 	 */
@@ -135,31 +133,29 @@ public class Analise_CodigoDevBean implements Serializable {
 			dao = new AnaliseCodigoDevDAO();
 			listaResultado = dao.listaResultadoVazio();
 			Automacao_Analise_Codigo objAnterior = new Automacao_Analise_Codigo();
-			
-				for (Automacao_Analise_Codigo obj : listaResultado) {
-					
-					try {
-						AnaliseCodigoDevDAO daoTemp = new AnaliseCodigoDevDAO();
-						objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(),obj.getNomeProjeto());
-						obj.setNotaAnterior(objAnterior.getNotaProjeto());	
-						daoTemp.editar(obj);
-						System.out.println("\n------\nSigla:" + obj.getSigla());
-						System.out.println("Nota:" + obj.getNotaProjeto());
-						System.out.println("Nota Ant:" + obj.getNotaAnterior());
-						
-					} catch (Exception e) {
-						System.out.println("------ ERRO:" + e.getMessage() + e.getCause());
-					}
 
-					
-				} // Fim do For
-			
+			for (Automacao_Analise_Codigo obj : listaResultado) {
+
+				try {
+					AnaliseCodigoDevDAO daoTemp = new AnaliseCodigoDevDAO();
+					objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
+					obj.setNotaAnterior(objAnterior.getNotaProjeto());
+					daoTemp.editar(obj);
+					System.out.println("\n------\nSigla:" + obj.getSigla());
+					System.out.println("Nota:" + obj.getNotaProjeto());
+					System.out.println("Nota Ant:" + obj.getNotaAnterior());
+
+				} catch (Exception e) {
+					System.out.println("------ ERRO:" + e.getMessage() + e.getCause());
+				}
+
+			} // Fim do For
+
 		} catch (Exception e) {
 			System.out.println("----- ERRO:" + e.getMessage() + e.getCause());
 		}
 	}
 
-	
 	/**
 	 * Calcula a nota mensal do gestor
 	 */
@@ -170,33 +166,65 @@ public class Analise_CodigoDevBean implements Serializable {
 			dao = new AnaliseCodigoDevDAO();
 			listaResultado = dao.listaResultadoVazio();
 			Automacao_Analise_Codigo objAnterior = new Automacao_Analise_Codigo();
-			
-				for (Automacao_Analise_Codigo obj : listaResultado) {
-					
-					try {
-						AnaliseCodigoDevDAO daoTemp = new AnaliseCodigoDevDAO();
-						objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(),obj.getNomeProjeto());
-						obj.setNotaAnterior(objAnterior.getNotaProjeto());	
-						daoTemp.editar(obj);
-						System.out.println("\n------\nSigla:" + obj.getSigla());
-						System.out.println("Nota:" + obj.getNotaProjeto());
-						System.out.println("Nota Ant:" + obj.getNotaAnterior());
-						
-					} catch (Exception e) {
-						System.out.println("------ ERRO:" + e.getMessage() + e.getCause());
-					}
-					
-				} // Fim do For
-			
+
+			for (Automacao_Analise_Codigo obj : listaResultado) {
+
+				try {
+					AnaliseCodigoDevDAO daoTemp = new AnaliseCodigoDevDAO();
+					objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
+					obj.setNotaAnterior(objAnterior.getNotaProjeto());
+					daoTemp.editar(obj);
+					System.out.println("\n------\nSigla:" + obj.getSigla());
+					System.out.println("Nota:" + obj.getNotaProjeto());
+					System.out.println("Nota Ant:" + obj.getNotaAnterior());
+
+				} catch (Exception e) {
+					System.out.println("------ ERRO:" + e.getMessage() + e.getCause());
+				}
+
+			} // Fim do For
+
 		} catch (Exception e) {
 			System.out.println("----- ERRO:" + e.getMessage() + e.getCause());
 		}
 	}
 
+	/**
+	 * Define o tipo da sigla legado/novo
+	 * 
+	 */
+	public void tipoSigla() {
+		String tipo = "NOVO";
+		dao = new AnaliseCodigoDevDAO();
+		List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listaTipoVazio();
+
+		listaAnalise = listaAnaliseTemp;
+		total = listaAnalise.size();
+
+		for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
+
+			try {
+				Automacao_Analise_Codigo objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(),
+						obj.getNomeProjeto());
+
+				if (obj.getDataCommit().equalsIgnoreCase(objAnterior.getDataCommit())) {
+					tipo = "LEGADO";
+				} else {
+					tipo = "NOVO";
+				}
+
+			} catch (Exception e) {
+				// TODO: Caso não tenha sigla anterior
+			}
+			obj.setTipo(tipo);
+			dao.editar(obj);
+
+		}
+
+	}
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 	public int getTotal() {
 		return total;

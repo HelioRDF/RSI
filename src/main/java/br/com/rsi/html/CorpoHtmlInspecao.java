@@ -34,7 +34,7 @@ public class CorpoHtmlInspecao {
 
 		msgs.append("<br></br>");
 		msgs.append("<table border='1'>");
-		msgs.append("<tr style=\"background-color:#2f75b5; color:#fff;\"><td> Alt.Cod  </td>");
+		msgs.append("<tr style=\"background-color:#2f75b5; color:#fff;\">");
 	
 		msgs.append("<td>&ensp; Gestor de Entrega  &ensp;</td>");
 		msgs.append("<td>&ensp; Sigla  &ensp;</td>");
@@ -44,15 +44,16 @@ public class CorpoHtmlInspecao {
 		msgs.append("<td>&ensp; Nota atual  &ensp;</td>");
 		msgs.append("<td>&ensp; Nota Ant  &ensp;</td>");
 		msgs.append("<td>&ensp; Data Captura &ensp;</td>");
-		msgs.append("<td>&ensp; Data.Alt.Cod   &ensp;</td>");
-		msgs.append("<td>&ensp; Cod.RFC   &ensp;</td>");
-		msgs.append("<td>&ensp; Cod.Proj   &ensp;</td>");
+		msgs.append("<td>&ensp; Dt.Alt.Cód   &ensp;</td>");
+		msgs.append("<td>&ensp; Alt.Cód   &ensp;</td>");
+		msgs.append("<td>&ensp; Cód.RFC   &ensp;</td>");
+		msgs.append("<td>&ensp; Cód.Proj   &ensp;</td>");
 		msgs.append("<td>&ensp; Líder  &ensp;</td>");
 		msgs.append("<td>&ensp; Resultado   &ensp;</td></tr>");
 		
 		msgs.append(resultado);
 		msgs.append("</table>");
-		
+	
 		msgs.append("<br></br><br></br> <img\r\n" + 
 				"		// src='https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/Legenda.PNG?alt=media&token=d2c573f8-58bd-4662-a35d-ecb7d51a5398'\r\n" + 
 				"		//width='75%' height='75%' align='BASELINE'/> ");

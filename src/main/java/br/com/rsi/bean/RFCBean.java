@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
@@ -249,6 +251,7 @@ public class RFCBean implements Serializable {
 	// -------------------------------------------------------------------------------------------
 	public void selecionarRFC(ActionEvent evento) {
 		try {
+			System.out.println(" sssssssssssssssss Teste chamado");
 			rFC = (RFC) evento.getComponent().getAttributes().get("meuSelect");
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Editar: ");
@@ -312,6 +315,16 @@ public class RFCBean implements Serializable {
 		System.out.println("--------------Inspecionar? ------- " + resultado);
 		return resultado;
 	}
+public void teste() {
+	
+	System.out.println(" ---------------- Teste chamado");
+}
+
+
+public void addMessage() {
+  
+    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado"));
+}
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------

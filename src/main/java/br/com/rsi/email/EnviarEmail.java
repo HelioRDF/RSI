@@ -22,13 +22,13 @@ public class EnviarEmail {
 
 	//private String smtp_365 = "smtp.office365.com";  
 	private String smtp_365 = "smtp-mail.outlook.com";
-	private String office_365 = "monitorviaapp@outlook.com";
-	private String senha365 = "Rsi#123!!!";
+	private String office_365 = "helio.franca@rsinet.com.br";
+	private String senha365 = "34234Rsi#123!!!!2342342";
 
 	private String apelido = "Inspeção de Código HK-RSI";
 
 	private String destino = "helio.franca@rsinet.com.br";
-	private String apelidoDestino = "Inspeção";
+	//private String apelidoDestino = "Inspeção";
 	String[] teste = { "heliordf@hotmail.com", "helio.franca@rsinet.com.br" };
 
 	// Usado no ProgressBarView

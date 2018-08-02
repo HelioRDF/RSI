@@ -123,23 +123,12 @@ public class AnaliseCodigoHKBean implements Serializable {
 				if (!dataCommit.equals("N/A")) {
 					dataCommit = dataCommit.substring(0, 11);
 
-					// System.out.println("\n----Git ----");
-					// System.out.println("Data: "+dataCommit );
-					// System.out.println("Tipo: "+tipo );
-					// System.out.println("------------\n");
-
 				} else {
 
 					dataCommit = daoRtc.buscarDataCommit(obj.getSigla().trim()).toString();
 					if (dataCommit.length() > 8) {
 						dataCommit = dataCommit.substring(0, 11);
 					}
-
-					tipo = daoRtc.buscarAlteracaoCommit(obj.getSigla().trim()).toString();
-					// System.out.println("\n----RTC ----");
-					// System.out.println("Data: "+dataCommit );
-					// System.out.println("Tipo: "+tipo );
-					// System.out.println("------------\n");
 				}
 				obj.setDataCommit(dataCommit);
 				obj.setTipo(tipo);
@@ -170,9 +159,9 @@ public class AnaliseCodigoHKBean implements Serializable {
 				Messages.addGlobalInfo("Análises concluídas");
 			} else {
 				for (AnaliseCodigoHK analiseCodigoHK : listaResultado) {
-					
+
 					try {
-						
+
 						AnaliseCodigoHKDAO daoTemp = new AnaliseCodigoHKDAO();
 						sigla = analiseCodigoHK.getSigla();
 						int qtdSiglas = daoTemp.qtdList(analiseCodigoHK.getId(), analiseCodigoHK.getSigla(),
@@ -201,11 +190,10 @@ public class AnaliseCodigoHKBean implements Serializable {
 						dao.editar(analiseCodigoHK); // Salva alteração
 						resultado = analiseCodigoHK.getResultado();
 						Messages.addGlobalInfo(" Sigla: " + sigla + "-" + resultado);
-						
+
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
-				
 
 				} // Fim do For
 			}
@@ -251,10 +239,35 @@ public class AnaliseCodigoHKBean implements Serializable {
 	}
 
 	/**
-	 * Busca o Id do modula da sigla
+	 * Define o tipo da sigla legado/novo
+	 * 
 	 */
-	public void idModulo() {
-		// Em avaliação.
+	public void tipoSigla() {
+		String tipo = "NOVO";
+		dao = new AnaliseCodigoHKDAO();
+		List<AnaliseCodigoHK> listaAnaliseTemp = dao.listaTipoVazio();
+
+		listaAnalise = listaAnaliseTemp;
+		total = listaAnalise.size();
+
+		for (AnaliseCodigoHK obj : listaAnaliseTemp) {
+
+			try {
+				AnaliseCodigoHK objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
+
+				if (obj.getDataCommit().equalsIgnoreCase(objAnterior.getDataCommit())) {
+					tipo = "LEGADO";
+				} else {
+					tipo = "NOVO";
+				}
+
+			} catch (Exception e) {
+				// TODO: Caso não tenha sigla anterior
+			}
+			obj.setTipo(tipo);
+			dao.editar(obj);
+
+		}
 
 	}
 
