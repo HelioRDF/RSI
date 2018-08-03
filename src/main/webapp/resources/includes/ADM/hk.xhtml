@@ -192,7 +192,7 @@
 						<p:dataExporter type="xls" target="dataTableRFC" fileName="RFCs" />
 					</h:commandLink>
 
-					<p:commandButton style="font-size:13px;margin-left:5px;float:right"
+					<p:commandButton style="font-size:13px;margin-left:5px;float:left"
 						action="#{rFCBean.enviarEmail}" value="Enviar E-mail"
 						icon="ui-icon-plusthick"></p:commandButton>
 
@@ -200,6 +200,11 @@
 						rendered="true" styleClass="add" action="#{rFCBean.listarInfos}"
 						value="Atualizar" update=":formTb:fr:dataTableRFC:"
 						icon=" ui-icon-refresh"></p:commandButton>
+			
+					<p:calendar  id="button" value="#{rFCBean.filtrarDataEmail}" placeholder="Enviar e-mail com inspeção a partir da data definida"  
+					title="Enviar e-mail com inspeção a partir da data definida" 
+					style=" margin-left:5px;float:left;font-color:red;" 
+						showOn="button" effect="fold"  />
 
 				</p:fieldset>
 				<p:dataTable id="dataTableRFC" rowsPerPageTemplate="12,20,30,50,100"
@@ -256,28 +261,7 @@
 						filterBy="#{dataVar.lider}">
 						<p:outputLabel value="#{dataVar.lider}" />
 					</p:column>
-					<p:column headerText="Config" width="12%" exportable="false">
-						<!-- 						<p:commandButton icon="ui-icon-pencil" title="Editar" -->
-						<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
-						<!-- 						<p:commandButton icon="ui-icon-trash" title="Excluir" -->
-						<!-- 							onclick="PF('dlg2').show();"></p:commandButton> -->
-
-
-						<p:panelGrid columns="2">
-							<p:inputSwitch value="#{rFCBean.enviarEmailTemp}">
-								<p:ajax listener="#{rFCBean.addMessage}" update="@form" />
-							</p:inputSwitch>
-
-							<!-- Editar -->
-							<p:commandButton title="Editar" icon="ui-icon-pencil"
-								actionListener="#{rFCBean.selecionarRFC}" update="@form "
-								oncomplete="PF('dialogo').show();">
-								<f:attribute name="meuSelect" value="#{dataVar}" />
-							</p:commandButton>
-						</p:panelGrid>
-
-
-					</p:column>
+				
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações após expandir linha -->
 					<p:rowExpansion styleClass="rowEdit">

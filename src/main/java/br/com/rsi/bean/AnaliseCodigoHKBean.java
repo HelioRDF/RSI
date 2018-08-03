@@ -118,7 +118,6 @@ public class AnaliseCodigoHKBean implements Serializable {
 				ControleGitHKDAO daoGit = new ControleGitHKDAO();
 				ControleRtcHKDAO daoRtc = new ControleRtcHKDAO();
 				String dataCommit = daoGit.buscarDataCommit(obj.getSigla().trim()).toString();
-				String tipo = daoGit.buscarAlteracaoCommit(obj.getSigla().trim()).toString();
 
 				if (!dataCommit.equals("N/A")) {
 					dataCommit = dataCommit.substring(0, 11);
@@ -131,8 +130,6 @@ public class AnaliseCodigoHKBean implements Serializable {
 					}
 				}
 				obj.setDataCommit(dataCommit);
-				obj.setTipo(tipo);
-
 				dao.editar(obj);
 				Messages.addGlobalInfo("Data de Commit atualizada! " + obj.getSigla());
 			}

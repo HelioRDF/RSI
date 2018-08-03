@@ -1,5 +1,6 @@
 package br.com.rsi.dao.complementos;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -45,4 +46,28 @@ public class RFCDAO extends GenericDAO<RFC> {
 		}
 	}
 
+	
+	/**
+	 * 
+	 * @return - Retorna uma lista de objetos filtrado por data
+	 * @param Date - Objeto do tipo data
+	 */
+	@SuppressWarnings("unchecked")
+	public List<RFC> listarRfcPorData(Date data) {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(RFC.class);
+			consulta.add(Restrictions.eq("inspecionar", "SIM"));
+			consulta.add(Restrictions.gt("codInspecao", 0));
+			consulta.add(Restrictions.ge("dataInspecao", data));
+			List<RFC> resultado = consulta.list();
+			return resultado;
+			
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
 }

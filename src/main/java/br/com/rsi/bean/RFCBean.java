@@ -45,17 +45,10 @@ public class RFCBean implements Serializable {
 	static String CAMINHO = "";
 	String siglaAtual;
 	boolean enviarEmailTemp;
-	
-	
-	
-	
-	public boolean isEnviarEmailTemp() {
-		return enviarEmailTemp;
-	}
+	public Date filtrarDataEmail = new Date();
 
-	public void setEnviarEmailTemp(boolean enviarEmailTemp) {
-		this.enviarEmailTemp = enviarEmailTemp;
-	}
+
+
 
 	/**
 	 * Dispara o envio de E-mail
@@ -65,26 +58,25 @@ public class RFCBean implements Serializable {
 		Messages.addGlobalWarn("Teste");
 		System.out.println("----xxxxxxxxxxxxxxx");
 		EnviarEmail email = new EnviarEmail();
-		RFCDAO daoRFC  = new RFCDAO();
+		RFCDAO daoRFC = new RFCDAO();
 		String resultado = "";
 		List<RFC> rfcs;
-		rfcs = daoRFC.listarRfcEscopo();
+		// filtrarDataEmail
+		rfcs = daoRFC.listarRfcPorData(filtrarDataEmail);
 
 		for (RFC obj : rfcs) {
 
 			InspecaoList list = new InspecaoList();
 			resultado += list.alertaInspecao(obj);
-			
-			System.out.println(resultado);
-			
+
 		}
-		email.emailHtmlInspecao(resultado, "Monitor de inspeção/RFC");
+		email.emailHtmlInspecao(resultado, "Monitor de Inspeção/RFC");
 
 	}
 
-/**
- * 	Salvar objeto do tipo RFC
- */
+	/**
+	 * Salvar objeto do tipo RFC
+	 */
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
 		try {
@@ -96,19 +88,21 @@ public class RFCBean implements Serializable {
 		}
 	}
 
-/**
- * Cria uma nova instância de RFC e RFCDAO
- */
+	/**
+	 * Cria uma nova instância de RFC e RFCDAO
+	 */
 	// -------------------------------------------------------------------------------------------
 	public void novo() {
 		rFC = new RFC();
 		daoRFC = new RFCDAO();
 	}
 
-/**
- * Exclui objeto selecionado
- * @param evento - Evento
- */
+	/**
+	 * Exclui objeto selecionado
+	 * 
+	 * @param evento
+	 *            - Evento
+	 */
 	// -------------------------------------------------------------------------------------------
 	public void excluir(ActionEvent evento) {
 		try {
@@ -121,24 +115,26 @@ public class RFCBean implements Serializable {
 		}
 	}
 
-/**
- * Edita objeto selecionado
- */
+	/**
+	 * Edita objeto selecionado
+	 */
 	// -------------------------------------------------------------------------------------------
-	public  void editar() {
+	public void editar() {
 		try {
-		//	daoRFC = new RFCDAO();
-		//	daoRFC.merge(rFC);
+			// daoRFC = new RFCDAO();
+			// daoRFC.merge(rFC);
 			Messages.addGlobalInfo(" Editado com sucesso!!!");
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Editar ");
 		}
 	}
 
-/**
- * Seleciona um objeto na tabela
- * @param evento - Evento
- */
+	/**
+	 * Seleciona um objeto na tabela
+	 * 
+	 * @param evento
+	 *            - Evento
+	 */
 	// -------------------------------------------------------------------------------------------
 	public void getinstancia(ActionEvent evento) {
 		try {
@@ -163,7 +159,6 @@ public class RFCBean implements Serializable {
 		Date dateI = new Date();
 		String salvarSigla;
 		int setCodInspecaoInt = 0;
-	
 
 		// Carrega a planilha
 		Workbook workbook = null;
@@ -192,7 +187,6 @@ public class RFCBean implements Serializable {
 			Cell celula11 = sheet.getCell(10, i); // coluna 10 - Salvar no Banco
 			Cell celula12 = sheet.getCell(11, i); // coluna 11 - Lider QA
 			Cell celula13 = sheet.getCell(12, i); // coluna 12 - Email Lider
-			
 
 			codRfc = celulaRFC.getContents().toString().trim().toUpperCase(); // Coluna 1:COD_RFC
 			codProj = celulaCodProj.getContents().toString().trim().toUpperCase(); // Coluna 2:COD_PROJ
@@ -205,8 +199,8 @@ public class RFCBean implements Serializable {
 			codInspecao = celulaCodInsp.getContents().toString().trim().toUpperCase(); // Coluna 9:Cod_Inspeção
 																						// Anterior
 			salvarSigla = celula11.getContents().toString().trim().toUpperCase();// Coluna 11:Salvar no Banco
-			
-			 lider= celula12.getContents().toString().trim().toUpperCase();// Lider
+
+			lider = celula12.getContents().toString().trim().toUpperCase();// Lider
 			emailLider = celula13.getContents().toString().trim().toUpperCase();// Email Lider
 
 			// Encerra a leitura quando encontra linha vazia
@@ -219,7 +213,7 @@ public class RFCBean implements Serializable {
 			} catch (Exception e) {
 				System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Cod Inspeção - Erro XXXXXXXXXXXXXXX");
 				setCodInspecaoInt = 0;
-		
+
 			}
 
 			if (!salvarSigla.isEmpty()) {
@@ -237,7 +231,7 @@ public class RFCBean implements Serializable {
 				rFC.setCodInspecao(setCodInspecaoInt);
 				rFC.setLider(lider);
 				rFC.setEmailLider(emailLider);
-		
+
 				siglaAtual = sigla;
 				salvar();
 			}
@@ -246,7 +240,9 @@ public class RFCBean implements Serializable {
 
 	/**
 	 * Seleciona uma RFC da table
-	 * @param evento - Evento
+	 * 
+	 * @param evento
+	 *            - Evento
 	 */
 	// -------------------------------------------------------------------------------------------
 	public void selecionarRFC(ActionEvent evento) {
@@ -278,8 +274,11 @@ public class RFCBean implements Serializable {
 
 	/**
 	 * Valida e formata um objeto do tipo Data
-	 * @param dataInfo - Date
-	 * @param msg - String
+	 * 
+	 * @param dataInfo
+	 *            - Date
+	 * @param msg
+	 *            - String
 	 * @return - Date
 	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -300,12 +299,15 @@ public class RFCBean implements Serializable {
 		return dataFinal;
 	}
 
-/**
- * Valida se RFC deve ser inspecionada
- * @param vazio - String
- * @param status - String
- * @return - String
- */
+	/**
+	 * Valida se RFC deve ser inspecionada
+	 * 
+	 * @param vazio
+	 *            - String
+	 * @param status
+	 *            - String
+	 * @return - String
+	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public String validarInspecao(String vazio, String status) {
 		String resultado = "NÃO";
@@ -315,16 +317,16 @@ public class RFCBean implements Serializable {
 		System.out.println("--------------Inspecionar? ------- " + resultado);
 		return resultado;
 	}
-public void teste() {
-	
-	System.out.println(" ---------------- Teste chamado");
-}
 
+	public void teste() {
 
-public void addMessage() {
-  
-    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado"));
-}
+		System.out.println(" ---------------- Teste chamado");
+	}
+
+	public void addMessage() {
+
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado"));
+	}
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -359,4 +361,21 @@ public void addMessage() {
 	public void setrFC(RFC rFC) {
 		this.rFC = rFC;
 	}
+
+	public Date getFiltrarDataEmail() {
+		return filtrarDataEmail;
+	}
+
+	public void setFiltrarDataEmail(Date filtrarDataEmail) {
+		this.filtrarDataEmail = filtrarDataEmail;
+	}
+	
+	public boolean isEnviarEmailTemp() {
+		return enviarEmailTemp;
+	}
+
+	public void setEnviarEmailTemp(boolean enviarEmailTemp) {
+		this.enviarEmailTemp = enviarEmailTemp;
+	}
+
 }

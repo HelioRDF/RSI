@@ -86,15 +86,10 @@ public class Analise_CodigoDevBean implements Serializable {
 				ControleGitDevDAO daoGit = new ControleGitDevDAO();
 				ControleRtcDevDAO daoRtc = new ControleRtcDevDAO();
 				String dataCommit = daoGit.buscarDataCommit(obj.getSigla().trim()).toString();
-				String tipo = daoGit.buscarAlteracaoCommit(obj.getSigla().trim()).toString();
+
 
 				if (!dataCommit.equals("N/A")) {
 					dataCommit = dataCommit.substring(0, 11);
-
-					System.out.println("\n----Git ----");
-					System.out.println("Data: " + dataCommit);
-					System.out.println("Tipo: " + tipo);
-					System.out.println("------------\n");
 
 				} else {
 
@@ -103,15 +98,10 @@ public class Analise_CodigoDevBean implements Serializable {
 						dataCommit = dataCommit.substring(0, 11);
 					}
 
-					tipo = daoRtc.buscarAlteracaoCommit(obj.getSigla().trim()).toString();
-					System.out.println("\n----RTC ----");
-					System.out.println("Data: " + dataCommit);
-					System.out.println("Tipo: " + tipo);
-					System.out.println("------------\n");
 
 				}
 				obj.setDataCommit(dataCommit);
-				obj.setTipo(tipo);
+
 
 				dao.editar(obj);
 				Messages.addGlobalInfo("Data de Commit atualizada! " + obj.getSigla());
