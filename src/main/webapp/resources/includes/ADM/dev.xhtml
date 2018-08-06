@@ -162,6 +162,151 @@
 				</p:dataTable>
 			</p:tab>
 
+			<!-- Analise Dev Espanha ______________________________________________________________  -->
+			<p:tab title="Análise (Dev-ES)" closable="true" disabled="false">
+				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
+
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						styleClass="add" action="#{analiseCodigoEspanhaBean.tipoSigla}"
+						value="tipo" icon="ui-icon-pin-s"></p:commandButton>
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						styleClass="add" action="#{analiseCodigoEspanhaBean.notaAnt}"
+						value="Nota Ant" icon="ui-icon-gear"></p:commandButton>
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#d9ff65;"
+						styleClass="add" action="#{analiseCodigoEspanhaBean.calcNota}"
+						value="Nota" icon="ui-icon-gear"></p:commandButton>
+
+					<p:commandButton style="font-size:13px; float:right"
+						id="btAtualizarDev-ES" styleClass="add"
+						action="#{analiseCodigoEspanhaBean.listarInfos}" value="Atualizar"
+						rendered="true" update=":formTb:fr:dataTableAnaliseDEV-Es"
+						icon=" ui-icon-refresh"></p:commandButton>
+
+
+					<h:commandLink style="float:left; margin-right:5px;">
+						<h:graphicImage value="/images/excel2.png" width="24" />
+						<p:dataExporter type="xls" target="dataTableAnaliseDEV-Es"
+							fileName="Analise-DEV-ES" />
+					</h:commandLink>
+
+				</p:fieldset>
+				<p:dataTable id="dataTableAnaliseDEV-Es" rendered="true"
+					rowsPerPageTemplate="12,20,30,50,100" rowIndexVar="rowIndex"
+					emptyMessage="Nenhum Registro encontrado" rows="7" paginator="true"
+					var="dataVar" value="#{analiseCodigoEspanhaBean.listaAnalise}"
+					draggableColumns="true" style=" text-align:center;font-size: 12px;"
+					paginatorPosition="top">
+
+					<f:facet name="header">
+						<p:ajaxStatus onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()" />
+
+						<p:outputLabel value="TOTAL: #{analiseCodigoEspanhaBean.total}" />
+						<p:commandButton id="toggler" type="button" value="Colunas"
+							style="float:right" icon="ui-icon-calculator" />
+						<p:columnToggler datasource="dataTableAnaliseDEV-Es"
+							trigger="toggler">
+						</p:columnToggler>
+					</f:facet>
+
+
+
+					<!-- _________________________________________________________________________________________________________________________________ -->
+					<!-- Informações das Colunas -->
+
+					<!-- <p:column headerText="Linhas" width="9%" sortBy="#{rowIndex}"> -->
+					<!-- #{rowIndex+1} -->
+					<!-- </p:column> -->
+					<p:column headerText="ID" width="9%" sortBy="#{dataVar.id}"
+						filterBy="#{dataVar.id}">
+						<p:outputLabel value="#{dataVar.id}" />
+					</p:column>
+
+					<p:column headerText="GESTOR" width="13%"
+						sortBy="#{dataVar.painelGestor}"
+						filterBy="#{dataVar.painelGestor}">
+						<p:outputLabel value="#{dataVar.painelGestor}" />
+					</p:column>
+					<p:column headerText="SIGLA" width="10%" sortBy="#{dataVar.sigla}"
+						filterBy="#{dataVar.sigla}">
+						<p:outputLabel value="#{dataVar.sigla}" />
+					</p:column>
+
+					<p:column headerText="SISTEMA" width="15%"
+						sortBy="#{dataVar.nomeProjeto}" filterBy="#{dataVar.nomeProjeto}">
+						<p:outputLabel value="#{dataVar.nomeProjeto}" />
+					</p:column>
+
+					<p:column headerText="Linhas de Código" width="10%"
+						sortBy="#{dataVar.linhaCodigo}" filterBy="#{dataVar.linhaCodigo}">
+						<p:outputLabel value="#{dataVar.linhaCodigo}" />
+					</p:column>
+
+					<p:column headerText="Bugs" width="10%" sortBy="#{dataVar.bugs}"
+						filterBy="#{dataVar.bugs}">
+						<p:outputLabel value="#{dataVar.bugs}" />
+					</p:column>
+
+					<p:column headerText="Nota" width="10%"
+						sortBy="#{dataVar.notaProjeto}" filterBy="#{dataVar.notaProjeto}">
+						<p:outputLabel value="#{dataVar.notaProjeto}%" />
+					</p:column>
+
+					<p:column headerText="Nota Ant" width="10%"
+						sortBy="#{dataVar.notaAnterior}"
+						filterBy="#{dataVar.notaAnterior}">
+						<p:outputLabel value="#{dataVar.notaAnterior}%" />
+					</p:column>
+
+
+					<p:column headerText="Debito Técnico" width="10%"
+						sortBy="#{dataVar.debitoTecnico}"
+						filterBy="#{dataVar.debitoTecnico}">
+						<p:outputLabel value="#{dataVar.debitoTecnico}" />
+					</p:column>
+
+					<p:column headerText="DATA CAPTURA" width="11%" id="cap"
+						sortBy="#{dataVar.dataCaptura}" filterBy="#{dataVar.dataCaptura}">
+						<p:outputLabel value="#{dataVar.dataCaptura}">
+							<f:convertDateTime for="cap" pattern="yyyy-MM-dd" locale="pt_BR" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="COMMIT" width="11%" id="commitD"
+						sortBy="#{dataVar.dataCommit}" filterBy="#{dataVar.dataCommit}">
+						<p:outputLabel value="#{dataVar.dataCommit}">
+							<f:convertDateTime for="commitD" pattern="yyyy-MM-dd"
+								locale="pt_BR" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="Tipo" width="10%" sortBy="#{dataVar.tipo}"
+						filterBy="#{dataVar.tipo}">
+						<p:outputLabel value="#{dataVar.tipo}" />
+					</p:column>
+
+					<p:column headerText="Ver" width="4%" exportable="false">
+						<!-- Expandir infos -->
+						<p:rowToggler />
+					</p:column>
+
+
+					<!-- _________________________________________________________________________________________________________________________________ -->
+					<!-- Informações após expandir linha -->
+					<p:rowExpansion styleClass="rowEdit">
+
+						<p:separator style=" height:10px;background-color:#e6e6ff"></p:separator>
+						<br></br>
+					</p:rowExpansion>
+				</p:dataTable>
+			</p:tab>
+
 			<!-- Controle Git Dev_________________________________________________________________________________ -->
 			<p:tab title="Git (Dev)" closable="true"
 				disabled="#{!usuarioBean.usuarioLogado.perfilDev}">

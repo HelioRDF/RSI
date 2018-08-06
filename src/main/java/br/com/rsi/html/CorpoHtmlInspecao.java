@@ -55,7 +55,7 @@ public class CorpoHtmlInspecao {
 		msgs.append("</table>");
 	
 		msgs.append("<br></br><br></br> <img\r\n" + 
-				"		// src='https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/Legenda.PNG?alt=media&token=d2c573f8-58bd-4662-a35d-ecb7d51a5398'\r\n" + 
+				"		// src='https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/Legenda.PNG?alt=media&token=f5bb1312-8d5d-4e84-be27-7a9887d0eb36'\r\n" + 
 				"		//width='75%' height='75%' align='BASELINE'/> ");
 
 		msgs.append("</div>  " + "</body>");

@@ -23,7 +23,7 @@ public class EnviarEmail {
 	//private String smtp_365 = "smtp.office365.com";  
 	private String smtp_365 = "smtp-mail.outlook.com";
 	private String office_365 = "helio.franca@rsinet.com.br";
-	private String senha365 = "123asdRsi#123asda!!!!asd32";
+	private String senha365 = "WAEeRsi#123!!!!324";
 
 	private String apelido = "Inspeção de Código HK-RSI";
 
