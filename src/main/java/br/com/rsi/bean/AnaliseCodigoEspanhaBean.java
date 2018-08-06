@@ -144,10 +144,10 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 	
 	
 	/**
-	 * Captura as notas anteriores e seta na inspeção
+	 * Captura as Notas e Linhas anteriores e seta na inspeção
 	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public void notaAnt() {
+	public void infoAnt() {
 		try {
 
 			dao = new AnaliseCodigoEspanhaDAO();
@@ -160,6 +160,8 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 					AnaliseCodigoEspanhaDAO daoTemp = new AnaliseCodigoEspanhaDAO();
 					objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
 					obj.setNotaAnterior(objAnterior.getNotaProjeto());
+					obj.setLinhaCodigoAnt(objAnterior.getLinhaCodigo());
+				
 					daoTemp.editar(obj);
 					System.out.println("\n------\nSigla:" + obj.getSigla());
 					System.out.println("Nota:" + obj.getNotaProjeto());

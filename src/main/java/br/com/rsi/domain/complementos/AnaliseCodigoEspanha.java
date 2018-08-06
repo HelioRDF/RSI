@@ -55,6 +55,17 @@ public class AnaliseCodigoEspanha implements Serializable {
 
 	@Column(name = "Linhas_Codigo")
 	private int linhaCodigo;
+	
+	@Column(name = "Linhas_Codigo_Ant")
+	private int linhaCodigoAnt;
+
+	public int getLinhaCodigoAnt() {
+		return linhaCodigoAnt;
+	}
+
+	public void setLinhaCodigoAnt(int linhaCodigoAnt) {
+		this.linhaCodigoAnt = linhaCodigoAnt;
+	}
 
 	@Column(name = "Bugs")
 	private int bugs;

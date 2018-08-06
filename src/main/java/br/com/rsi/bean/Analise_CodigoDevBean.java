@@ -87,7 +87,6 @@ public class Analise_CodigoDevBean implements Serializable {
 				ControleRtcDevDAO daoRtc = new ControleRtcDevDAO();
 				String dataCommit = daoGit.buscarDataCommit(obj.getSigla().trim()).toString();
 
-
 				if (!dataCommit.equals("N/A")) {
 					dataCommit = dataCommit.substring(0, 11);
 
@@ -98,10 +97,8 @@ public class Analise_CodigoDevBean implements Serializable {
 						dataCommit = dataCommit.substring(0, 11);
 					}
 
-
 				}
 				obj.setDataCommit(dataCommit);
-
 
 				dao.editar(obj);
 				Messages.addGlobalInfo("Data de Commit atualizada! " + obj.getSigla());
@@ -117,7 +114,7 @@ public class Analise_CodigoDevBean implements Serializable {
 	 * Captura as notas anteriores e seta na inspeção
 	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public void notaAnt() {
+	public void infoAnt() {
 		try {
 
 			dao = new AnaliseCodigoDevDAO();
@@ -130,6 +127,7 @@ public class Analise_CodigoDevBean implements Serializable {
 					AnaliseCodigoDevDAO daoTemp = new AnaliseCodigoDevDAO();
 					objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
 					obj.setNotaAnterior(objAnterior.getNotaProjeto());
+					obj.setLinhaCodigoAnt(objAnterior.getLinhaCodigo());
 					daoTemp.editar(obj);
 					System.out.println("\n------\nSigla:" + obj.getSigla());
 					System.out.println("Nota:" + obj.getNotaProjeto());
@@ -146,38 +144,7 @@ public class Analise_CodigoDevBean implements Serializable {
 		}
 	}
 
-	/**
-	 * Calcula a nota mensal do gestor
-	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public void notaMensalGestor() {
-		try {
-
-			dao = new AnaliseCodigoDevDAO();
-			listaResultado = dao.listaResultadoVazio();
-			Automacao_Analise_Codigo objAnterior = new Automacao_Analise_Codigo();
-
-			for (Automacao_Analise_Codigo obj : listaResultado) {
-
-				try {
-					AnaliseCodigoDevDAO daoTemp = new AnaliseCodigoDevDAO();
-					objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
-					obj.setNotaAnterior(objAnterior.getNotaProjeto());
-					daoTemp.editar(obj);
-					System.out.println("\n------\nSigla:" + obj.getSigla());
-					System.out.println("Nota:" + obj.getNotaProjeto());
-					System.out.println("Nota Ant:" + obj.getNotaAnterior());
-
-				} catch (Exception e) {
-					System.out.println("------ ERRO:" + e.getMessage() + e.getCause());
-				}
-
-			} // Fim do For
-
-		} catch (Exception e) {
-			System.out.println("----- ERRO:" + e.getMessage() + e.getCause());
-		}
-	}
 
 	/**
 	 * Define o tipo da sigla legado/novo

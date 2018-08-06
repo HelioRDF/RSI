@@ -55,6 +55,9 @@ public class Automacao_Analise_Codigo implements Serializable {
 
 	@Column(name = "Linhas_Codigo")
 	private int linhaCodigo;
+	
+	@Column(name = "Linhas_Codigo_Ant")
+	private int linhaCodigoAnt;
 
 	@Column(name = "Bugs")
 	private int bugs;
@@ -131,8 +134,17 @@ public class Automacao_Analise_Codigo implements Serializable {
 	
 	// --------------------------------------------------
 
+	
 	public String getUrl() {
 		return url;
+	}
+
+	public int getLinhaCodigoAnt() {
+		return linhaCodigoAnt;
+	}
+
+	public void setLinhaCodigoAnt(int linhaCodigoAnt) {
+		this.linhaCodigoAnt = linhaCodigoAnt;
 	}
 
 	public String getCoeficiente() {
