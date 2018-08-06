@@ -33,6 +33,14 @@ public class InspecaoList {
 		StringBuffer estiloH2 = new StringBuffer();
 		String dataTxt = inspecaoObj.getDataCaptura().toString();
 		String dataCommit = inspecaoObj.getDataCommit().toString();
+		String notaAnterior=inspecaoObj.getNotaAnterior()+"%";
+		
+		if(notaAnterior.equalsIgnoreCase("null%") || notaAnterior.equalsIgnoreCase("0%") ) {
+			notaAnterior="N/A";
+		}
+		
+
+		
 
 		try {	
 			SimpleDateFormat formatar = new SimpleDateFormat("dd-MM-yyyy");
@@ -85,11 +93,11 @@ public class InspecaoList {
 				+ "<td> &ensp; " + inspecaoObj.getLinhaCodigo() + " </td>"
 				+ "<td> &ensp; " + inspecaoObj.getIssuesMuitoAlta() + " </td>"
 				+ "<td> &ensp; " + inspecaoObj.getIssuesAlta() + " </td>"
+				+ "<td  style=\"background-color:#a0a0a0;color:#1e5cdf;\" > &ensp; " +notaAnterior+ " </td>"
 				+ "<td> &ensp; " + inspecaoObj.getNotaProjeto() + "% </td>"
-				+ "<td> &ensp; " + inspecaoObj.getNotaAnterior()+ "% </td>"
 				+ "<td> &ensp; " + dataTxt + " </td>"
 				+ "<td> &ensp; " + dataCommit+ " </td>"
-						+ "<td> &ensp; " + imgCommit+ " </td>"
+				+ "<td> &ensp; " + imgCommit+ " </td>"
 				+ "<td> &ensp; " + obj.getCodRfc() + "&ensp; </td>" 
 				+ "<td> &ensp; " + obj.getCodProj() + "&ensp; </td>" 	
 				+ "<td> &ensp; " + obj.getLider() + "&ensp; </td>" 

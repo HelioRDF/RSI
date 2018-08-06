@@ -41,8 +41,8 @@ public class CorpoHtmlInspecao {
 		msgs.append("<td>&ensp; Linhas.Cód  &ensp;</td>");
 		msgs.append("<td>&ensp; Blocker  &ensp;</td>");
 		msgs.append("<td>&ensp; Critical  &ensp;</td>");
-		msgs.append("<td>&ensp; Nota atual  &ensp;</td>");
 		msgs.append("<td>&ensp; Nota Ant  &ensp;</td>");
+		msgs.append("<td>&ensp; Nota atual  &ensp;</td>");
 		msgs.append("<td>&ensp; Data Captura &ensp;</td>");
 		msgs.append("<td>&ensp; Dt.Alt.Cód   &ensp;</td>");
 		msgs.append("<td>&ensp; Alt.Cód   &ensp;</td>");
