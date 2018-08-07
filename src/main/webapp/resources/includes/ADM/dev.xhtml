@@ -21,6 +21,13 @@
 			<p:tab title="Análise (Dev)" closable="true" disabled="false">
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
 
+
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						styleClass="add" action="#{analise_CodigoDevBean.tipoSiglaNtLi}"
+						value="TipoLiNT" icon="ui-icon-pin-s"></p:commandButton>
+						
 					<p:commandButton
 						style="font-size:13px; float:right; color:#5c6766;"
 						styleClass="add" action="#{analise_CodigoDevBean.tipoSigla}"
@@ -101,6 +108,12 @@
 						sortBy="#{dataVar.linhaCodigo}" filterBy="#{dataVar.linhaCodigo}">
 						<p:outputLabel value="#{dataVar.linhaCodigo}" />
 					</p:column>
+					
+					<p:column headerText="Linhas de Código Ant" width="10%"
+						sortBy="#{dataVar.linhaCodigoAnt}" filterBy="#{dataVar.linhaCodigoAnt}">
+						<p:outputLabel value="#{dataVar.linhaCodigoAnt}" />
+					</p:column>
+					
 
 					<p:column headerText="Bugs" width="10%" sortBy="#{dataVar.bugs}"
 						filterBy="#{dataVar.bugs}">

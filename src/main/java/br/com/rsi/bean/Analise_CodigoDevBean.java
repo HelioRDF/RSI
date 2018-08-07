@@ -147,7 +147,7 @@ public class Analise_CodigoDevBean implements Serializable {
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Define o tipo da sigla legado/novo
+	 * Define o tipo da sigla legado/novo por commit
 	 * 
 	 */
 	public void tipoSigla() {
@@ -169,6 +169,71 @@ public class Analise_CodigoDevBean implements Serializable {
 				} else {
 					tipo = "NOVO";
 				}
+
+			} catch (Exception e) {
+				// TODO: Caso não tenha sigla anterior
+			}
+			obj.setTipo(tipo);
+			dao.editar(obj);
+
+		}
+
+	}
+
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	/**
+	 * Define o tipo da sigla legado/novo por Nota ou linha de códgio
+	 * 
+	 */
+	public void tipoSiglaNtLi() {
+		String tipo = "NOVO";
+		dao = new AnaliseCodigoDevDAO();
+		List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listaTipoVazio();
+
+		listaAnalise = listaAnaliseTemp;
+		total = listaAnalise.size();
+
+		for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
+
+			try {
+				
+int linha = obj.getLinhaCodigo();
+int linhaAnt = obj.getLinhaCodigoAnt();
+String nota = obj.getNotaProjeto();
+String notaAnt = obj.getNotaAnterior();
+
+				if (linha != linhaAnt) {
+					tipo = "NOVO";
+					
+					System.out.println("\n NOVO Linha ------------------------------\n");
+					System.out.println("Cod: "+obj.getId());
+					System.out.println("Linha: "+obj.getLinhaCodigo());
+					System.out.println("Linha Ant: "+obj.getLinhaCodigoAnt());
+					System.out.println("\n------------------------------\n");
+				} else if (!nota.equalsIgnoreCase(notaAnt)) {
+					
+					tipo = "NOVO";
+					
+					System.out.println("\n NOVO Nota ------------------------------\n");
+					System.out.println("Cod: "+obj.getId());
+					System.out.println("Nota: "+obj.getNotaProjeto());
+					System.out.println("Nota Ant: "+obj.getNotaAnterior());
+					System.out.println("\n------------------------------\n");
+				} else {
+					tipo = "LEGADO";
+					
+					System.out.println("\n Legado ------------------------------\n");
+					System.out.println("Cod: "+obj.getId());
+					System.out.println("Linha: "+obj.getLinhaCodigo());
+					System.out.println("Linha Ant: "+obj.getLinhaCodigo());
+					System.out.println("Nota: "+obj.getNotaProjeto());
+					System.out.println("Nota Ant: "+obj.getNotaAnterior());
+					System.out.println("\n------------------------------\n");
+				}
+				
+				
+				
 
 			} catch (Exception e) {
 				// TODO: Caso não tenha sigla anterior
