@@ -13,8 +13,8 @@ import javax.persistence.TemporalType;
  * -Classe POJO ControleGitHK, e entity do DB via Hibernate.
  * 
  * @author helio.franca
- * @version v1.7
- * @since  N/A
+ * @version v2.1.1
+ * @since  07-08-2018
  * 
  */
 
@@ -22,6 +22,8 @@ import javax.persistence.TemporalType;
 public class ControleGitHK extends GenericDomain {
 
 	private static final long serialVersionUID = -9203193152118322163L;
+	public  static final String CONTA_PAULA = "XB201520";
+	public  static final String CONTA_LUIS = "XI324337";
 
 	@Column(nullable = false)
 	private String sigla;
@@ -62,13 +64,22 @@ public class ControleGitHK extends GenericDomain {
 	
 	@Column(nullable = true)
 	private boolean enviarEmail;
+	
+	@Column
+	private String usuarioGit;
 
 	// --------------------------------------------------
-
-	
 	
 	public boolean isAlteracao() {
 		return alteracao;
+	}
+
+	public String getUsuarioGit() {
+		return usuarioGit;
+	}
+
+	public void setUsuarioGit(String usuarioGit) {
+		this.usuarioGit = usuarioGit;
 	}
 
 	public boolean isEnviarEmail() {
@@ -163,7 +174,10 @@ public class ControleGitHK extends GenericDomain {
 		this.dataCommitAnt = dataCommitAnt;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "[Pacote: "+ pacote + " Usuario Git: "+usuarioGit+"]";
+	}
 
 	// --------------------------------------------------
 
