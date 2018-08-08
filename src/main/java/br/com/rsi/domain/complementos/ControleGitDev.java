@@ -12,8 +12,8 @@ import javax.persistence.TemporalType;
  * -Classe POJO ControleGitDev, e entity do DB via Hibernate.
  * 
  * @author helio.franca
- * @version v1.7
- * @since  N/A
+ * @version v2.1.3
+ * @since  08-08-2018
  * 
  */
 
@@ -24,6 +24,8 @@ public class ControleGitDev extends GenericDomain {
 	 * 
 	 */
 	private static final long serialVersionUID = 3100048312260295449L;
+	public  static final String CONTA_PAULA = "XB201520";
+	public  static final String CONTA_LUIS = "XI324337";
 
 	@Column(nullable = false)
 	private String sigla;
@@ -61,11 +63,22 @@ public class ControleGitDev extends GenericDomain {
 	
 	@Column(nullable = true)
 	private boolean alteracao;
+	
+	@Column
+	private String usuarioGit;
 
 	// --------------------------------------------------
 
 	public String getNomeArquivo() {
 		return nomeArquivo;
+	}
+
+	public String getUsuarioGit() {
+		return usuarioGit;
+	}
+
+	public void setUsuarioGit(String usuarioGit) {
+		this.usuarioGit = usuarioGit;
 	}
 
 	public void setNomeArquivo(String nomeArquivo) {
@@ -150,6 +163,11 @@ public class ControleGitDev extends GenericDomain {
 
 	public void setDataCommitAnt(Date dataCommitAnt) {
 		this.dataCommitAnt = dataCommitAnt;
+	}
+	
+	@Override
+	public String toString() {
+		return "[Pacote: "+ pacote + " Usuario Git: "+usuarioGit+"]";
 	}
 	
 	

@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -27,8 +28,8 @@ import jxl.Workbook;
  * -Classe BEAN ControleGitDevBean.
  * 
  * @author helio.franca
- * @version v2.0.5
- * @since 25-07-2018
+ * @version v2.1.3
+ * @since 08-08-2018
  *
  */
 
@@ -84,7 +85,7 @@ public class ControleGitDevBean implements Serializable {
 	public void salvarPlanilha() {
 		controle = new ControleGitDev();
 		dao = new ControleGitDevDAO();
-		String sigla, sistema, caminho,pacote;
+		String sigla, sistema, caminho,pacote,usuarioGit;
 		Date dateC = new Date();
 
 		// Carrega a planilha
@@ -103,11 +104,13 @@ public class ControleGitDevBean implements Serializable {
 				Cell celula2 = sheet.getCell(1, i); // coluna 2 -Sistema
 				Cell celula3 = sheet.getCell(2, i); // coluna 4 - pacote
 				Cell celula4 = sheet.getCell(3, i); // coluna 3 - caminho
+				Cell celula5 = sheet.getCell(4, i); // coluna 4 - usuarioGit
 
 				sigla = celula1.getContents().toString().trim().toUpperCase();
 				sistema = celula2.getContents().toString().trim().toUpperCase();
 				pacote = celula3.getContents().toString().trim().toUpperCase();
 				caminho = celula4.getContents().toString().trim().toUpperCase();
+				usuarioGit = celula5.getContents().toString().trim().toUpperCase();
 
 				// Encerra a leitura quando encontra linha vazia
 				if (sigla.isEmpty()) {
@@ -122,6 +125,7 @@ public class ControleGitDevBean implements Serializable {
 					controle.setPacote(pacote);
 					controle.setNomeArquivo(CAMINHO);
 					controle.setDataVerificacao(dateC);
+					controle.setUsuarioGit(usuarioGit);
 					salvar();
 				}
 			}
@@ -320,52 +324,66 @@ public class ControleGitDevBean implements Serializable {
 			List<ControleGitDev> listaControle;
 			ControleGitDevDAO dao = new ControleGitDevDAO();
 			listaControle = dao.listar();
-			int contasGit = 2;
+			List<ControleGitDev> listaPacotesVinculadosContaPaula = listaControle.stream().filter(p -> p.getUsuarioGit().toString().equals(ControleGitDev.CONTA_PAULA)).collect(Collectors.toList());
+			List<ControleGitDev> listaPacotesVinculadosContaLuis = listaControle.stream().filter(p -> p.getUsuarioGit().toString().equals(ControleGitDev.CONTA_LUIS)).collect(Collectors.toList());	
 			alteraLoginGit("xb201520", "pCAV#1212");
-			while (contasGit > 0) {
-				for (ControleGitDev ControleGitDev : listaControle) {
-					ControleGitDev entidade = dao.buscar(ControleGitDev.getCodigo());
-					String pathSigla = "cd " + entidade.getCaminho();
-
-					String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
-					String[] cmds = { pathSigla, comandoGit };
-					StringBuilder log = new StringBuilder();
-					log.append("\n \n");
-
-					try {
-						ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
-						builder.redirectErrorStream(true);
-						Process p = builder.start();
-
-						BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-						String line;
-						int i = 0;
-						while (true) {
-							i++;
-							line = r.readLine();
-							if (line == null) {
-								break;
-							}
-							log.append(i + ": " + line + "\n");
-							System.out.println(line);
-						}
-						// Messages.addGlobalInfo("Executado com sucesso!");
-					} catch (Exception e) {
-						// Messages.addGlobalError("Caminho não encontrado ...
-						// :\n"
-						// +
-						// ControleGitDevDev.getNomeSistema());
-					} finally {
-						dao.editar(ControleGitDev);
-
-					}
-				}
-				contasGit--;
-				alteraLoginGit("XI324337", "elphbbtu");
-			}
+			executaComandoGitPull(listaPacotesVinculadosContaPaula);
+			alteraLoginGit("XI324337", "elphbbtu");
+			executaComandoGitPull(listaPacotesVinculadosContaLuis);
 			gerarLogGit();
 		}
 	};
+	
+	/**
+	 * Metodo para executar o comando git pull em cada um 
+	 * dos pacotes do git 
+	 * 
+	 * @param listaControle - o metodo tem que recebr uma lista de objetos do tipo ControleGitDev
+	 * pois esses objetos contem as informações necessárias para executar a atualização dos pacotes do git
+	 * 
+	 * @author andre.graca
+	 */
+	
+	public static void executaComandoGitPull(List<ControleGitDev> listaControle){
+		
+		ControleGitDevDAO dao = new ControleGitDevDAO();
+		
+		for (ControleGitDev obj : listaControle) {
+			ControleGitDev entidade = dao.buscar(obj.getCodigo());
+			String pathSigla = "cd " + entidade.getCaminho();
+			String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
+			String[] cmds = { pathSigla, comandoGit };
+			StringBuilder log = new StringBuilder();
+			log.append("\n \n");
+			System.out.println(obj);
+			try {
+				ProcessBuilder builder = new ProcessBuilder("cmd", "/c", String.join("& ", cmds));
+				builder.redirectErrorStream(true);
+				Process p = builder.start();
+
+				BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				String line;
+				int i = 0;
+				while (true) {
+					i++;
+					line = r.readLine();
+					if (line == null) {
+						break;
+					}
+					log.append(i + ": " + line + "\n");
+					System.out.println(line);
+				}
+				// Messages.addGlobalInfo("Executado com sucesso!");
+			} catch (Exception e) {
+				// Messages.addGlobalError("Caminho não encontrado ...
+				// :\n"
+				// +
+				// ControleGitHKDev.getNomeSistema());
+			} finally {
+				dao.editar(obj);
+			}
+		}
+	}
 
 	/**
 	 * Metodos para escrever no arquivo C:/Users/andre.graca/_netrc Este arquivo

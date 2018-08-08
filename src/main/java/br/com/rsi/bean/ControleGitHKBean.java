@@ -31,8 +31,8 @@ import jxl.Workbook;
  * -Classe BEAN ControleGitHKBean.
  * 
  * @author helio.franca
- * @version v2.1.2
- * @since 07-08-2018
+ * @version v2.1.3
+ * @since 08-08-2018
  *
  */
 
@@ -295,7 +295,7 @@ public class ControleGitHKBean implements Serializable {
 					ControleGitHK.setDescricaoLog(descricaoLog);
 
 				} catch (Exception e) {
-					System.err.println("---------------Erro: -" + e.getMessage());
+					System.err.println("---------------Erro: -" + e.getCause());
 					author = "----------";
 					ControleGitHK.setAuthor(author);
 					descricaoLog = "null";
@@ -376,7 +376,6 @@ public class ControleGitHKBean implements Serializable {
 		for (ControleGitHK obj : listaControle) {
 			ControleGitHK entidade = dao.buscar(obj.getCodigo());
 			String pathSigla = "cd " + entidade.getCaminho();
-			obj.getUsuarioGit();
 			String comandoGit = "git -c http.sslverify=no pull >>LogGit.txt";
 			String[] cmds = { pathSigla, comandoGit };
 			StringBuilder log = new StringBuilder();
