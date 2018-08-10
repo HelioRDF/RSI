@@ -2,9 +2,9 @@ package br.com.rsi.html;
 
 /**
  * - Classe para estruturar corpo de e-mail HTML
- * @author Helio Franca
- * @since 26/06/2018
- * @version 1.2
+ * @author helio.franca
+ * @version V2.1.3
+ * @since 08-08-2018
  */
 public class CorpoHtmlInspecao {
 
@@ -36,19 +36,20 @@ public class CorpoHtmlInspecao {
 		msgs.append("<table border='1'>");
 		msgs.append("<tr style=\"background-color:#2f75b5; color:#fff;\">");
 	
-		msgs.append("<td>&ensp; Gestor de Entrega  &ensp;</td>");
+		msgs.append("<td>&ensp; Gestor de Entrega  &ensp;</td>"); // Da  Lista de RFCs
+		msgs.append("<td>&ensp; Gestor de Testes  &ensp;</td>");
+		msgs.append("<td>&ensp; Cód.Proj   &ensp;</td>");
+		msgs.append("<td>&ensp; Cód.RFC   &ensp;</td>");
 		msgs.append("<td>&ensp; Sigla  &ensp;</td>");
+		msgs.append("<td>&ensp; Gestor Sigla  &ensp;</td>"); //  Gestor de Entrega do painel Sonar
+		msgs.append("<td>&ensp; Nota Ant  &ensp;</td>");
+		msgs.append("<td>&ensp; Nota atual  &ensp;</td>");
+		msgs.append("<td>&ensp; Dt Inspeção &ensp;</td>"); // Data Captura Sonar
+		msgs.append("<td>&ensp; Dt.Alt.Cód   &ensp;</td>");
+		msgs.append("<td>&ensp; Alt.Cód   &ensp;</td>");
 		msgs.append("<td>&ensp; Linhas.Cód  &ensp;</td>");
 		msgs.append("<td>&ensp; Blocker  &ensp;</td>");
 		msgs.append("<td>&ensp; Critical  &ensp;</td>");
-		msgs.append("<td>&ensp; Nota Ant  &ensp;</td>");
-		msgs.append("<td>&ensp; Nota atual  &ensp;</td>");
-		msgs.append("<td>&ensp; Data Captura &ensp;</td>");
-		msgs.append("<td>&ensp; Dt.Alt.Cód   &ensp;</td>");
-		msgs.append("<td>&ensp; Alt.Cód   &ensp;</td>");
-		msgs.append("<td>&ensp; Cód.RFC   &ensp;</td>");
-		msgs.append("<td>&ensp; Cód.Proj   &ensp;</td>");
-		msgs.append("<td>&ensp; Líder  &ensp;</td>");
 		msgs.append("<td>&ensp; Resultado   &ensp;</td></tr>");
 		
 		msgs.append(resultado);

@@ -23,7 +23,7 @@ public class EnviarEmail {
 	//private String smtp_365 = "smtp.office365.com";  
 	private String smtp_365 = "smtp-mail.outlook.com";
 	private String office_365 = "helio.franca@rsinet.com.br";
-	private String senha365 = "adasdRsi#123asdasddas!!!!";
+	private String senha365 = "Rsi#123!!!!";
 
 	private String apelido = "Inspeção de Código HK-RSI";
 
@@ -174,11 +174,8 @@ public class EnviarEmail {
 			concluido = true;
 			System.out.println("Email Gmail não foi enviado----------------------------");
 		}
-
 		// Cria o e-mail
-
 	}
-
 	public static boolean isEnviado() {
 		return enviado;
 	}

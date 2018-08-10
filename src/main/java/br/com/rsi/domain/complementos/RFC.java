@@ -62,6 +62,9 @@ public class RFC extends GenericDomain {
 
 	@Column(nullable = true)
 	private String  lider;
+	
+	@Column(nullable = true)
+	private String  gestorEntrega;
 
 	@Column(nullable = true)
 	private String inspecionar;
@@ -178,6 +181,16 @@ public class RFC extends GenericDomain {
 	public void setLider(String lider) {
 		this.lider = lider;
 	}
+
+	public String getGestorEntrega() {
+		return gestorEntrega;
+	}
+
+	public void setGestorEntrega(String gestorEntrega) {
+		this.gestorEntrega = gestorEntrega;
+	}
+
+
 
 
 	

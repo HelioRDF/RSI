@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.rsi.domain.complementos.RFC;
@@ -60,6 +61,10 @@ public class RFCDAO extends GenericDAO<RFC> {
 			consulta.add(Restrictions.eq("inspecionar", "SIM"));
 			consulta.add(Restrictions.gt("codInspecao", 0));
 			consulta.add(Restrictions.ge("dataInspecao", data));
+			consulta.addOrder(Order.asc("sigla"));
+			consulta.addOrder(Order.asc("codRfc"));
+			consulta.addOrder(Order.asc("codProj"));
+
 			List<RFC> resultado = consulta.list();
 			return resultado;
 			

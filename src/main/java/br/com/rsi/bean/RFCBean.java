@@ -152,7 +152,7 @@ public class RFCBean implements Serializable {
 	public void salvarPlanilha() {
 		rFC = new RFC();
 		daoRFC = new RFCDAO();
-		String codRfc, codProj, sigla, observacao, status, codVazio, codInspecao, lider, emailLider;
+		String codRfc, codProj, sigla, observacao, status, codVazio, codInspecao, lider, emailLider, gestorEntrega;
 		String dataCadastro = "";
 		String dataInspecao = "";
 		Date dateC = new Date();
@@ -177,16 +177,16 @@ public class RFCBean implements Serializable {
 			Cell celulaRFC = sheet.getCell(1, i); // coluna 1 -COD_RFC
 			Cell celulaCodProj = sheet.getCell(2, i); // coluna 2 - COD_PROJ
 			Cell celulaSigla = sheet.getCell(3, i); // coluna 3 - SIGLA
-			Cell celulaCodInsp = sheet.getCell(4, i); // coluna 7 - Cod Inspeção
-			Cell celulaDataC = sheet.getCell(5, i); // coluna 4 - DATA_CADASTRO
-			Cell celulaDataI = sheet.getCell(6, i); // coluna 5 - DATA_INSPECAO
-			Cell celulaObs = sheet.getCell(7, i); // coluna 6 - OBSERVACAO
-			Cell celulaStatus = sheet.getCell(8, i); // coluna 7 - STATUS
-			Cell celulaCodVazio = sheet.getCell(9, i); // coluna 7 - Cod_Vazio
-
-			Cell celula11 = sheet.getCell(10, i); // coluna 10 - Salvar no Banco
-			Cell celula12 = sheet.getCell(11, i); // coluna 11 - Lider QA
-			Cell celula13 = sheet.getCell(12, i); // coluna 12 - Email Lider
+			Cell celulaLider = sheet.getCell(4, i); // coluna 4 - Lider QA
+			Cell celulaGestorEntrega = sheet.getCell(5, i); // coluna 5 - Novo gestorEntrega
+			Cell celulaCodInsp = sheet.getCell(6, i); // coluna 6 - Cod Inspeção
+			Cell celulaDataC = sheet.getCell(7, i); // coluna 7 - DATA_CADASTRO
+			Cell celulaDataI = sheet.getCell(8, i); // coluna 8 - DATA_INSPECAO
+			Cell celulaObs = sheet.getCell(9, i); // coluna 9 - OBSERVACAO
+			Cell celulaStatus = sheet.getCell(10, i); // coluna 10 - STATUS
+			Cell celulaCodVazio = sheet.getCell(11, i); // coluna 11 - Cod_Vazio
+			Cell celula11 = sheet.getCell(12, i); // coluna 12 - Salvar no Banco
+			Cell celula13 = sheet.getCell(13, i); // coluna 13 - Email Lider
 
 			codRfc = celulaRFC.getContents().toString().trim().toUpperCase(); // Coluna 1:COD_RFC
 			codProj = celulaCodProj.getContents().toString().trim().toUpperCase(); // Coluna 2:COD_PROJ
@@ -200,7 +200,8 @@ public class RFCBean implements Serializable {
 																						// Anterior
 			salvarSigla = celula11.getContents().toString().trim().toUpperCase();// Coluna 11:Salvar no Banco
 
-			lider = celula12.getContents().toString().trim().toUpperCase();// Lider
+			lider = celulaLider.getContents().toString().trim().toUpperCase();// Lider
+			gestorEntrega = celulaGestorEntrega.getContents().toString().trim().toUpperCase();// Lider
 			emailLider = celula13.getContents().toString().trim().toUpperCase();// Email Lider
 
 			// Encerra a leitura quando encontra linha vazia
@@ -230,6 +231,7 @@ public class RFCBean implements Serializable {
 				rFC.setCodVazio(codVazio);
 				rFC.setCodInspecao(setCodInspecaoInt);
 				rFC.setLider(lider);
+				rFC.setGestorEntrega(gestorEntrega);
 				rFC.setEmailLider(emailLider);
 
 				siglaAtual = sigla;
