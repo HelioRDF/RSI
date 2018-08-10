@@ -197,43 +197,30 @@ public class Analise_CodigoDevBean implements Serializable {
 		for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
 
 			try {
-				
-int linha = obj.getLinhaCodigo();
-int linhaAnt = obj.getLinhaCodigoAnt();
-String nota = obj.getNotaProjeto();
-String notaAnt = obj.getNotaAnterior();
+
+				int linha = obj.getLinhaCodigo();
+				int linhaAnt = obj.getLinhaCodigoAnt();
+				String nota = obj.getNotaProjeto();
+				String notaAnt = obj.getNotaAnterior();
 
 				if (linha != linhaAnt) {
 					tipo = "NOVO";
-					
-					System.out.println("\n NOVO Linha ------------------------------\n");
-					System.out.println("Cod: "+obj.getId());
-					System.out.println("Linha: "+obj.getLinhaCodigo());
-					System.out.println("Linha Ant: "+obj.getLinhaCodigoAnt());
-					System.out.println("\n------------------------------\n");
+
 				} else if (!nota.equalsIgnoreCase(notaAnt)) {
-					
+
 					tipo = "NOVO";
-					
-					System.out.println("\n NOVO Nota ------------------------------\n");
-					System.out.println("Cod: "+obj.getId());
-					System.out.println("Nota: "+obj.getNotaProjeto());
-					System.out.println("Nota Ant: "+obj.getNotaAnterior());
-					System.out.println("\n------------------------------\n");
+
 				} else {
 					tipo = "LEGADO";
-					
-					System.out.println("\n Legado ------------------------------\n");
-					System.out.println("Cod: "+obj.getId());
-					System.out.println("Linha: "+obj.getLinhaCodigo());
-					System.out.println("Linha Ant: "+obj.getLinhaCodigo());
-					System.out.println("Nota: "+obj.getNotaProjeto());
-					System.out.println("Nota Ant: "+obj.getNotaAnterior());
-					System.out.println("\n------------------------------\n");
+//
+//					System.out.println("\n Legado ------------------------------\n");
+//					System.out.println("Cod: " + obj.getId());
+//					System.out.println("Linha: " + obj.getLinhaCodigo());
+//					System.out.println("Linha Ant: " + obj.getLinhaCodigo());
+//					System.out.println("Nota: " + obj.getNotaProjeto());
+//					System.out.println("Nota Ant: " + obj.getNotaAnterior());
+//					System.out.println("\n------------------------------\n");
 				}
-				
-				
-				
 
 			} catch (Exception e) {
 				// TODO: Caso não tenha sigla anterior

@@ -141,8 +141,7 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 		}
 
 	}
-	
-	
+
 	/**
 	 * Captura as Notas e Linhas anteriores e seta na inspeção
 	 */
@@ -161,7 +160,7 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 					objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
 					obj.setNotaAnterior(objAnterior.getNotaProjeto());
 					obj.setLinhaCodigoAnt(objAnterior.getLinhaCodigo());
-				
+
 					daoTemp.editar(obj);
 					System.out.println("\n------\nSigla:" + obj.getSigla());
 					System.out.println("Nota:" + obj.getNotaProjeto());
@@ -177,7 +176,7 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 			System.out.println("----- ERRO:" + e.getMessage() + e.getCause());
 		}
 	}
-	
+
 	/**
 	 * Define o tipo da sigla legado/novo
 	 * 
@@ -200,6 +199,54 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 					tipo = "LEGADO";
 				} else {
 					tipo = "NOVO";
+				}
+
+			} catch (Exception e) {
+				// TODO: Caso não tenha sigla anterior
+			}
+			obj.setTipo(tipo);
+			dao.editar(obj);
+
+		}
+
+	}
+
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	/**
+	 * Define o tipo da sigla legado/novo por Nota ou linha de códgio
+	 * 
+	 * @author helio.franca
+	 * @since 10-08-2018
+	 * 
+	 */
+	public void tipoSiglaNtLi() {
+		String tipo = "NOVO";
+		dao = new AnaliseCodigoEspanhaDAO();
+		List<AnaliseCodigoEspanha> listaAnaliseTemp = dao.listaTipoVazio();
+
+		listaAnalise = listaAnaliseTemp;
+		total = listaAnalise.size();
+
+		for (AnaliseCodigoEspanha obj : listaAnaliseTemp) {
+
+			try {
+
+				int linha = obj.getLinhaCodigo();
+				int linhaAnt = obj.getLinhaCodigoAnt();
+				String nota = obj.getNotaProjeto();
+				String notaAnt = obj.getNotaAnterior();
+
+				if (linha != linhaAnt) {
+					tipo = "NOVO";
+
+				} else if (!nota.equalsIgnoreCase(notaAnt)) {
+
+					tipo = "NOVO";
+
+				} else {
+					tipo = "LEGADO";
+
 				}
 
 			} catch (Exception e) {
