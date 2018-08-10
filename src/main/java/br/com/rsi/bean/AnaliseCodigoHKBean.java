@@ -187,7 +187,7 @@ public class AnaliseCodigoHKBean implements Serializable {
 						dao.editar(analiseCodigoHK); // Salva alteração
 						resultado = analiseCodigoHK.getResultado();
 						Messages.addGlobalInfo(" Sigla: " + sigla + "-" + resultado);
-
+						resultadoVazio();
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
