@@ -22,6 +22,7 @@ import br.com.rsi.util.HibernateUtil;
  */
 
 public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
+	
 	/**
 	 * 
 	 * @return - Retorna uma lista de AnaliseCodigoHK
@@ -31,10 +32,6 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Automacao_Analise_Codigo.class);
-			// consulta.add(Restrictions.ne("resultado", "LIBERADO"));
-			// consulta.add(Restrictions.ne("resultado", "BLOQUEADO"));
-			// consulta.add(Restrictions.isNull("resultado"));
-			// consulta.add(Restrictions.eq("sigla", "WPC"));
 			consulta.add(Restrictions.isNull("resultado"));
 			consulta.addOrder(Order.desc("id"));
 			List<Automacao_Analise_Codigo> resultado = consulta.list();
@@ -46,6 +43,46 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 		}
 	}
 
+	/**
+	 * 
+	 * @return - Retorna uma lista de AnaliseCodigoHK
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Automacao_Analise_Codigo> listaDebitoTecnico() {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Automacao_Analise_Codigo.class);
+			consulta.add(Restrictions.isNull("debitoTecnicoMinutos"));
+			consulta.addOrder(Order.desc("id"));
+			List<Automacao_Analise_Codigo> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
+	/**
+	 * 
+	 * @return - Retorna uma lista de AnaliseCodigoHK
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Automacao_Analise_Codigo> listaCoeficiente() {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Automacao_Analise_Codigo.class);
+			consulta.add(Restrictions.isNull("coeficiente"));
+			consulta.addOrder(Order.desc("id"));
+			List<Automacao_Analise_Codigo> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
 	/**
 	 * 
 	 * @return - Retorna uma lista de Automacao_Analise_Codigo

@@ -24,24 +24,41 @@
 
 
 					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;" title="Por Linha e Nota"
-						styleClass="add" action="#{analise_CodigoDevBean.tipoSiglaNtLi}"
-						value="Tipo2" icon="ui-icon-pin-s"></p:commandButton>
-						
-					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;" title="Por data de Commit"
-						styleClass="add" action="#{analise_CodigoDevBean.tipoSigla}"
-						value="Tipo1" icon="ui-icon-pin-s"></p:commandButton>
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Calcula o Coeficiente" styleClass="add"
+						action="#{analise_CodigoDevBean.calcularCoeficiente}"
+						value="Coeficiente" icon="ui-icon-pin-s">
+					</p:commandButton>
 
 					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;" title="Busca a nota  Anterior."
-						styleClass="add" action="#{analise_CodigoDevBean.infoAnt}"
-						value="Nota Ant" icon="ui-icon-gear"></p:commandButton>
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Por Linha e Nota" styleClass="add"
+						action="#{analise_CodigoDevBean.tratarDebitoTecnico}"
+						value="Debito Tec" icon="ui-icon-pin-s"></p:commandButton>
 
 					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;" title="Busca a data de Commit Atual."
-						styleClass="add" action="#{analise_CodigoDevBean.DataCommit}"
-						value="Data Commit" icon="   ui-icon-calendar"></p:commandButton>
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Por Linha e Nota" styleClass="add"
+						action="#{analise_CodigoDevBean.tipoSiglaNtLi}" value="Tipo2"
+						icon="ui-icon-pin-s"></p:commandButton>
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Por data de Commit" styleClass="add"
+						action="#{analise_CodigoDevBean.tipoSigla}" value="Tipo1"
+						icon="ui-icon-pin-s"></p:commandButton>
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Busca a nota  Anterior." styleClass="add"
+						action="#{analise_CodigoDevBean.infoAnt}" value="Nota Ant"
+						icon="ui-icon-gear"></p:commandButton>
+
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Busca a data de Commit Atual." styleClass="add"
+						action="#{analise_CodigoDevBean.DataCommit}" value="Data Commit"
+						icon="   ui-icon-calendar"></p:commandButton>
 
 					<p:commandButton style="font-size:13px; float:right"
 						id="btAtualizarDev" styleClass="add"
@@ -108,12 +125,13 @@
 						sortBy="#{dataVar.linhaCodigo}" filterBy="#{dataVar.linhaCodigo}">
 						<p:outputLabel value="#{dataVar.linhaCodigo}" />
 					</p:column>
-					
+
 					<p:column headerText="Linhas de Código Ant" width="10%"
-						sortBy="#{dataVar.linhaCodigoAnt}" filterBy="#{dataVar.linhaCodigoAnt}">
+						sortBy="#{dataVar.linhaCodigoAnt}"
+						filterBy="#{dataVar.linhaCodigoAnt}">
 						<p:outputLabel value="#{dataVar.linhaCodigoAnt}" />
 					</p:column>
-					
+
 
 					<p:column headerText="Bugs" width="10%" sortBy="#{dataVar.bugs}"
 						filterBy="#{dataVar.bugs}">
@@ -136,6 +154,12 @@
 						sortBy="#{dataVar.debitoTecnico}"
 						filterBy="#{dataVar.debitoTecnico}">
 						<p:outputLabel value="#{dataVar.debitoTecnico}" />
+					</p:column>
+
+					<p:column headerText="Debito Técnico Min" width="10%"
+						sortBy="#{dataVar.debitoTecnicoMinutos}"
+						filterBy="#{dataVar.debitoTecnicoMinutos}">
+						<p:outputLabel value="#{dataVar.debitoTecnicoMinutos}" />
 					</p:column>
 
 					<p:column headerText="DATA CAPTURA" width="11%" id="cap"
@@ -167,10 +191,13 @@
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações após expandir linha -->
 					<p:rowExpansion styleClass="rowEdit">
-
-						<!-- <p:separator style="border: 2px solid #c1c7d9; border-radius: 100px/9px; background-color:  #d4d5e6; height:8px;"> </p:separator>  -->
-						<p:separator style=" height:10px;background-color:#e6e6ff"></p:separator>
-						<br></br>
+						<p:panelGrid columns="1" columnClasses="label,value"
+							style="text-align:left;">
+							<p:outputLabel value="Coeficiente: #{dataVar.coeficiente}" />
+							<!-- <p:separator style="border: 2px solid #c1c7d9; border-radius: 100px/9px; background-color:  #d4d5e6; height:8px;"> </p:separator>  -->
+							<p:separator style=" height:10px;background-color:#e6e6ff"></p:separator>
+							<br></br>
+						</p:panelGrid>
 					</p:rowExpansion>
 				</p:dataTable>
 			</p:tab>
@@ -181,14 +208,16 @@
 
 
 					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;" title="Por Linha e Nota"
-						styleClass="add" action="#{analiseCodigoEspanhaBean.tipoSiglaNtLi}"
-						value="Tipo2" icon="ui-icon-pin-s"></p:commandButton>
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Por Linha e Nota" styleClass="add"
+						action="#{analiseCodigoEspanhaBean.tipoSiglaNtLi}" value="Tipo2"
+						icon="ui-icon-pin-s"></p:commandButton>
 
 					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;" title="Por data de Commit"
-						styleClass="add" action="#{analiseCodigoEspanhaBean.tipoSigla}"
-						value="Tipo" icon="ui-icon-pin-s"></p:commandButton>
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Por data de Commit" styleClass="add"
+						action="#{analiseCodigoEspanhaBean.tipoSigla}" value="Tipo"
+						icon="ui-icon-pin-s"></p:commandButton>
 
 					<p:commandButton
 						style="font-size:13px; float:right; color:#5c6766;"

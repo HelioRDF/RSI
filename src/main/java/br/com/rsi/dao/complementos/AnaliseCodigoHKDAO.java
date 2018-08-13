@@ -32,10 +32,6 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
-			// consulta.add(Restrictions.ne("resultado", "LIBERADO"));
-			// consulta.add(Restrictions.ne("resultado", "BLOQUEADO"));
-			// consulta.add(Restrictions.isNull("resultado"));
-			// consulta.add(Restrictions.eq("sigla", "WPC"));
 			consulta.add(Restrictions.isNull("resultado"));
 			consulta.addOrder(Order.desc("id"));
 			List<AnaliseCodigoHK> resultado = consulta.list();

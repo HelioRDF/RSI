@@ -187,7 +187,7 @@ public class AnaliseCodigoHKBean implements Serializable {
 						dao.editar(analiseCodigoHK); // Salva alteração
 						resultado = analiseCodigoHK.getResultado();
 						Messages.addGlobalInfo(" Sigla: " + sigla + "-" + resultado);
-						resultadoVazio();
+
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
@@ -205,9 +205,11 @@ public class AnaliseCodigoHKBean implements Serializable {
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void calcNota() {
 		listarInfos();
-		for (AnaliseCodigoHK obj : listaAnalise) {
 
+		for (AnaliseCodigoHK obj : listaAnalise) {
+			System.out.println("Lista ---------------");
 			if (obj.getNotaProjeto() == null) {
+				System.out.println("Nulos ---------------");
 				double blocker, critical, major, minor;
 				int linhaCodigo;
 				blocker = obj.getIssuesMuitoAlta();
@@ -230,9 +232,10 @@ public class AnaliseCodigoHKBean implements Serializable {
 				dao.editar(obj);
 				Messages.addGlobalInfo("Nota incluída:" + obj.getSigla() + " Nota:" + resultado + "%");
 				System.out.println("------ " + resultado);
+
 			}
 		}
-
+		resultadoVazio();
 	}
 
 	/**

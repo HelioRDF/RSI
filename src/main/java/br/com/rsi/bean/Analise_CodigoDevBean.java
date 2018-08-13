@@ -1,7 +1,11 @@
 package br.com.rsi.bean;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -212,14 +216,6 @@ public class Analise_CodigoDevBean implements Serializable {
 
 				} else {
 					tipo = "LEGADO";
-//
-//					System.out.println("\n Legado ------------------------------\n");
-//					System.out.println("Cod: " + obj.getId());
-//					System.out.println("Linha: " + obj.getLinhaCodigo());
-//					System.out.println("Linha Ant: " + obj.getLinhaCodigo());
-//					System.out.println("Nota: " + obj.getNotaProjeto());
-//					System.out.println("Nota Ant: " + obj.getNotaAnterior());
-//					System.out.println("\n------------------------------\n");
 				}
 
 			} catch (Exception e) {
@@ -230,6 +226,122 @@ public class Analise_CodigoDevBean implements Serializable {
 
 		}
 
+	}
+
+	/**
+	 * Trata a coluna debito técnico, deixando apenas o numeral dia.
+	 * 
+	 * @author helio.franca
+	 * @since 13-08-2018
+	 * 
+	 */
+	public void tratarDebitoTecnico() {
+
+		dao = new AnaliseCodigoDevDAO();
+		List<Automacao_Analise_Codigo> listaObj = dao.listaDebitoTecnico();
+		// List<Automacao_Analise_Codigo> listaObj = listarCodigoDev();
+
+		for (Automacao_Analise_Codigo obj : listaObj) {
+
+			if (obj.getDebitoTecnico().contains("d")) {
+				String debitoTecnico = obj.getDebitoTecnico();
+				String array[] = new String[2];
+				array = debitoTecnico.split("d");
+
+				try {
+					int debitoTecnicoMinutos = Integer.parseInt(array[0]);
+					debitoTecnicoMinutos = debitoTecnicoMinutos * 24 * 60;
+					obj.setDebitoTecnicoMinutos(Integer.toString(debitoTecnicoMinutos));
+					dao.editar(obj);
+
+				} catch (Exception e) {
+					// Erro de conversão String para Interger.
+				}
+
+			} else if (obj.getDebitoTecnico().contains("h")) {
+				String debitoTecnico = obj.getDebitoTecnico();
+				String array[] = new String[2];
+				array = debitoTecnico.split("h");
+
+				try {
+					int debitoTecnicoMinutos = Integer.parseInt(array[0]);
+					debitoTecnicoMinutos = debitoTecnicoMinutos * 60;
+					obj.setDebitoTecnicoMinutos(Integer.toString(debitoTecnicoMinutos));
+
+				} catch (Exception e) {
+					// Erro de conversão String para Interger.
+				}
+			} else if (obj.getDebitoTecnico().contains("m")) {
+				String debitoTecnico = obj.getDebitoTecnico();
+				String array[] = new String[2];
+				array = debitoTecnico.split("m");
+
+				try {
+					int debitoTecnicoMinutos = Integer.parseInt(array[0]);
+					obj.setDebitoTecnicoMinutos(Integer.toString(debitoTecnicoMinutos));
+
+				} catch (Exception e) {
+					// Erro de conversão String para Interger.
+				}
+
+			} else {
+				obj.setDebitoTecnicoMinutos("0");
+
+			}
+			dao.editar(obj);
+		}
+	}
+
+	/**
+	 * Calcula o coeficiente, utilizando a formula (=[@[Débito Técnico em Dias
+	 * ]]/[@[Total Issus]] ).
+	 * 
+	 * @author helio.franca
+	 * @since 13-08-2018
+	 * 
+	 */
+	public void calcularCoeficiente() {
+
+		dao = new AnaliseCodigoDevDAO();
+		List<Automacao_Analise_Codigo> listaObj = dao.listaCoeficiente();
+
+		for (Automacao_Analise_Codigo obj : listaObj) {
+			double totalIssues = obj.getIssuesMuitoAlta() + obj.getIssuesAlta() + obj.getIssuesMedia()
+					+ obj.getIssuesBaixa();
+			double debitoDias = (Integer.parseInt(obj.getDebitoTecnicoMinutos()) / 60 / 24);
+			double coeficiente = 0;
+
+			if (totalIssues > 0) {
+				coeficiente = debitoDias / totalIssues;
+			}
+			obj.setCoeficiente(Double.toString(coeficiente));
+			dao.editar(obj);
+		}
+	}
+
+	/**
+	 * Retorna Uma lista do tipo Automacao_Analise_Codigo
+	 * 
+	 * @author helio.franca
+	 * @since 13-08-2018
+	 */
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+	public List<Automacao_Analise_Codigo> listarCodigoDev() {
+		try {
+
+			dao = new AnaliseCodigoDevDAO();
+			List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listar();
+			listaAnalise = listaAnaliseTemp;
+			Messages.addGlobalInfo("Lista Atualizada!");
+			return listaAnaliseTemp;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			Messages.addGlobalError("Erro ao  Atualizar Lista.");
+			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ERRO:" + e.getMessage() + e.getCause());
+			return null;
+		} finally {
+		}
 	}
 
 	// Get e Set

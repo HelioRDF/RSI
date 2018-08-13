@@ -104,6 +104,9 @@ public class Automacao_Analise_Codigo implements Serializable {
 
 	@Column(name = "Debito_Tecnico")
 	private String debitoTecnico;
+	
+	@Column(name = "Debito_Tecnico_Minutos")
+	private String debitoTecnicoMinutos;
 
 	@Column(name = "Esforco_Confiabilidade")
 	private String esforcoConfiabilidade;
@@ -409,6 +412,14 @@ public class Automacao_Analise_Codigo implements Serializable {
 
 	public void setQualidade(String qualidade) {
 		this.qualidade = qualidade;
+	}
+
+	public String getDebitoTecnicoMinutos() {
+		return debitoTecnicoMinutos;
+	}
+
+	public void setDebitoTecnicoMinutos(String debitoTecnicoMinutos) {
+		this.debitoTecnicoMinutos = debitoTecnicoMinutos;
 	}
 
 }
