@@ -16,7 +16,7 @@
 			testedb / DBSQUBESTDPROD;</property> DBSQUBESTDPROD -->
 		<property name="connection.url">jdbc:sqlserver://10.1.10.6:1433;databaseName=DBSQUBESTDPROD;</property>
 		<property name="connection.username">appinspecao</property>
-		<property name="connection.password">rsi#123!</property>
+		<property name="connection.password">rsi#123!!!</property>
 		<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
 
 		<!-- Pool de Conexões. -->
