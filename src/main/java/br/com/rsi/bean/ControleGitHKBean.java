@@ -66,7 +66,7 @@ public class ControleGitHKBean implements Serializable {
 		for (ControleGitHK obj : git) {
 
 			GitList list = new GitList();
-			resultado += list.alertaGit(obj.getSigla(), obj.getNomeSistema(),obj.getPacote(), obj.getDataCommit(),
+			resultado += list.alertaGit(obj.getSigla(), obj.getNomeSistema(), obj.getPacote(), obj.getDataCommit(),
 					obj.getDataCommitAnt(), obj.isAlteracao());
 			System.out.println(resultado);
 		}
@@ -112,7 +112,7 @@ public class ControleGitHKBean implements Serializable {
 	public void salvarPlanilha() {
 		controle = new ControleGitHK();
 		dao = new ControleGitHKDAO();
-		String sigla, sistema, caminho, pacote,usuarioGit;
+		String sigla, sistema, caminho, pacote, usuarioGit;
 		Date dateC = new Date();
 
 		// Carrega a planilha
@@ -137,7 +137,7 @@ public class ControleGitHKBean implements Serializable {
 				sistema = celula2.getContents().toString().trim().toUpperCase();
 				pacote = celula3.getContents().toString().trim().toUpperCase();
 				caminho = celula4.getContents().toString().trim().toUpperCase();
-				usuarioGit =  celula5.getContents().toString().trim().toUpperCase();
+				usuarioGit = celula5.getContents().toString().trim().toUpperCase();
 
 				// Encerra a leitura quando encontra linha vazia
 				if (sigla.isEmpty()) {
@@ -349,8 +349,12 @@ public class ControleGitHKBean implements Serializable {
 			List<ControleGitHK> listaControle;
 			ControleGitHKDAO dao = new ControleGitHKDAO();
 			listaControle = dao.listar();
-			List<ControleGitHK> listaPacotesVinculadosContaPaula = listaControle.stream().filter(p -> p.getUsuarioGit().toString().equals(ControleGitHK.CONTA_PAULA)).collect(Collectors.toList());
-			List<ControleGitHK> listaPacotesVinculadosContaLuis = listaControle.stream().filter(p -> p.getUsuarioGit().toString().equals(ControleGitHK.CONTA_LUIS)).collect(Collectors.toList());	
+			List<ControleGitHK> listaPacotesVinculadosContaPaula = listaControle.stream()
+					.filter(p -> p.getUsuarioGit().toString().equals(ControleGitHK.CONTA_PAULA))
+					.collect(Collectors.toList());
+			List<ControleGitHK> listaPacotesVinculadosContaLuis = listaControle.stream()
+					.filter(p -> p.getUsuarioGit().toString().equals(ControleGitHK.CONTA_LUIS))
+					.collect(Collectors.toList());
 			alteraLoginGit("xb201520", "pCAV#1212");
 			executaComandoGitPull(listaPacotesVinculadosContaPaula);
 			alteraLoginGit("XI324337", "elphbbtu");
@@ -358,21 +362,22 @@ public class ControleGitHKBean implements Serializable {
 			gerarLogGit();
 		}
 	};
-	
+
 	/**
-	 * Metodo para executar o comando git pull em cada um 
-	 * dos pacotes do git 
+	 * Metodo para executar o comando git pull em cada um dos pacotes do git
 	 * 
-	 * @param listaControle - o metodo tem que recebr uma lista de objetos do tipo ControleGitHK
-	 * pois esses objetos contem as informações necessárias para executar a atualização dos pacotes do git
+	 * @param listaControle
+	 *            - o metodo tem que recebr uma lista de objetos do tipo
+	 *            ControleGitHK pois esses objetos contem as informações
+	 *            necessárias para executar a atualização dos pacotes do git
 	 * 
 	 * @author andre.graca
 	 */
-	
-	public static void executaComandoGitPull(List<ControleGitHK> listaControle){
-		
+
+	public static void executaComandoGitPull(List<ControleGitHK> listaControle) {
+
 		ControleGitHKDAO dao = new ControleGitHKDAO();
-		
+
 		for (ControleGitHK obj : listaControle) {
 			ControleGitHK entidade = dao.buscar(obj.getCodigo());
 			String pathSigla = "cd " + entidade.getCaminho();
@@ -411,18 +416,18 @@ public class ControleGitHKBean implements Serializable {
 	}
 
 	/**
-	 * Metodos para escrever no arquivo C:/Users/andre.graca/_netrc Este arquivo
-	 * salva o login do GitLab na maquina, o que auxilia no git pull para contas
-	 * diferentes.
+	 * Metodos para escrever no arquivo C:/Users/usuario_local/_netrc. Este
+	 * arquivo salva o login do GitLab na maquina, o que auxilia no git pull
+	 * para contas diferentes.
 	 * 
 	 * @author andre.graca
 	 */
 	public static void alteraLoginGit(String login, String senha) {
 		PrintStream ps = null;
 		try {
-			ps = new PrintStream("C:/Users/andre.graca/_netrc");
+			ps = new PrintStream("C:/Users/" + System.getProperty("user.name") + "/_netrc");
 		} catch (Exception e) {
-			System.out.println("Falha ao criar o arquivo C:/Users/andre.graca/_netrc");
+			System.out.println("Falha ao criar o arquivo _netrc dentro do usuario local");
 		}
 		ps.append("machine gitlab.produbanbr.corp\nlogin " + login + "\npassword " + senha);
 		ps.close();

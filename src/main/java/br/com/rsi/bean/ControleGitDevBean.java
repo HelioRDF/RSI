@@ -207,7 +207,6 @@ public class ControleGitDevBean implements Serializable {
 			for (ControleGitDev ControleGitDev : listaControle) {
 				ControleGitDev entidade = dao.buscar(ControleGitDev.getCodigo());
 				String pathSigla = "cd " + entidade.getCaminho();
-				;
 				String comandoGit = "git log --stat -1 --date=format:%d/%m/%Y";
 				String[] cmds = { pathSigla, comandoGit };
 				StringBuilder log = new StringBuilder();
@@ -386,18 +385,18 @@ public class ControleGitDevBean implements Serializable {
 	}
 
 	/**
-	 * Metodos para escrever no arquivo C:/Users/andre.graca/_netrc Este arquivo
-	 * salva o login do GitLab na maquina, o que auxilia no git pull para contas
-	 * diferentes.
+	 * Metodos para escrever no arquivo C:/Users/usuario_local/_netrc. Este
+	 * arquivo salva o login do GitLab na maquina, o que auxilia no git pull
+	 * para contas diferentes.
 	 * 
 	 * @author andre.graca
 	 */
 	public static void alteraLoginGit(String login, String senha) {
 		PrintStream ps = null;
 		try {
-			ps = new PrintStream("C:/Users/RSI/_netrc");
+			ps = new PrintStream("C:/Users/" + System.getProperty("user.name") + "/_netrc");
 		} catch (Exception e) {
-			System.out.println("Falha ao criar o arquivo C:/Users/RSI/_netrc");
+			System.out.println("Falha ao criar o arquivo _netrc dentro do usuario local");
 		}
 		ps.append("machine gitlab.produbanbr.corp\nlogin " + login + "\npassword " + senha);
 		ps.close();
