@@ -52,7 +52,7 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
-			consulta.add(Restrictions.isNull("tipo"));
+		//	consulta.add(Restrictions.isNull("tipo"));
 			consulta.addOrder(Order.desc("id"));
 			List<AnaliseCodigoHK> resultado = consulta.list();
 			return resultado;
@@ -88,6 +88,7 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 																					// resultado
 			return resultado;
 		} catch (RuntimeException erro) {
+			
 			throw erro;
 		} finally {
 			sessao.close();

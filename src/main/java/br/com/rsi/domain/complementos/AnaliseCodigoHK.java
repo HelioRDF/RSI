@@ -124,8 +124,8 @@ public class AnaliseCodigoHK implements Serializable {
 	@Column(name = "Qualidade")
 	private String qualidade;
 
-	@Column(name = "Tipo")
-	private String tipo;
+	@Column(name = "CodigoAlteracao")
+	private String codigoAlterado;
 
 	// --------------------------------------------------
 
@@ -133,12 +133,12 @@ public class AnaliseCodigoHK implements Serializable {
 		return url;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getCodigoAlterado() {
+		return codigoAlterado;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setCodigoAlterado(String codigoAlterado) {
+		this.codigoAlterado = codigoAlterado;
 	}
 
 	public String getNotaAnterior() {
@@ -392,6 +392,5 @@ public class AnaliseCodigoHK implements Serializable {
 	public void setDataCommit(String dataCommit) {
 		this.dataCommit = dataCommit;
 	}
-
 
 }

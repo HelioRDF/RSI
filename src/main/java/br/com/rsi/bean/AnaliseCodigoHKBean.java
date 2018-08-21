@@ -2,6 +2,7 @@ package br.com.rsi.bean;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -242,34 +243,69 @@ public class AnaliseCodigoHKBean implements Serializable {
 	 * Define o tipo da sigla legado/novo
 	 * 
 	 */
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void tipoSigla() {
-		String tipo = "NOVO";
+		String codigoAlterado = "SIM";
 		dao = new AnaliseCodigoHKDAO();
 		List<AnaliseCodigoHK> listaAnaliseTemp = dao.listaTipoVazio();
-
-		listaAnalise = listaAnaliseTemp;
-		total = listaAnalise.size();
+		String textoDataCommit = "Vazio";
+		boolean resultado = false;
 
 		for (AnaliseCodigoHK obj : listaAnaliseTemp) {
-
 			try {
 				AnaliseCodigoHK objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
+				System.out.println("\n ----------------------------\n ");
+				System.out.println(" Objeto Atual ID:" + obj.getId());
+				System.out.println(" Objeto Anterior ID:" + objAnterior.getId());
 
-				if (obj.getDataCommit().equalsIgnoreCase(objAnterior.getDataCommit())) {
-					tipo = "LEGADO";
+				textoDataCommit = obj.getDataCommit().toString();
+				Date dataCapturaAnterior = objAnterior.getDataCaptura();
+
+				if (textoDataCommit.equalsIgnoreCase("N/A")) {
+					System.out.println("textoDataCommit 01:" + textoDataCommit);
+					codigoAlterado = "NÃO";
+					continue;
+				}
+				String array[] = new String[3];
+				array = textoDataCommit.split("-");
+				textoDataCommit = array[0].trim() + "/" + array[1].trim() + "/" + array[2].trim();
+
+				System.out.println(" textoDataCommit 02:" + textoDataCommit);
+				@SuppressWarnings("deprecation")
+				Date dataCommit = new Date(textoDataCommit);
+
+				System.out.println("\n Objeto Atual DataCommit:" + dataCommit);
+				System.out.println(" Objeto Anterior Data Captura:" + dataCapturaAnterior);
+				resultado = dataCommit.before(dataCapturaAnterior);
+
+				if (resultado) {
+					codigoAlterado = "NÃO";
 				} else {
-					tipo = "NOVO";
+					codigoAlterado = "SIM";
 				}
 
+				System.out.println("\n ----------------------------\n ");
 			} catch (Exception e) {
-				// TODO: Caso não tenha sigla anterior
+				System.out.println("\nErro Null:" + e.getMessage());
+				codigoAlterado = "NÃO";
+
 			}
-			obj.setTipo(tipo);
-			dao.editar(obj);
+
+			finally {
+				obj.setCodigoAlterado(codigoAlterado);
+				dao.editar(obj);
+			}
 
 		}
-
 	}
+
+	/**
+	 * Compara a data de "Commit Atual" com a data de "Captura Anterior" da Sigla
+	 * 
+	 * @param -
+	 *            Recebe um objeto do tipo AnaliseCodigoHK
+	 */
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -25,21 +25,23 @@
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
 
 
-					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;" title="Tipo por Data Commit"
-						styleClass="add" action="#{analiseCodigoHKBean.tipoSigla}"
-						value="Tipo" icon="ui-icon-pin-s"></p:commandButton>
 
 					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;" title="Busca Data de Commit Atual"
-						styleClass="add" action="#{analiseCodigoHKBean.DataCommit}"
-						value="Data Commit" icon="   ui-icon-calendar"></p:commandButton>
-					<p:commandButton
-						style="font-size:13px; float:right; color:#d9ff65;" title="Calcula a Nota da Sigla"
-						styleClass="add" action="#{analiseCodigoHKBean.calcNota}"
-						value="Notas+Resultado" icon="ui-icon-gear"></p:commandButton>
-						
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Alteração no código" styleClass="add"
+						action="#{analiseCodigoHKBean.tipoSigla}" value="Alteração"
+						icon="ui-icon-pin-s"></p:commandButton>
 
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Busca Data de Commit Atual" styleClass="add"
+						action="#{analiseCodigoHKBean.DataCommit}" value="Data Commit"
+						icon="   ui-icon-calendar"></p:commandButton>
+					<p:commandButton
+						style="font-size:13px; float:right; color:#d9ff65;"
+						title="Calcula a Nota da Sigla" styleClass="add"
+						action="#{analiseCodigoHKBean.calcNota}" value="Notas+Resultado"
+						icon="ui-icon-gear"></p:commandButton>
 
 					<p:commandButton style="font-size:13px; float:right"
 						id="btAtualizar" styleClass="add"
@@ -140,9 +142,10 @@
 						</p:outputLabel>
 					</p:column>
 
-					<p:column headerText="Tipo" width="10%" sortBy="#{dataVar.tipo}"
-						filterBy="#{dataVar.tipo}">
-						<p:outputLabel value="#{dataVar.tipo}" />
+					<p:column headerText="Alteração" width="10%"
+						sortBy="#{dataVar.codigoAlterado}"
+						filterBy="#{dataVar.codigoAlterado}">
+						<p:outputLabel value="#{dataVar.codigoAlterado}" />
 					</p:column>
 
 					<p:column headerText="Ver" width="4%" exportable="false">
@@ -199,11 +202,12 @@
 						rendered="true" styleClass="add" action="#{rFCBean.listarInfos}"
 						value="Atualizar" update=":formTb:fr:dataTableRFC:"
 						icon=" ui-icon-refresh"></p:commandButton>
-			
-					<p:calendar  id="button" value="#{rFCBean.filtrarDataEmail}" placeholder="Enviar e-mail com inspeção a partir da data definida"  
-					title="Enviar e-mail com inspeção a partir da data definida" 
-					style=" margin-left:5px;float:left;font-color:red;" 
-						showOn="button" effect="fold"  />
+
+					<p:calendar id="button" value="#{rFCBean.filtrarDataEmail}"
+						placeholder="Enviar e-mail com inspeção a partir da data definida"
+						title="Enviar e-mail com inspeção a partir da data definida"
+						style=" margin-left:5px;float:left;font-color:red;"
+						showOn="button" effect="fold" />
 
 				</p:fieldset>
 				<p:dataTable id="dataTableRFC" rowsPerPageTemplate="12,20,30,50,100"
@@ -260,7 +264,7 @@
 						filterBy="#{dataVar.lider}">
 						<p:outputLabel value="#{dataVar.lider}" />
 					</p:column>
-				
+
 					<!-- _________________________________________________________________________________________________________________________________ -->
 					<!-- Informações após expandir linha -->
 					<p:rowExpansion styleClass="rowEdit">
@@ -278,7 +282,8 @@
 							<p:outputLabel value="Cod.Vazio: #{dataVar.codVazio}" />
 							<p:outputLabel value="Status: #{dataVar.status}" />
 							<p:outputLabel value="Email Líder: #{dataVar.emailLider}" />
-								<p:outputLabel value="Gestor de Entrega: #{dataVar.gestorEntrega}" />
+							<p:outputLabel
+								value="Gestor de Entrega: #{dataVar.gestorEntrega}" />
 							<p:column>
 								<h:outputLabel value="Descrição: "
 									style="float:left;margin:20px 10px 0px 0px;" />
