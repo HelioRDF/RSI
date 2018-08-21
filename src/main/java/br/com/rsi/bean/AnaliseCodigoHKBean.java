@@ -254,9 +254,9 @@ public class AnaliseCodigoHKBean implements Serializable {
 		for (AnaliseCodigoHK obj : listaAnaliseTemp) {
 			try {
 				AnaliseCodigoHK objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
-				System.out.println("\n ----------------------------\n ");
-				System.out.println(" Objeto Atual ID:" + obj.getId());
-				System.out.println(" Objeto Anterior ID:" + objAnterior.getId());
+//				System.out.println("\n ----------------------------\n ");
+//				System.out.println(" Objeto Atual ID:" + obj.getId());
+//				System.out.println(" Objeto Anterior ID:" + objAnterior.getId());
 
 				textoDataCommit = obj.getDataCommit().toString();
 				Date dataCapturaAnterior = objAnterior.getDataCaptura();
@@ -270,12 +270,12 @@ public class AnaliseCodigoHKBean implements Serializable {
 				array = textoDataCommit.split("-");
 				textoDataCommit = array[0].trim() + "/" + array[1].trim() + "/" + array[2].trim();
 
-				System.out.println(" textoDataCommit 02:" + textoDataCommit);
+//				System.out.println(" textoDataCommit 02:" + textoDataCommit);
 				@SuppressWarnings("deprecation")
 				Date dataCommit = new Date(textoDataCommit);
 
-				System.out.println("\n Objeto Atual DataCommit:" + dataCommit);
-				System.out.println(" Objeto Anterior Data Captura:" + dataCapturaAnterior);
+//				System.out.println("\n Objeto Atual DataCommit:" + dataCommit);
+//				System.out.println(" Objeto Anterior Data Captura:" + dataCapturaAnterior);
 				resultado = dataCommit.before(dataCapturaAnterior);
 
 				if (resultado) {
@@ -283,8 +283,12 @@ public class AnaliseCodigoHKBean implements Serializable {
 				} else {
 					codigoAlterado = "SIM";
 				}
+				
+				if (!obj.getNotaProjeto().equalsIgnoreCase(objAnterior.getNotaProjeto())) {
+					codigoAlterado = "SIM";
+				}
 
-				System.out.println("\n ----------------------------\n ");
+//				System.out.println("\n ----------------------------\n ");
 			} catch (Exception e) {
 				System.out.println("\nErro Null:" + e.getMessage());
 				codigoAlterado = "NÃO";
