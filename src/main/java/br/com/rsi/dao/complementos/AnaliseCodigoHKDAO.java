@@ -23,6 +23,28 @@ import br.com.rsi.util.HibernateUtil;
 
 public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 
+	// ---------------------------------------------------------------------------------
+	/**
+	 * 
+	 * @return - Retorna uma lista de Automacao_Analise_Codigo, aonde a nota é nula
+	 */
+	@SuppressWarnings("unchecked")
+	public List<AnaliseCodigoHK> listaNotaVazio() {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
+			consulta.add(Restrictions.isNull("notaProjeto"));
+			consulta.addOrder(Order.desc("id"));
+			List<AnaliseCodigoHK> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
+	// ---------------------------------------------------------------------------------
 	/**
 	 * 
 	 * @return - Retorna uma lista de AnaliseCodigoHK
@@ -43,6 +65,7 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 		}
 	}
 
+	// ---------------------------------------------------------------------------------
 	/**
 	 * 
 	 * @return - Retorna uma lista de AnaliseCodigoHK
@@ -52,7 +75,7 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
-		//	consulta.add(Restrictions.isNull("tipo"));
+			// consulta.add(Restrictions.isNull("tipo"));
 			consulta.addOrder(Order.desc("id"));
 			List<AnaliseCodigoHK> resultado = consulta.list();
 			return resultado;
@@ -63,6 +86,7 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 		}
 	}
 
+	// ---------------------------------------------------------------------------------
 	/**
 	 * 
 	 * @param codigo
@@ -88,13 +112,14 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 																					// resultado
 			return resultado;
 		} catch (RuntimeException erro) {
-			
+
 			throw erro;
 		} finally {
 			sessao.close();
 		}
 	}
 
+	// ---------------------------------------------------------------------------------
 	/**
 	 * 
 	 * @return - Retorna uma lista AnaliseCodigoHK com dataCommit = Null
@@ -115,6 +140,7 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 		}
 	}
 
+	// ---------------------------------------------------------------------------------
 	/**
 	 * 
 	 * @param codigo
@@ -142,6 +168,7 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 		}
 	}
 
+	// ---------------------------------------------------------------------------------
 	/**
 	 * 
 	 * @param codigo

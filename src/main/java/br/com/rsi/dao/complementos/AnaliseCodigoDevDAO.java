@@ -17,15 +17,37 @@ import br.com.rsi.util.HibernateUtil;
  * 
  * @author helio.franca
  * @version v1.8
- * @since 12-07-2018
+ * @since 24-08-2018
  * 
  */
 
 public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 	
+	
 	/**
 	 * 
-	 * @return - Retorna uma lista de AnaliseCodigoHK
+	 * @return - Retorna uma lista de Automacao_Analise_Codigo, aonde a nota é nula
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Automacao_Analise_Codigo> listaNotaVazio() {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Automacao_Analise_Codigo.class);
+			consulta.add(Restrictions.isNull("notaProjeto"));
+			consulta.addOrder(Order.desc("id"));
+			List<Automacao_Analise_Codigo> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	//-----------------------------------------------------------------------------------
+	/**
+	 * 
+	 * @return - Retorna uma lista de Automacao_Analise_Codigo
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Automacao_Analise_Codigo> listaResultadoVazio() {
@@ -43,9 +65,10 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 		}
 	}
 
+	//-----------------------------------------------------------------------------------
 	/**
 	 * 
-	 * @return - Retorna uma lista de AnaliseCodigoHK
+	 * @return - Retorna uma lista de Automacao_Analise_Codigo
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Automacao_Analise_Codigo> listaDebitoTecnico() {
@@ -63,9 +86,10 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 		}
 	}
 
+	//-----------------------------------------------------------------------------------
 	/**
 	 * 
-	 * @return - Retorna uma lista de AnaliseCodigoHK
+	 * @return - Retorna uma lista de Automacao_Analise_Codigo
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Automacao_Analise_Codigo> listaCoeficiente() {
@@ -83,6 +107,7 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 		}
 	}
 	
+	//-----------------------------------------------------------------------------------
 	/**
 	 * 
 	 * @return - Retorna uma lista de Automacao_Analise_Codigo
@@ -103,6 +128,7 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 		}
 	}
 
+	//-----------------------------------------------------------------------------------
 	/**
 	 * 
 	 * @param codigo
@@ -136,6 +162,7 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 		}
 	}
 
+	//-----------------------------------------------------------------------------------
 	/**
 	 * 
 	 * @return - Retorna uma lista AnaliseCodigoHK com dataCommit = Null
@@ -156,6 +183,7 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 		}
 	}
 
+	//-----------------------------------------------------------------------------------
 	/**
 	 * 
 	 * @param codigo

@@ -30,7 +30,7 @@ public class CorpoHtmlInspecao {
 		msgs.append("<div>");
 		
 		msgs.append(" <br></br>  ");
-			msgs.append("<span>Prezados, segue abaixo o resultado da inspeção de código referente ás RFCs  que foram implantados em HK.   </span>  ");
+			msgs.append("<span>Prezados, segue abaixo o resultado da inspeção de código referente às RFCs  que foram implantados em HK.   </span>  ");
 
 		msgs.append("<br></br>");
 		msgs.append("<table border='1'>");
@@ -46,7 +46,7 @@ public class CorpoHtmlInspecao {
 		msgs.append("<td>&ensp; Nota atual  &ensp;</td>");
 		msgs.append("<td>&ensp; Dt Inspeção &ensp;</td>"); // Data Captura Sonar
 		msgs.append("<td>&ensp; Dt.Alt.Cód   &ensp;</td>");
-		msgs.append("<td>&ensp; Alt.Cód   &ensp;</td>");
+//		msgs.append("<td>&ensp; Alt.Cód   &ensp;</td>");
 		msgs.append("<td>&ensp; Linhas.Cód  &ensp;</td>");
 		msgs.append("<td>&ensp; Blocker  &ensp;</td>");
 		msgs.append("<td>&ensp; Critical  &ensp;</td>");

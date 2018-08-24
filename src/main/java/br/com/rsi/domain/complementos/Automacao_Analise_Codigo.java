@@ -119,27 +119,38 @@ public class Automacao_Analise_Codigo implements Serializable {
 
 	@Column(name = "Nota_Projeto")
 	private String notaProjeto;
+	
 
 	@Column(name = "Nota_Anterior")
 	private String notaAnterior;
 
-	@Column(name = "Resultado")
-	private String resultado;
-
 	@Column(name = "Qualidade")
 	private String qualidade;
 
-	@Column(name = "Tipo")
-	private String tipo;
 	
 	@Column(name = "Coeficiente")
 	private String coeficiente;
 	
+	@Column(name = "DevOps")
+	private String devops;
+	
+	@Column(name = "Tipo")
+	private String codigoAlterado;
+	
 	// --------------------------------------------------
 
 	
+	
 	public String getUrl() {
 		return url;
+	}
+
+	public String getDevops() {
+		return devops;
+	}
+
+	public void setDevops(String devops) {
+		this.devops = devops;
 	}
 
 	public int getLinhaCodigoAnt() {
@@ -166,13 +177,7 @@ public class Automacao_Analise_Codigo implements Serializable {
 		this.dataCommit = dataCommit;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
 
 	public String getNotaAnterior() {
 		return notaAnterior;
@@ -396,14 +401,6 @@ public class Automacao_Analise_Codigo implements Serializable {
 
 	public void setNotaProjeto(String notaProjeto) {
 		this.notaProjeto = notaProjeto;
-	}
-
-	public String getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(String resultado) {
-		this.resultado = resultado;
 	}
 
 	public String getQualidade() {

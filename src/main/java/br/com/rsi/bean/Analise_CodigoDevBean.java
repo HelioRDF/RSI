@@ -1,6 +1,7 @@
 package br.com.rsi.bean;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -17,8 +18,8 @@ import br.com.rsi.domain.complementos.Automacao_Analise_Codigo;
  * -Classe BEAN AnaliseCodigoHGBean.
  * 
  * @author helio.franca
- * @version v1.8
- * @since 12-07-2018
+ * @version v2.1.9
+ * @since 24-08-2018
  *
  */
 
@@ -34,6 +35,7 @@ public class Analise_CodigoDevBean implements Serializable {
 	private int total;
 	String siglaAtual;
 
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Salvar um objeto AnaliseCodigoHGBean
 	 */
@@ -48,6 +50,7 @@ public class Analise_CodigoDevBean implements Serializable {
 		}
 	}
 
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Criar uma lista com os objetos AnaliseCodigoHGBean
 	 */
@@ -70,6 +73,7 @@ public class Analise_CodigoDevBean implements Serializable {
 		}
 	}
 
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Captura a última data de Commit e tipo em controle git/rtc e carimba na
 	 * analíse.
@@ -110,120 +114,7 @@ public class Analise_CodigoDevBean implements Serializable {
 		}
 	}
 
-	/**
-	 * Captura as notas anteriores e seta na inspeção
-	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public void infoAnt() {
-		try {
-
-			dao = new AnaliseCodigoDevDAO();
-			listaResultado = dao.listaResultadoVazio();
-			Automacao_Analise_Codigo objAnterior = new Automacao_Analise_Codigo();
-
-			for (Automacao_Analise_Codigo obj : listaResultado) {
-
-				try {
-					AnaliseCodigoDevDAO daoTemp = new AnaliseCodigoDevDAO();
-					objAnterior = daoTemp.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
-					obj.setNotaAnterior(objAnterior.getNotaProjeto());
-					obj.setLinhaCodigoAnt(objAnterior.getLinhaCodigo());
-					daoTemp.editar(obj);
-					System.out.println("\n------\nSigla:" + obj.getSigla());
-					System.out.println("Nota:" + obj.getNotaProjeto());
-					System.out.println("Nota Ant:" + obj.getNotaAnterior());
-
-				} catch (Exception e) {
-					System.out.println("------ ERRO:" + e.getMessage() + e.getCause());
-				}
-
-			} // Fim do For
-
-		} catch (Exception e) {
-			System.out.println("----- ERRO:" + e.getMessage() + e.getCause());
-		}
-	}
-
-	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-
-	/**
-	 * Define o tipo da sigla legado/novo por commit
-	 * 
-	 */
-	public void tipoSigla() {
-		String tipo = "NOVO";
-		dao = new AnaliseCodigoDevDAO();
-		List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listaTipoVazio();
-
-		listaAnalise = listaAnaliseTemp;
-		total = listaAnalise.size();
-
-		for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
-
-			try {
-				Automacao_Analise_Codigo objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(),
-						obj.getNomeProjeto());
-
-				if (obj.getDataCommit().equalsIgnoreCase(objAnterior.getDataCommit())) {
-					tipo = "LEGADO";
-				} else {
-					tipo = "NOVO";
-				}
-
-			} catch (Exception e) {
-				// TODO: Caso não tenha sigla anterior
-			}
-			obj.setTipo(tipo);
-			dao.editar(obj);
-
-		}
-
-	}
-
-	// ------------------------------------------------------------------------------------------------------------------------------------------------------
-
-	/**
-	 * Define o tipo da sigla legado/novo por Nota ou linha de códgio
-	 * 
-	 */
-	public void tipoSiglaNtLi() {
-		String tipo = "NOVO";
-		dao = new AnaliseCodigoDevDAO();
-		List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listaTipoVazio();
-
-		listaAnalise = listaAnaliseTemp;
-		total = listaAnalise.size();
-
-		for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
-
-			try {
-
-				int linha = obj.getLinhaCodigo();
-				int linhaAnt = obj.getLinhaCodigoAnt();
-				String nota = obj.getNotaProjeto();
-				String notaAnt = obj.getNotaAnterior();
-
-				if (linha != linhaAnt) {
-					tipo = "NOVO";
-
-				} else if (!nota.equalsIgnoreCase(notaAnt)) {
-
-					tipo = "NOVO";
-
-				} else {
-					tipo = "LEGADO";
-				}
-
-			} catch (Exception e) {
-				// TODO: Caso não tenha sigla anterior
-			}
-			obj.setTipo(tipo);
-			dao.editar(obj);
-
-		}
-
-	}
-
 	/**
 	 * Trata a coluna debito técnico, deixando apenas o numeral dia.
 	 * 
@@ -285,9 +176,11 @@ public class Analise_CodigoDevBean implements Serializable {
 
 			}
 			dao.editar(obj);
+			calcularCoeficiente();
 		}
 	}
 
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Calcula o coeficiente, utilizando a formula (=[@[Débito Técnico em Dias
 	 * ]]/[@[Total Issus]] ).
@@ -304,8 +197,14 @@ public class Analise_CodigoDevBean implements Serializable {
 		for (Automacao_Analise_Codigo obj : listaObj) {
 			double totalIssues = obj.getIssuesMuitoAlta() + obj.getIssuesAlta() + obj.getIssuesMedia()
 					+ obj.getIssuesBaixa();
-			double debitoDias = (Integer.parseInt(obj.getDebitoTecnicoMinutos()) / 60 / 24);
+			double debitoDias = 0;
 			double coeficiente = 0;
+			try {
+				debitoDias = (Integer.parseInt(obj.getDebitoTecnicoMinutos()) / 60 / 24);
+				coeficiente = 0;
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 
 			if (totalIssues > 0) {
 				coeficiente = debitoDias / totalIssues;
@@ -337,6 +236,58 @@ public class Analise_CodigoDevBean implements Serializable {
 			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ERRO:" + e.getMessage() + e.getCause());
 			return null;
 		} finally {
+		}
+	}
+
+	/**
+	 * Calcula a nota da análise atual, e seta nota anterior e linhas anterior.
+	 */
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+	public void calcNotaInfosAnt() {
+
+		dao = new AnaliseCodigoDevDAO();
+		List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listaNotaVazio();
+		Automacao_Analise_Codigo objAnterior = new Automacao_Analise_Codigo();
+
+		for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
+
+			try {
+				objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
+				obj.setNotaAnterior(objAnterior.getNotaProjeto());
+				obj.setLinhaCodigoAnt(objAnterior.getLinhaCodigo());
+			} catch (Exception e) {
+				// Objeto anterior não existe.
+				continue;
+			}
+
+			double blocker, critical, major, minor;
+			int linhaCodigo;
+			blocker = obj.getIssuesMuitoAlta();
+			critical = obj.getIssuesAlta();
+			major = obj.getIssuesMedia();
+			minor = obj.getIssuesBaixa();
+			linhaCodigo = obj.getLinhaCodigo();
+			blocker = ((blocker / linhaCodigo) * 10);
+			critical = ((critical / linhaCodigo) * 5);
+			major = ((major / linhaCodigo));
+			minor = ((minor / linhaCodigo) * 0.1);
+
+			double soma = blocker + critical + major + minor;
+			double nota = ((1 - soma) * 100);
+			int resultado;
+
+			DecimalFormat df = new DecimalFormat("###,###");
+			if (soma >= 0) {
+				resultado = Integer.parseInt(df.format(nota));
+			} else {
+				resultado = 0;
+			}
+
+			obj.setNotaProjeto(String.valueOf(resultado));
+			dao = new AnaliseCodigoDevDAO();
+			dao.editar(obj);
+			Messages.addGlobalInfo("Nota incluída:" + obj.getSigla() + " Nota:" + resultado + "%");
+
 		}
 	}
 

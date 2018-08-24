@@ -80,7 +80,7 @@ public class InspecaoList {
 				+ "<td style=\"background-color:#a0a0a0;color:#1e5cdf;\" > &ensp; " + inspecaoObj.getNotaProjeto()
 				+ "% </td>" + "<td> &ensp; " + dataTxt + " </td>" // Data de captura
 				+ "<td> &ensp; " + dataCommit + " </td>" // DT alt Cod
-				+ "<td> &ensp; " + inspecaoObj.getCodigoAlterado()+ " </td>" //
+			//	+ "<td> &ensp; " + inspecaoObj.getCodigoAlterado()+ " </td>" //
 				+ "<td> &ensp; " + inspecaoObj.getLinhaCodigo() + " </td>" + "<td> &ensp; "
 				+ inspecaoObj.getIssuesMuitoAlta() + " </td>" + "<td> &ensp; " + inspecaoObj.getIssuesAlta() + " </td>"
 				+ "<td " + corResultado + "> &ensp; " + inspecaoObj.getResultado() + "&ensp; </td>" + "</tr>";

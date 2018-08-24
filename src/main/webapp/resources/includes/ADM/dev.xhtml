@@ -21,38 +21,11 @@
 			<p:tab title="Análise (Dev)" closable="true" disabled="false">
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
 
-
-
-					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;"
-						title="Calcula o Coeficiente" styleClass="add"
-						action="#{analise_CodigoDevBean.calcularCoeficiente}"
-						value="Coeficiente" icon="ui-icon-pin-s">
-					</p:commandButton>
-
 					<p:commandButton
 						style="font-size:13px; float:right; color:#5c6766;"
 						title="Calcula Debito Técnico" styleClass="add"
 						action="#{analise_CodigoDevBean.tratarDebitoTecnico}"
-						value="Debito Tec" icon="ui-icon-pin-s"></p:commandButton>
-
-					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;"
-						title="Por Linha e Nota" styleClass="add"
-						action="#{analise_CodigoDevBean.tipoSiglaNtLi}" value="Tipo2"
-						icon="ui-icon-pin-s"></p:commandButton>
-
-					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;"
-						title="Por data de Commit" styleClass="add"
-						action="#{analise_CodigoDevBean.tipoSigla}" value="Tipo1"
-						icon="ui-icon-pin-s"></p:commandButton>
-
-					<p:commandButton
-						style="font-size:13px; float:right; color:#5c6766;"
-						title="Busca a nota  Anterior." styleClass="add"
-						action="#{analise_CodigoDevBean.infoAnt}" value="Nota Ant"
-						icon="ui-icon-gear"></p:commandButton>
+						value="Debito Tec+Coeficiente" icon="ui-icon-pin-s"></p:commandButton>
 
 					<p:commandButton
 						style="font-size:13px; float:right; color:#5c6766;"
@@ -60,12 +33,17 @@
 						action="#{analise_CodigoDevBean.DataCommit}" value="Data Commit"
 						icon="   ui-icon-calendar"></p:commandButton>
 
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Nota Atual/Anterior e Linhas Anteriores, ." styleClass="add"
+						action="#{analise_CodigoDevBean.calcNotaInfosAnt}" value="Nota+Info"
+						icon="ui-icon-gear"></p:commandButton>					
+						
 					<p:commandButton style="font-size:13px; float:right"
 						id="btAtualizarDev" styleClass="add"
 						action="#{analise_CodigoDevBean.listarInfos}" value="Atualizar"
 						rendered="true" update=":formTb:fr:dataTableAnaliseDEV"
 						icon=" ui-icon-refresh"></p:commandButton>
-
 
 					<h:commandLink style="float:left; margin-right:5px;">
 						<h:graphicImage value="/images/excel2.png" width="24" />
@@ -177,10 +155,6 @@
 						</p:outputLabel>
 					</p:column>
 
-					<p:column headerText="Tipo" width="10%" sortBy="#{dataVar.tipo}"
-						filterBy="#{dataVar.tipo}">
-						<p:outputLabel value="#{dataVar.tipo}" />
-					</p:column>
 
 					<p:column headerText="Ver" width="4%" exportable="false">
 						<!-- Expandir infos -->
