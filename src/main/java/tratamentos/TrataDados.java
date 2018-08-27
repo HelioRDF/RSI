@@ -1,14 +1,7 @@
 package tratamentos;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
-import org.omnifaces.util.Messages;
-
-import br.com.rsi.dao.complementos.AnaliseCodigoHKDAO;
-import br.com.rsi.domain.complementos.AnaliseCodigoHK;
 
 /**
  * 
