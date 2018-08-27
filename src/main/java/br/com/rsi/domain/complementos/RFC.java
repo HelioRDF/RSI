@@ -71,128 +71,84 @@ public class RFC extends GenericDomain {
 	
 	@Column(nullable = true)
 	private String emailLider;
-	
-	@Column(nullable = true)
-	private boolean enviarEmail;
 
 	// --------------------------------------------------
-
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
-
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
-
-	public boolean isEnviarEmail() {
-		return enviarEmail;
-	}
-
-	public void setEnviarEmail(boolean enviarEmail) {
-		this.enviarEmail = enviarEmail;
-	}
-
 	public String getEmailLider() {
 		return emailLider;
 	}
-
 	public void setEmailLider(String emailLider) {
 		this.emailLider = emailLider;
 	}
-
 	public String getSigla() {
 		return sigla;
 	}
-
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
 	}
-
 	public String getCodProj() {
 		return codProj;
 	}
-
 	public void setCodProj(String codProj) {
 		this.codProj = codProj;
 	}
-
 	public String getCodRfc() {
 		return codRfc;
 	}
-
 	public void setCodRfc(String codRfc) {
 		this.codRfc = codRfc;
 	}
-
 	public Date getDataInspecao() {
 		return dataInspecao;
 	}
-
 	public void setDataInspecao(Date dataInspecao) {
 		this.dataInspecao = dataInspecao;
 	}
-
 	public String getObservacao() {
 		return observacao;
 	}
-
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 	public String getCodVazio() {
 		return codVazio;
 	}
-
 	public void setCodVazio(String codVazio) {
 		this.codVazio = codVazio;
 	}
-
 	public int getCodInspecao() {
 		return codInspecao;
 	}
-
 	public void setCodInspecao(int codInspecao) {
 		this.codInspecao = codInspecao;
 	}
-
 	public String getInspecionar() {
 		return inspecionar;
 	}
-
 	public void setInspecionar(String inspecionar) {
 		this.inspecionar = inspecionar;
 	}
-
 	public String getLider() {
 		return lider;
 	}
-
 	public void setLider(String lider) {
 		this.lider = lider;
 	}
-
 	public String getGestorEntrega() {
 		return gestorEntrega;
 	}
-
 	public void setGestorEntrega(String gestorEntrega) {
 		this.gestorEntrega = gestorEntrega;
 	}
-
-
-
-
-	
-
 }

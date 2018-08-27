@@ -47,9 +47,6 @@ public class RFCBean implements Serializable {
 	boolean enviarEmailTemp;
 	public Date filtrarDataEmail = new Date();
 
-
-
-
 	/**
 	 * Dispara o envio de E-mail
 	 */
@@ -65,9 +62,12 @@ public class RFCBean implements Serializable {
 		rfcs = daoRFC.listarRfcPorData(filtrarDataEmail);
 
 		for (RFC obj : rfcs) {
-
-			InspecaoList list = new InspecaoList();
-			resultado += list.alertaInspecao(obj);
+			try {
+				InspecaoList list = new InspecaoList();
+				resultado += list.alertaInspecao(obj);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 
 		}
 		email.emailHtmlInspecao(resultado, "Monitor de Inspeção/RFC");
@@ -371,7 +371,7 @@ public class RFCBean implements Serializable {
 	public void setFiltrarDataEmail(Date filtrarDataEmail) {
 		this.filtrarDataEmail = filtrarDataEmail;
 	}
-	
+
 	public boolean isEnviarEmailTemp() {
 		return enviarEmailTemp;
 	}
