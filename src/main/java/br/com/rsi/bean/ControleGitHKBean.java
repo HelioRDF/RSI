@@ -425,7 +425,10 @@ public class ControleGitHKBean implements Serializable {
 	public static void alteraLoginGit(String login, String senha) {
 		PrintStream ps = null;
 		try {
-			ps = new PrintStream("C:/Users/" + System.getProperty("user.name") + "/_netrc");
+			String caminho = "C:/Users/" + "RSI" + "/_netrc";
+			ps = new PrintStream(caminho);
+			System.out.println("Caminho------------------"+caminho);
+			
 		} catch (Exception e) {
 			System.out.println("Falha ao criar o arquivo _netrc dentro do usuario local");
 		}

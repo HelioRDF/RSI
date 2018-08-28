@@ -117,7 +117,7 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Automacao_Analise_Codigo.class);
-			consulta.add(Restrictions.isNull("tipo"));
+			consulta.add(Restrictions.isNull("codigoAlterado"));
 			consulta.addOrder(Order.desc("id"));
 			List<Automacao_Analise_Codigo> resultado = consulta.list();
 			return resultado;

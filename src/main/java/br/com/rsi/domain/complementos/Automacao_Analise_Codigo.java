@@ -145,6 +145,14 @@ public class Automacao_Analise_Codigo implements Serializable {
 		return url;
 	}
 
+	public String getCodigoAlterado() {
+		return codigoAlterado;
+	}
+
+	public void setCodigoAlterado(String codigoAlterado) {
+		this.codigoAlterado = codigoAlterado;
+	}
+
 	public String getDevops() {
 		return devops;
 	}

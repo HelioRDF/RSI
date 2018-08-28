@@ -2,6 +2,7 @@ package br.com.rsi.bean;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -176,7 +177,10 @@ public class Analise_CodigoDevBean implements Serializable {
 
 			}
 			dao.editar(obj);
+			//Chama calcularCoeficiente();
 			calcularCoeficiente();
+			//Chama alteracaoSigla(); 
+			alteracaoSigla(); 
 		}
 	}
 
@@ -288,6 +292,49 @@ public class Analise_CodigoDevBean implements Serializable {
 			dao.editar(obj);
 			Messages.addGlobalInfo("Nota incluída:" + obj.getSigla() + " Nota:" + resultado + "%");
 
+		}
+	}
+	
+	/**
+	 * Identifica se ocorreu alteração na sigla.
+	 * 
+	 */
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+	public void alteracaoSigla() {
+		String codigoAlterado = "SIM";
+		dao = new AnaliseCodigoDevDAO();
+		List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listaTipoVazio();
+		String textoDataCommit = "Vazio";
+		boolean resultado = false;
+		for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
+			try {
+				Automacao_Analise_Codigo objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
+				textoDataCommit = obj.getDataCommit().toString();
+				Date dataCapturaAnterior = objAnterior.getDataCaptura();
+				if (textoDataCommit.equalsIgnoreCase("N/A")) {
+					codigoAlterado = "LEGADO";
+					continue;
+				}
+				String array[] = new String[3];
+				array = textoDataCommit.split("-");
+				textoDataCommit = array[0].trim() + "/" + array[1].trim() + "/" + array[2].trim();
+				@SuppressWarnings("deprecation")
+				Date dataCommit = new Date(textoDataCommit);
+				resultado = dataCommit.before(dataCapturaAnterior);
+				if (resultado) {
+					codigoAlterado = "LEGADO";
+				} else {
+					codigoAlterado = "NOVO";
+				}
+				if (!obj.getNotaProjeto().equalsIgnoreCase(objAnterior.getNotaProjeto())) {
+					codigoAlterado = "NOVO";
+				}
+			} catch (Exception e) {
+				codigoAlterado = "LEGADO";
+			} finally {
+				obj.setCodigoAlterado(codigoAlterado);
+				dao.editar(obj);
+			}
 		}
 	}
 

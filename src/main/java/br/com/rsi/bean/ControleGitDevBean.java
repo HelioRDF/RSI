@@ -325,11 +325,15 @@ public class ControleGitDevBean implements Serializable {
 			listaControle = dao.listar();
 			List<ControleGitDev> listaPacotesVinculadosContaPaula = listaControle.stream().filter(p -> p.getUsuarioGit().toString().equals(ControleGitDev.CONTA_PAULA)).collect(Collectors.toList());
 			List<ControleGitDev> listaPacotesVinculadosContaLuis = listaControle.stream().filter(p -> p.getUsuarioGit().toString().equals(ControleGitDev.CONTA_LUIS)).collect(Collectors.toList());	
+		try {
 			alteraLoginGit("xb201520", "pCAV#1212");
 			executaComandoGitPull(listaPacotesVinculadosContaPaula);
 			alteraLoginGit("XI324337", "elphbbtu");
 			executaComandoGitPull(listaPacotesVinculadosContaLuis);
 			gerarLogGit();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}			
 		}
 	};
 	
@@ -395,11 +399,13 @@ public class ControleGitDevBean implements Serializable {
 		PrintStream ps = null;
 		try {
 			ps = new PrintStream("C:/Users/" + System.getProperty("user.name") + "/_netrc");
+		
 		} catch (Exception e) {
 			System.out.println("Falha ao criar o arquivo _netrc dentro do usuario local");
 		}
-		ps.append("machine gitlab.produbanbr.corp\nlogin " + login + "\npassword " + senha);
-		ps.close();
+			ps.append("machine gitlab.produbanbr.corp\nlogin" + login + "\npassword " + senha);
+			ps.close();
+	
 	}
 
 	// Get e Set
