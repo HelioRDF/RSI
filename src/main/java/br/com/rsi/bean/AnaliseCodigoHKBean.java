@@ -107,7 +107,6 @@ public class AnaliseCodigoHKBean implements Serializable {
 					dataCommitRtc = dataCommitRtc.substring(0, 11);
 					dataCommit = dataCommitRtc;
 				}
-
 				obj.setDataCommit(dataCommit);
 				dao.editar(obj);
 				Messages.addGlobalInfo("Data de Commit atualizada! " + obj.getSigla());

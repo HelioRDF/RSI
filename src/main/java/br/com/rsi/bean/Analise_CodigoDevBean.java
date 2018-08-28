@@ -177,10 +177,10 @@ public class Analise_CodigoDevBean implements Serializable {
 
 			}
 			dao.editar(obj);
-			//Chama calcularCoeficiente();
+			// Chama calcularCoeficiente();
 			calcularCoeficiente();
-			//Chama alteracaoSigla(); 
-			alteracaoSigla(); 
+			// Chama alteracaoSigla();
+			alteracaoSigla();
 		}
 	}
 
@@ -254,16 +254,7 @@ public class Analise_CodigoDevBean implements Serializable {
 		Automacao_Analise_Codigo objAnterior = new Automacao_Analise_Codigo();
 
 		for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
-
-			try {
-				objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
-				obj.setNotaAnterior(objAnterior.getNotaProjeto());
-				obj.setLinhaCodigoAnt(objAnterior.getLinhaCodigo());
-			} catch (Exception e) {
-				// Objeto anterior não existe.
-				continue;
-			}
-
+			int resultado;
 			double blocker, critical, major, minor;
 			int linhaCodigo;
 			blocker = obj.getIssuesMuitoAlta();
@@ -278,23 +269,30 @@ public class Analise_CodigoDevBean implements Serializable {
 
 			double soma = blocker + critical + major + minor;
 			double nota = ((1 - soma) * 100);
-			int resultado;
 
 			DecimalFormat df = new DecimalFormat("###,###");
 			if (soma >= 0) {
 				resultado = Integer.parseInt(df.format(nota));
+
 			} else {
 				resultado = 0;
 			}
+			try {
+				objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
+				obj.setNotaAnterior(objAnterior.getNotaProjeto());
+				obj.setLinhaCodigoAnt(objAnterior.getLinhaCodigo());
 
+			} catch (Exception e) {
+				// Objeto anterior não existe.
+				System.out.println("----------- Objeto anterior não identificado ----------------");
+
+			}
 			obj.setNotaProjeto(String.valueOf(resultado));
 			dao = new AnaliseCodigoDevDAO();
 			dao.editar(obj);
-			Messages.addGlobalInfo("Nota incluída:" + obj.getSigla() + " Nota:" + resultado + "%");
-
 		}
 	}
-	
+
 	/**
 	 * Identifica se ocorreu alteração na sigla.
 	 * 
@@ -308,7 +306,8 @@ public class Analise_CodigoDevBean implements Serializable {
 		boolean resultado = false;
 		for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
 			try {
-				Automacao_Analise_Codigo objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(), obj.getNomeProjeto());
+				Automacao_Analise_Codigo objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(),
+						obj.getNomeProjeto());
 				textoDataCommit = obj.getDataCommit().toString();
 				Date dataCapturaAnterior = objAnterior.getDataCaptura();
 				if (textoDataCommit.equalsIgnoreCase("N/A")) {
