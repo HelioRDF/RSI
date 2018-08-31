@@ -247,6 +247,71 @@ public class AnaliseCodigoHKBean implements Serializable {
 			}
 		}
 	}
+	
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Trata a coluna debito técnico, deixando apenas o numeral dia.
+	 * 
+	 * @author helio.franca
+	 * @since 13-08-2018
+	 * 
+	 */
+	public void tratarDebitoTecnico() {
+
+		dao = new AnaliseCodigoHKDAO();
+		List<AnaliseCodigoHK> listaObj = dao.listaDebitoTecnico();
+		// List<Automacao_Analise_Codigo> listaObj = listarCodigoDev();
+
+		for (AnaliseCodigoHK obj : listaObj) {
+
+			if (obj.getDebitoTecnico().contains("d")) {
+				String debitoTecnico = obj.getDebitoTecnico();
+				String array[] = new String[2];
+				array = debitoTecnico.split("d");
+
+				try {
+					int debitoTecnicoMinutos = Integer.parseInt(array[0]);
+					debitoTecnicoMinutos = debitoTecnicoMinutos * 24 * 60;
+					obj.setDebitoTecnicoMinutos(Integer.toString(debitoTecnicoMinutos));
+					dao.editar(obj);
+
+				} catch (Exception e) {
+					// Erro de conversão String para Interger.
+				}
+
+			} else if (obj.getDebitoTecnico().contains("h")) {
+				String debitoTecnico = obj.getDebitoTecnico();
+				String array[] = new String[2];
+				array = debitoTecnico.split("h");
+
+				try {
+					int debitoTecnicoMinutos = Integer.parseInt(array[0]);
+					debitoTecnicoMinutos = debitoTecnicoMinutos * 60;
+					obj.setDebitoTecnicoMinutos(Integer.toString(debitoTecnicoMinutos));
+
+				} catch (Exception e) {
+					// Erro de conversão String para Interger.
+				}
+			} else if (obj.getDebitoTecnico().contains("m")) {
+				String debitoTecnico = obj.getDebitoTecnico();
+				String array[] = new String[2];
+				array = debitoTecnico.split("m");
+
+				try {
+					int debitoTecnicoMinutos = Integer.parseInt(array[0]);
+					obj.setDebitoTecnicoMinutos(Integer.toString(debitoTecnicoMinutos));
+
+				} catch (Exception e) {
+					// Erro de conversão String para Interger.
+				}
+
+			} else {
+				obj.setDebitoTecnicoMinutos("0");
+
+			}
+			dao.editar(obj);
+		}
+	}
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	// Get e Set

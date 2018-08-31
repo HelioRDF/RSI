@@ -112,6 +112,10 @@
 					</p:column>
 
 
+					<p:column headerText="Blockers" width="10%" sortBy="#{dataVar.issuesMuitoAlta}"
+						filterBy="#{dataVar.issuesMuitoAlta}">
+						<p:outputLabel value="#{dataVar.issuesMuitoAlta}" />
+					</p:column>
 					<p:column headerText="Bugs" width="10%" sortBy="#{dataVar.bugs}"
 						filterBy="#{dataVar.bugs}">
 						<p:outputLabel value="#{dataVar.bugs}" />

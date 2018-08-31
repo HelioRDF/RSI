@@ -63,11 +63,9 @@ public class EnviarEmail {
 			email.addTo(destino, "HELIO SANTANDER");
 			email.addTo(destino2, "HELIO RSI");
 			email.addTo(destino3, "MONITOR APP");
-
 			email.setFrom(office_365, apelido);
 			email.setSubject(titulo);
 			email.setStartTLSEnabled(true);
-
 			String textoHtml = CorpoHtmlGIT.bodyHTML(resultado, "Líder de QA");
 
 			// set the html message
@@ -86,7 +84,7 @@ public class EnviarEmail {
 			enviado = false;
 			concluido = false;
 			emailHtmlGmail(resultado, titulo);
-
+		
 		}
 
 	}

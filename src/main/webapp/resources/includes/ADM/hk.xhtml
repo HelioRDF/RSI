@@ -24,12 +24,18 @@
 			<p:tab title="Análise (hk)" closable="true" disabled="false">
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
 
+					<p:commandButton
+						style="font-size:13px; float:right; color:#5c6766;"
+						title="Busca a Data de Commit Atual / Verifica se teve alteração na sigla"
+						styleClass="add"
+						action="#{analiseCodigoHKBean.tratarDebitoTecnico}"
+						value="tratarDebitoTecnico" icon="   ui-icon-calendar"></p:commandButton>
 
 					<p:commandButton
 						style="font-size:13px; float:right; color:#5c6766;"
-						title="Busca a Data de Commit Atual / Verifica se teve alteração na sigla" styleClass="add"
-						action="#{analiseCodigoHKBean.DataCommit}" value="Data Commit+Alteração"
-						icon="   ui-icon-calendar"></p:commandButton>
+						title="Busca a Data de Commit Atual / Verifica se teve alteração na sigla"
+						styleClass="add" action="#{analiseCodigoHKBean.DataCommit}"
+						value="Data Commit+Alteração" icon="   ui-icon-calendar"></p:commandButton>
 					<p:commandButton
 						style="font-size:13px; float:right; color:#d9ff65;"
 						title="Calcula a Nota da Sigla" styleClass="add"
@@ -405,16 +411,12 @@
 							<p:outputLabel
 								value="Data Verificação #{dataVar.dataVerificacao}" />
 							<p:outputLabel value="Arquivo Carga: #{dataVar.nomeArquivo}" />
-
 							<p:column>
 								<br></br>
-
-
 								<h:inputTextarea cols="100" rows="25" readonly="true"
 									title="Git Log:" value="Git Log... #{dataVar.descricaoLog}" />
 								<br></br>
 							</p:column>
-
 						</p:panelGrid>
 						<!-- <p:separator style="border: 2px solid #c1c7d9; border-radius: 100px/9px; background-color:  #d4d5e6; height:8px;"> </p:separator>  -->
 						<p:separator style=" height:10px;background-color:#e6e6ff"></p:separator>
@@ -429,13 +431,10 @@
 			</p:tab>
 			<!-- FIM Controle Git HK _________________________________________________________________________________ -->
 
-
 			<!-- Controle RTC HK_________________________________________________________________________________ -->
 			<p:tab title="RTC (hk)" closable="true"
 				disabled="#{!usuarioBean.usuarioLogado.perfilDev}">
 				<p:fieldset style="margin:4px 1px; margin-top:3px; padding:8px;  ">
-
-
 					<h:commandLink style="float:left; margin-right:5px;">
 						<h:graphicImage value="/images/excel2.png" width="24" />
 						<p:dataExporter type="xls" target="dataTableRtcHK"

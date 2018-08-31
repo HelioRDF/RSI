@@ -192,4 +192,25 @@ public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 		}
 	}
 
+	//-----------------------------------------------------------------------------------
+	/**
+	 * 
+	 * @return - Retorna uma lista de AnaliseCodigoHK
+	 */
+	@SuppressWarnings("unchecked")
+	public List<AnaliseCodigoHK> listaDebitoTecnico() {
+		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(AnaliseCodigoHK.class);
+			consulta.add(Restrictions.isNull("debitoTecnicoMinutos"));
+			consulta.addOrder(Order.desc("id"));
+			List<AnaliseCodigoHK> resultado = consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
 }

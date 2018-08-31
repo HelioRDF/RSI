@@ -126,11 +126,24 @@ public class AnaliseCodigoHK implements Serializable {
 
 	@Column(name = "CodigoAlteracao")
 	private String codigoAlterado;
+	
+	@Column(name = "Debito_Tecnico_Minutos")
+	private String debitoTecnicoMinutos;
 
 	// --------------------------------------------------
 
+	
+	
 	public String getUrl() {
 		return url;
+	}
+
+	public String getDebitoTecnicoMinutos() {
+		return debitoTecnicoMinutos;
+	}
+
+	public void setDebitoTecnicoMinutos(String debitoTecnicoMinutos) {
+		this.debitoTecnicoMinutos = debitoTecnicoMinutos;
 	}
 
 	public String getCodigoAlterado() {

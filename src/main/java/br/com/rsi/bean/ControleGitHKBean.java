@@ -425,7 +425,7 @@ public class ControleGitHKBean implements Serializable {
 	public static void alteraLoginGit(String login, String senha) {
 		PrintStream ps = null;
 		try {
-			String caminho = "C:/Users/" + "RSI" + "/_netrc";
+			String caminho = "C:/Users/" +  System.getProperty("user.name")  + "/_netrc";
 			ps = new PrintStream(caminho);
 			System.out.println("Caminho------------------"+caminho);
 			
