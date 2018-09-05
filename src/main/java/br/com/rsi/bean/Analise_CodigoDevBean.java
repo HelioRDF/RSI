@@ -67,10 +67,7 @@ public class Analise_CodigoDevBean implements Serializable {
 			Messages.addGlobalInfo("Lista Atualizada!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
-			Messages.addGlobalError("Erro ao  Atualizar Lista.");
 			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ERRO:" + e.getMessage() + e.getCause());
-		} finally {
 		}
 	}
 
@@ -111,7 +108,6 @@ public class Analise_CodigoDevBean implements Serializable {
 
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
-		} finally {
 		}
 	}
 
@@ -199,12 +195,12 @@ public class Analise_CodigoDevBean implements Serializable {
 		List<Automacao_Analise_Codigo> listaObj = dao.listaCoeficiente();
 
 		for (Automacao_Analise_Codigo obj : listaObj) {
-			double totalIssues = obj.getIssuesMuitoAlta() + obj.getIssuesAlta() + obj.getIssuesMedia()
-					+ obj.getIssuesBaixa();
+			double totalIssues = (obj.getIssuesMuitoAlta() + obj.getIssuesAlta() + obj.getIssuesMedia() + obj.getIssuesBaixa());
 			double debitoDias = 0;
 			double coeficiente = 0;
 			try {
-				debitoDias = (Integer.parseInt(obj.getDebitoTecnicoMinutos()) / 60 / 24);
+				int numtemp = (Integer.parseInt(obj.getDebitoTecnicoMinutos()) / 60 / 24);
+				debitoDias = numtemp;
 				coeficiente = 0;
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -239,7 +235,6 @@ public class Analise_CodigoDevBean implements Serializable {
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
 			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ERRO:" + e.getMessage() + e.getCause());
 			return null;
-		} finally {
 		}
 	}
 

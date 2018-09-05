@@ -8,10 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
@@ -66,7 +64,7 @@ public class RFCBean implements Serializable {
 				InspecaoList list = new InspecaoList();
 				resultado += list.alertaInspecao(obj);
 			} catch (Exception e) {
-				// TODO: handle exception
+				System.out.println(e.getMessage());
 			}
 
 		}
@@ -160,83 +158,85 @@ public class RFCBean implements Serializable {
 		String salvarSigla;
 		int setCodInspecaoInt = 0;
 
-		// Carrega a planilha
-		Workbook workbook = null;
-
 		try {
+			// Carrega a planilha
+			Workbook workbook = null;
 			workbook = Workbook.getWorkbook(new File(CAMINHO));
-		} catch (Exception e) {
+
+			// Seleciona a aba do excel
+			Sheet sheet = workbook.getSheet(0);
+			// Numero de linhas com dados do xls
+			int linhas = sheet.getRows();
+			for (int i = 1; i < linhas; i++) {
+				Cell celulaRFC = sheet.getCell(1, i); // coluna 1 -COD_RFC
+				Cell celulaCodProj = sheet.getCell(2, i); // coluna 2 - COD_PROJ
+				Cell celulaSigla = sheet.getCell(3, i); // coluna 3 - SIGLA
+				Cell celulaLider = sheet.getCell(4, i); // coluna 4 - Lider QA
+				Cell celulaGestorEntrega = sheet.getCell(5, i); // coluna 5 - Novo gestorEntrega
+				Cell celulaCodInsp = sheet.getCell(6, i); // coluna 6 - Cod Inspeção
+				Cell celulaDataC = sheet.getCell(7, i); // coluna 7 - DATA_CADASTRO
+				Cell celulaDataI = sheet.getCell(8, i); // coluna 8 - DATA_INSPECAO
+				Cell celulaObs = sheet.getCell(9, i); // coluna 9 - OBSERVACAO
+				Cell celulaStatus = sheet.getCell(10, i); // coluna 10 - STATUS
+				Cell celulaCodVazio = sheet.getCell(11, i); // coluna 11 - Cod_Vazio
+				Cell celula11 = sheet.getCell(12, i); // coluna 12 - Salvar no Banco
+				Cell celula13 = sheet.getCell(13, i); // coluna 13 - Email Lider
+
+				codRfc = celulaRFC.getContents().toString().trim().toUpperCase(); // Coluna 1:COD_RFC
+				codProj = celulaCodProj.getContents().toString().trim().toUpperCase(); // Coluna 2:COD_PROJ
+				sigla = celulaSigla.getContents().toString().trim().toUpperCase(); // Coluna 3:SIGLA
+				dataCadastro = celulaDataC.getContents().toString().trim().toUpperCase(); // Coluna 4:DATA_CADASTRO DB
+				dataInspecao = celulaDataI.getContents().toString().trim().toUpperCase(); // Coluna 5:DATA_INSPECAO
+				observacao = celulaObs.getContents().toString().trim().toUpperCase(); // Coluna 6:OBSERVACAO
+				status = celulaStatus.getContents().toString().trim().toUpperCase(); // Coluna 7:STATUS
+				codVazio = celulaCodVazio.getContents().toString().trim().toUpperCase(); // Coluna 8:Cod_Vazio
+				codInspecao = celulaCodInsp.getContents().toString().trim().toUpperCase(); // Coluna 9:Cod_Inspeção
+																							// Anterior
+				salvarSigla = celula11.getContents().toString().trim().toUpperCase();// Coluna 11:Salvar no Banco
+
+				lider = celulaLider.getContents().toString().trim().toUpperCase();// Lider
+				gestorEntrega = celulaGestorEntrega.getContents().toString().trim().toUpperCase();// Lider
+				emailLider = celula13.getContents().toString().trim().toUpperCase();// Email Lider
+
+				// Encerra a leitura quando encontra linha vazia
+				if (sigla.isEmpty()) {
+					break;
+				}
+				try {
+					setCodInspecaoInt = Integer.parseInt(codInspecao);
+
+				} catch (Exception e) {
+					System.out.println("Cod Inspeção - Erro");
+					setCodInspecaoInt = 0;
+
+				}
+
+				if (!salvarSigla.isEmpty()) {
+					dateC = validadorData(dataCadastro, "Data Cadastro");
+					dateI = validadorData(dataInspecao, "Data Inspeção");
+					rFC.setInspecionar(validarInspecao(codVazio, status));
+					rFC.setCodRfc(codRfc);
+					rFC.setCodProj(codProj);
+					rFC.setSigla(sigla);
+					rFC.setDataCadastro(dateC);
+					rFC.setDataInspecao(dateI);
+					rFC.setObservacao(observacao);
+					rFC.setStatus(status);
+					rFC.setCodVazio(codVazio);
+					rFC.setCodInspecao(setCodInspecaoInt);
+					rFC.setLider(lider);
+					rFC.setGestorEntrega(gestorEntrega);
+					rFC.setEmailLider(emailLider);
+
+					siglaAtual = sigla;
+					salvar();
+				}
+			}
+		} catch (NullPointerException e) {
 			System.out.println("Catch 01 ---------------------------------");
-			e.printStackTrace();
-		}
-		// Seleciona a aba do excel
-		Sheet sheet = workbook.getSheet(0);
-		// Numero de linhas com dados do xls
-		int linhas = sheet.getRows();
-		for (int i = 1; i < linhas; i++) {
-			Cell celulaRFC = sheet.getCell(1, i); // coluna 1 -COD_RFC
-			Cell celulaCodProj = sheet.getCell(2, i); // coluna 2 - COD_PROJ
-			Cell celulaSigla = sheet.getCell(3, i); // coluna 3 - SIGLA
-			Cell celulaLider = sheet.getCell(4, i); // coluna 4 - Lider QA
-			Cell celulaGestorEntrega = sheet.getCell(5, i); // coluna 5 - Novo gestorEntrega
-			Cell celulaCodInsp = sheet.getCell(6, i); // coluna 6 - Cod Inspeção
-			Cell celulaDataC = sheet.getCell(7, i); // coluna 7 - DATA_CADASTRO
-			Cell celulaDataI = sheet.getCell(8, i); // coluna 8 - DATA_INSPECAO
-			Cell celulaObs = sheet.getCell(9, i); // coluna 9 - OBSERVACAO
-			Cell celulaStatus = sheet.getCell(10, i); // coluna 10 - STATUS
-			Cell celulaCodVazio = sheet.getCell(11, i); // coluna 11 - Cod_Vazio
-			Cell celula11 = sheet.getCell(12, i); // coluna 12 - Salvar no Banco
-			Cell celula13 = sheet.getCell(13, i); // coluna 13 - Email Lider
 
-			codRfc = celulaRFC.getContents().toString().trim().toUpperCase(); // Coluna 1:COD_RFC
-			codProj = celulaCodProj.getContents().toString().trim().toUpperCase(); // Coluna 2:COD_PROJ
-			sigla = celulaSigla.getContents().toString().trim().toUpperCase(); // Coluna 3:SIGLA
-			dataCadastro = celulaDataC.getContents().toString().trim().toUpperCase(); // Coluna 4:DATA_CADASTRO DB
-			dataInspecao = celulaDataI.getContents().toString().trim().toUpperCase(); // Coluna 5:DATA_INSPECAO
-			observacao = celulaObs.getContents().toString().trim().toUpperCase(); // Coluna 6:OBSERVACAO
-			status = celulaStatus.getContents().toString().trim().toUpperCase(); // Coluna 7:STATUS
-			codVazio = celulaCodVazio.getContents().toString().trim().toUpperCase(); // Coluna 8:Cod_Vazio
-			codInspecao = celulaCodInsp.getContents().toString().trim().toUpperCase(); // Coluna 9:Cod_Inspeção
-																						// Anterior
-			salvarSigla = celula11.getContents().toString().trim().toUpperCase();// Coluna 11:Salvar no Banco
-
-			lider = celulaLider.getContents().toString().trim().toUpperCase();// Lider
-			gestorEntrega = celulaGestorEntrega.getContents().toString().trim().toUpperCase();// Lider
-			emailLider = celula13.getContents().toString().trim().toUpperCase();// Email Lider
-
-			// Encerra a leitura quando encontra linha vazia
-			if (sigla.isEmpty()) {
-				break;
-			}
-			try {
-				setCodInspecaoInt = Integer.parseInt(codInspecao);
-
-			} catch (Exception e) {
-				System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Cod Inspeção - Erro XXXXXXXXXXXXXXX");
-				setCodInspecaoInt = 0;
-
-			}
-
-			if (!salvarSigla.isEmpty()) {
-				dateC = validadorData(dataCadastro, "Data Cadastro");
-				dateI = validadorData(dataInspecao, "Data Inspeção");
-				rFC.setInspecionar(validarInspecao(codVazio, status));
-				rFC.setCodRfc(codRfc);
-				rFC.setCodProj(codProj);
-				rFC.setSigla(sigla);
-				rFC.setDataCadastro(dateC);
-				rFC.setDataInspecao(dateI);
-				rFC.setObservacao(observacao);
-				rFC.setStatus(status);
-				rFC.setCodVazio(codVazio);
-				rFC.setCodInspecao(setCodInspecaoInt);
-				rFC.setLider(lider);
-				rFC.setGestorEntrega(gestorEntrega);
-				rFC.setEmailLider(emailLider);
-
-				siglaAtual = sigla;
-				salvar();
-			}
+		} catch (Exception e) {
+			System.out.println("Catch 02 ---------------------------------");
 		}
 	}
 
@@ -249,7 +249,7 @@ public class RFCBean implements Serializable {
 	// -------------------------------------------------------------------------------------------
 	public void selecionarRFC(ActionEvent evento) {
 		try {
-			System.out.println(" sssssssssssssssss Teste chamado");
+			System.out.println("Teste chamado");
 			rFC = (RFC) evento.getComponent().getAttributes().get("meuSelect");
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Editar: ");
@@ -268,9 +268,7 @@ public class RFCBean implements Serializable {
 			Messages.addGlobalInfo("Lista Atualizada!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
-		} finally {
 		}
 	}
 
@@ -295,7 +293,6 @@ public class RFCBean implements Serializable {
 			} catch (ParseException e) {
 				dataFinal = null;
 				System.out.println("\n-----------------------------------------Erro em data" + msg);
-				e.printStackTrace();
 			}
 		}
 		return dataFinal;
@@ -318,16 +315,6 @@ public class RFCBean implements Serializable {
 		}
 		System.out.println("--------------Inspecionar? ------- " + resultado);
 		return resultado;
-	}
-
-	public void teste() {
-
-		System.out.println(" ---------------- Teste chamado");
-	}
-
-	public void addMessage() {
-
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado"));
 	}
 
 	// Get e Set

@@ -24,7 +24,7 @@ public class EnviarEmail {
 	// private String smtp_365 = "smtp.office365.com";
 	private String smtp_365 = "smtp-mail.outlook.com";
 	private String office_365 = "helio.franca@rsinet.com.br";
-	private String senha365 = "Rsi#123!!!!?";
+	private String identificadorChave = "Rsi#123!!!!???";
 
 	private String apelido = "Inspeção de Código HK-RSI";
 
@@ -59,7 +59,7 @@ public class EnviarEmail {
 
 			email.setDebug(true);
 			email.setHostName(smtp_365);
-			email.setAuthenticator(new DefaultAuthenticator(office_365, senha365));
+			email.setAuthenticator(new DefaultAuthenticator(office_365, identificadorChave));
 			email.addTo(destino, "HELIO SANTANDER");
 			email.addTo(destino2, "HELIO RSI");
 			email.addTo(destino3, "MONITOR APP");
@@ -104,7 +104,7 @@ public class EnviarEmail {
 
 			email.setDebug(true);
 			email.setHostName(smtp_365);
-			email.setAuthenticator(new DefaultAuthenticator(office_365, senha365));
+			email.setAuthenticator(new DefaultAuthenticator(office_365, identificadorChave));
 			email.addTo(destino, "HELIO SANTANDER");
 			email.addTo(destino2, "HELIO RSI");
 			email.addTo(destino3, "MONITOR APP");
@@ -136,12 +136,12 @@ public class EnviarEmail {
 
 	}
 
-	public void emailHtmlGmail(String resultado, String titulo) {
+	public void emailHtmlGmail(String resultadoHtml, String titulo) {
 
 		try {
 
 			destino = "heliordf@hotmail.com;";
-			resultado = "<html>The apache logo Gmail - </html>";
+			//resultadoHtml = "<html>The apache logo Gmail - </html>"; // Não recomendado pelo sonar
 			// Create the email message
 			HtmlEmail email = new HtmlEmail();
 
@@ -155,7 +155,7 @@ public class EnviarEmail {
 			email.setSubject(titulo);
 			email.setStartTLSEnabled(true);
 
-			String textoHtml = CorpoHtmlGIT.bodyHTML(resultado, "Líder de QA");
+			String textoHtml = CorpoHtmlGIT.bodyHTML(resultadoHtml, "Líder de QA");
 
 			// set the html message
 			email.setHtmlMsg(textoHtml);

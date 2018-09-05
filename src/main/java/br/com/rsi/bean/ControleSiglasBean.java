@@ -154,8 +154,7 @@ public class ControleSiglasBean implements Serializable {
 		} catch (Exception e) {
 			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
-		} finally {
-		}
+		} 
 	}
 
 	// Get e Set

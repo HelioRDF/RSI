@@ -1,0 +1,127 @@
+ 
+   ***********************************************  
+   ***                                         ***  
+   ***  RSI SONAR                              ***  
+   ***  Data: 04/09/2018                                
+   ***  Hora: 18:51:40,13                                  
+   ***                                              
+   ***********************************************  
+   
+   
+INFO: Scanner configuration file: C:\AmbienteSonar\sonar-scanner-3.2.0.1227\bin\..\conf\sonar-scanner.properties
+INFO: Project root configuration file: C:\Users\helio.franca\Documents\GitHub\RSI\sonar-project.properties
+INFO: SonarQube Scanner 3.2.0.1227
+INFO: Java 1.8.0_181 Oracle Corporation (64-bit)
+INFO: Windows 10 10.0 amd64
+INFO: User cache: C:\Users\helio.franca\.sonar\cache
+INFO: SonarQube server 6.7.5
+INFO: Default locale: "pt_BR", source code encoding: "ISO-8859-1"
+INFO: Publish mode
+INFO: Load global settings
+INFO: Load global settings (done) | time=58ms
+INFO: Server id: BF41A1F2-AWWg6KJUOp4Y0CZoIS7L
+INFO: User cache: C:\Users\helio.franca\.sonar\cache
+INFO: Load plugins index
+INFO: Load plugins index (done) | time=40ms
+INFO: Process project properties
+INFO: Load project repositories
+INFO: Load project repositories (done) | time=73ms
+INFO: Load quality profiles
+INFO: Load quality profiles (done) | time=30ms
+INFO: Load active rules
+INFO: Load active rules (done) | time=560ms
+INFO: Load metrics repository
+INFO: Load metrics repository (done) | time=27ms
+INFO: Project key: RSI
+INFO: -------------  Scan INSPECAO_DE_CODIGO-RSI
+INFO: Load server rules
+INFO: Load server rules (done) | time=171ms
+INFO: Base dir: C:\Users\helio.franca\Documents\GitHub\RSI
+INFO: Working dir: C:\Users\helio.franca\Documents\GitHub\RSI\.scannerwork
+INFO: Source paths: .
+INFO: Source encoding: ISO-8859-1, default locale: pt_BR
+INFO: Index files
+INFO: Excluded sources: 
+INFO:   **/*test.java
+INFO:   **/*teste.java
+INFO:   **/*.properties
+INFO: 146 files indexed
+INFO: 2 files ignored because of inclusion/exclusion patterns
+INFO: Quality profile for java: Sonar way
+INFO: Quality profile for js: Sonar way
+INFO: Quality profile for xml: Sonar way
+INFO: Sensor JavaSquidSensor [java]
+INFO: Configured Java source version (sonar.java.source): none
+INFO: JavaClasspath initialization
+WARN: Bytecode of dependencies was not provided for analysis of source files, you might end up with less precise results. Bytecode can be provided using sonar.java.libraries property
+INFO: JavaClasspath initialization (done) | time=14ms
+INFO: JavaTestClasspath initialization
+INFO: JavaTestClasspath initialization (done) | time=0ms
+INFO: Java Main Files AST scan
+INFO: 45 source files to be analyzed
+INFO: 20/45 files analyzed, current file: C:\Users\helio.franca\Documents\GitHub\RSI\src\main\java\br\com\rsi\dao\complementos\ControleRtcDevDAO.java
+INFO: 45/45 source files have been analyzed
+WARN: Classes not found during the analysis : [javax.faces.event.ActionEvent, javax.persistence.GenerationType, javax.persistence.TemporalType, org.hibernate.SessionFactory]
+INFO: Java Main Files AST scan (done) | time=12289ms
+INFO: Java Test Files AST scan
+INFO: 0 source files to be analyzed
+INFO: Java Test Files AST scan (done) | time=0ms
+INFO: Sensor JavaSquidSensor [java] (done) | time=12871ms
+INFO: Sensor JavaScript Squid Sensor [javascript]
+INFO: 0/0 source files have been analyzed
+INFO: 1 source files to be analyzed
+INFO: Unit Test Coverage Sensor is started
+INFO: 1/1 source files have been analyzed
+INFO: Integration Test Coverage Sensor is started
+INFO: Overall Coverage Sensor is started
+INFO: Sensor JavaScript Squid Sensor [javascript] (done) | time=145ms
+INFO: Sensor SurefireSensor [java]
+INFO: parsing [C:\Users\helio.franca\Documents\GitHub\RSI\target\surefire-reports]
+INFO: Sensor SurefireSensor [java] (done) | time=2ms
+INFO: Sensor JaCoCoSensor [java]
+INFO: Sensor JaCoCoSensor [java] (done) | time=3ms
+INFO: Sensor SonarJavaXmlFileSensor [java]
+INFO: 7 source files to be analyzed
+INFO: Sensor SonarJavaXmlFileSensor [java] (done) | time=590ms
+INFO: Sensor XML Sensor [xml]
+INFO: 7/7 source files have been analyzed
+INFO: Sensor XML Sensor [xml] (done) | time=234ms
+INFO: Sensor Analyzer for "php.ini" files [php]
+INFO: Sensor Analyzer for "php.ini" files [php] (done) | time=4ms
+INFO: Sensor Zero Coverage Sensor
+INFO: Sensor Zero Coverage Sensor (done) | time=79ms
+INFO: Sensor CPD Block Indexer
+INFO: Sensor CPD Block Indexer (done) | time=130ms
+INFO: SCM provider for this project is: git
+INFO: 12 files to be analyzed
+INFO: 0/12 files analyzed
+WARN: Missing blame information for the following files:
+WARN:   * pom.xml
+WARN:   * src/main/java/br/com/rsi/bean/AnaliseCodigoEspanhaBean.java
+WARN:   * src/main/java/br/com/rsi/bean/ControleGitDevBean.java
+WARN:   * src/main/java/br/com/rsi/bean/ControleRtcDevBean.java
+WARN:   * src/main/java/br/com/rsi/bean/ControleRtcHKBean.java
+WARN:   * src/main/java/br/com/rsi/bean/FileUploadView.java
+WARN:   * src/main/java/br/com/rsi/bean/RFCBean.java
+WARN:   * src/main/java/br/com/rsi/bean/UsuarioBean.java
+WARN:   * src/main/java/br/com/rsi/email/EnviarEmail.java
+WARN:   * src/main/java/tratamentos/GetWebService.java
+WARN:   * target/classes/hibernate.cfg.xml
+WARN:   * target/m2e-wtp/web-resources/META-INF/maven/br.com.rsi/rsi/pom.xml
+WARN: This may lead to missing/broken features in SonarQube
+INFO: 3 files had no CPD blocks
+INFO: Calculating CPD for 43 files
+INFO: CPD calculation finished
+INFO: Analysis report generated in 1180ms, dir size=589 KB
+INFO: Analysis reports compressed in 505ms, zip size=260 KB
+INFO: Analysis report uploaded in 48ms
+INFO: ANALYSIS SUCCESSFUL, you can browse http://localhost:9000/dashboard/index/RSI
+INFO: Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+INFO: More about the report processing at http://localhost:9000/api/ce/task?id=AWWmki5O7h3XLVfqImq9
+INFO: Task total time: 20.465 s
+INFO: ------------------------------------------------------------------------
+INFO: EXECUTION SUCCESS
+INFO: ------------------------------------------------------------------------
+INFO: Total time: 22.576s
+INFO: Final Memory: 27M/837M
+INFO: ------------------------------------------------------------------------

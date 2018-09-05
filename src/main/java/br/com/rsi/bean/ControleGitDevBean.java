@@ -74,7 +74,6 @@ public class ControleGitDevBean implements Serializable {
 		} catch (Exception e) {
 			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
-		} finally {
 		}
 	}
 
@@ -85,7 +84,7 @@ public class ControleGitDevBean implements Serializable {
 	public void salvarPlanilha() {
 		controle = new ControleGitDev();
 		dao = new ControleGitDevDAO();
-		String sigla, sistema, caminho,pacote,usuarioGit;
+		String sigla, sistema, caminho, pacote, usuarioGit;
 		Date dateC = new Date();
 
 		// Carrega a planilha
@@ -323,34 +322,39 @@ public class ControleGitDevBean implements Serializable {
 			List<ControleGitDev> listaControle;
 			ControleGitDevDAO dao = new ControleGitDevDAO();
 			listaControle = dao.listar();
-			List<ControleGitDev> listaPacotesVinculadosContaPaula = listaControle.stream().filter(p -> p.getUsuarioGit().toString().equals(ControleGitDev.CONTA_PAULA)).collect(Collectors.toList());
-			List<ControleGitDev> listaPacotesVinculadosContaLuis = listaControle.stream().filter(p -> p.getUsuarioGit().toString().equals(ControleGitDev.CONTA_LUIS)).collect(Collectors.toList());	
-		try {
-			alteraLoginGit("xb201520", "pCAV#1212");
-			executaComandoGitPull(listaPacotesVinculadosContaPaula);
-			alteraLoginGit("XI324337", "elphbbtu");
-			executaComandoGitPull(listaPacotesVinculadosContaLuis);
-			gerarLogGit();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}			
+			List<ControleGitDev> listaPacotesVinculadosContaPaula = listaControle.stream()
+					.filter(p -> p.getUsuarioGit().toString().equals(ControleGitDev.CONTA_PAULA))
+					.collect(Collectors.toList());
+			List<ControleGitDev> listaPacotesVinculadosContaLuis = listaControle.stream()
+					.filter(p -> p.getUsuarioGit().toString().equals(ControleGitDev.CONTA_LUIS))
+					.collect(Collectors.toList());
+			try {
+				alteraLoginGit("xb201520", "pCAV#1212");
+				executaComandoGitPull(listaPacotesVinculadosContaPaula);
+				alteraLoginGit("XI324337", "elphbbtu");
+				executaComandoGitPull(listaPacotesVinculadosContaLuis);
+				gerarLogGit();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 	};
-	
+
 	/**
-	 * Metodo para executar o comando git pull em cada um 
-	 * dos pacotes do git 
+	 * Metodo para executar o comando git pull em cada um dos pacotes do git
 	 * 
-	 * @param listaControle - o metodo tem que recebr uma lista de objetos do tipo ControleGitDev
-	 * pois esses objetos contem as informações necessárias para executar a atualização dos pacotes do git
+	 * @param listaControle
+	 *            - o metodo tem que recebr uma lista de objetos do tipo
+	 *            ControleGitDev pois esses objetos contem as informações
+	 *            necessárias para executar a atualização dos pacotes do git
 	 * 
 	 * @author andre.graca
 	 */
-	
-	public static void executaComandoGitPull(List<ControleGitDev> listaControle){
-		
+
+	public static void executaComandoGitPull(List<ControleGitDev> listaControle) {
+
 		ControleGitDevDAO dao = new ControleGitDevDAO();
-		
+
 		for (ControleGitDev obj : listaControle) {
 			ControleGitDev entidade = dao.buscar(obj.getCodigo());
 			String pathSigla = "cd " + entidade.getCaminho();
@@ -389,23 +393,24 @@ public class ControleGitDevBean implements Serializable {
 	}
 
 	/**
-	 * Metodos para escrever no arquivo C:/Users/usuario_local/_netrc. Este
-	 * arquivo salva o login do GitLab na maquina, o que auxilia no git pull
-	 * para contas diferentes.
+	 * Metodos para escrever no arquivo C:/Users/usuario_local/_netrc. Este arquivo
+	 * salva o login do GitLab na maquina, o que auxilia no git pull para contas
+	 * diferentes.
 	 * 
 	 * @author andre.graca
+	 * @author helio.franca //Alterações.
 	 */
 	public static void alteraLoginGit(String login, String senha) {
-		PrintStream ps = null;
-		try {
-			ps = new PrintStream("C:/Users/" + System.getProperty("user.name") + "/_netrc");
-		
+
+		try (PrintStream ps = new PrintStream("C:/Users/" + System.getProperty("user.name") + "/_netrc");) {
+			ps.append("machine gitlab.produbanbr.corp\nlogin" + login + "\npassword " + senha);
+			ps.close();
+		} catch (NullPointerException e) {
+			System.out.println("Falha ao criar o arquivo _netrc dentro do usuario local");
 		} catch (Exception e) {
 			System.out.println("Falha ao criar o arquivo _netrc dentro do usuario local");
 		}
-			ps.append("machine gitlab.produbanbr.corp\nlogin" + login + "\npassword " + senha);
-			ps.close();
-	
+
 	}
 
 	// Get e Set

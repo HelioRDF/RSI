@@ -368,8 +368,8 @@ public class ControleGitHKBean implements Serializable {
 	 * 
 	 * @param listaControle
 	 *            - o metodo tem que recebr uma lista de objetos do tipo
-	 *            ControleGitHK pois esses objetos contem as informações
-	 *            necessárias para executar a atualização dos pacotes do git
+	 *            ControleGitHK pois esses objetos contem as informações necessárias
+	 *            para executar a atualização dos pacotes do git
 	 * 
 	 * @author andre.graca
 	 */
@@ -416,24 +416,23 @@ public class ControleGitHKBean implements Serializable {
 	}
 
 	/**
-	 * Metodos para escrever no arquivo C:/Users/usuario_local/_netrc. Este
-	 * arquivo salva o login do GitLab na maquina, o que auxilia no git pull
-	 * para contas diferentes.
+	 * Metodos para escrever no arquivo C:/Users/usuario_local/_netrc. Este arquivo
+	 * salva o login do GitLab na maquina, o que auxilia no git pull para contas
+	 * diferentes.
 	 * 
 	 * @author andre.graca
+	 * @author helio.franca //Alterações.
 	 */
 	public static void alteraLoginGit(String login, String senha) {
-		PrintStream ps = null;
-		try {
-			String caminho = "C:/Users/" +  System.getProperty("user.name")  + "/_netrc";
-			ps = new PrintStream(caminho);
-			System.out.println("Caminho------------------"+caminho);
-			
+		String caminho = "C:/Users/" + System.getProperty("user.name") + "/_netrc";
+		try (PrintStream ps = new PrintStream(caminho)) {
+			ps.append("machine gitlab.produbanbr.corp\nlogin " + login + "\npassword " + senha);
+			ps.close();
+		} catch (NullPointerException e) {
+			System.out.println("Falha ao criar o arquivo _netrc dentro do usuario local");
 		} catch (Exception e) {
 			System.out.println("Falha ao criar o arquivo _netrc dentro do usuario local");
 		}
-		ps.append("machine gitlab.produbanbr.corp\nlogin " + login + "\npassword " + senha);
-		ps.close();
 	}
 
 	// Get e Set

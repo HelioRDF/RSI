@@ -45,8 +45,6 @@ public class ControleRtcHKBean implements Serializable {
 	private int total;
 	static String CAMINHO = "";
 
-
-
 	/**
 	 * Salva objeto do tipo ControleRtcHK
 	 */
@@ -74,8 +72,7 @@ public class ControleRtcHKBean implements Serializable {
 		} catch (Exception e) {
 			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
-		} finally {
-		}
+		} 
 	}
 
 	/**
@@ -227,7 +224,7 @@ public class ControleRtcHKBean implements Serializable {
 		String sigla = obj.getSigla();
 		String path = obj.getCaminho();
 		StringBuilder log = new StringBuilder();
-		
+
 		Date dataAtual = null;
 		Date dataAnt = null;
 		Date dataVerificacao = new Date();
@@ -236,18 +233,16 @@ public class ControleRtcHKBean implements Serializable {
 		File file = new File(path);
 		String siglaTemp, commitTemp, dataTemp = "01/01/1900";
 
-		try {
+		try (FileReader fileReader = new FileReader(file);
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(new FileInputStream(file.getAbsolutePath()), "UTF-8"));) {
 
-			FileReader fileReader = new FileReader(file);
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(file.getAbsolutePath()), "UTF-8"));
 			String info = null;
 			int linha = 0;
 			while ((info = reader.readLine()) != null) {
 				linha++;
 				log.append("\n");
 				log.append(info);
-				
 
 				if (linha == 1) {
 					siglaTemp = info;
@@ -301,8 +296,6 @@ public class ControleRtcHKBean implements Serializable {
 
 			info = reader.readLine();
 			obj.setDescricaoLog(log.toString());
-			fileReader.close();
-			reader.close();
 
 		} catch (Exception e) {
 			System.out.println("xxxxxxxx " + path);

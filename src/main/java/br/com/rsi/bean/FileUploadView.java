@@ -15,39 +15,41 @@ import org.primefaces.model.UploadedFile;
  * -Classe de captura de eventos do FileUpload PrimeFaces
  * 
  * @author helio.franca
- * @version v1.7
- * @since N/A
+ * @version v2.2.5
+ * @since 04-09-2018
  *
  */
 
 @ManagedBean
 public class FileUploadView {
 
-/**
- * handleFileUpload p/ RFC
- * @param event - Evento
- */
+	/**
+	 * handleFileUpload p/ RFC
+	 * 
+	 * @param event
+	 *            - Evento
+	 */
 	// -----------------------------------------------------------------------------------
 	public void handleFileUpload(FileUploadEvent event) {
 
 		// Cria Pasta tempCarga caso não exista
 		new File("C:\\TempCargaRFC").mkdir();
+		UploadedFile arq = event.getFile();
 
-		try {
-			// Cria um arquivo UploadFile, para receber o arquivo do evento
-			UploadedFile arq = event.getFile();
-			InputStream in = new BufferedInputStream(arq.getInputstream());
+		// Cria um arquivo UploadFile, para receber o arquivo do evento
+		try (InputStream in = new BufferedInputStream(arq.getInputstream())) {
+
 			// copiar para pasta do projeto
 			File file = new File("C:/TempCargaRFC/" + arq.getFileName());
 			// O método file.getAbsolutePath() fornece o caminho do arquivo criado
 			// Pode ser usado para ligar algum objeto do banco ao arquivo enviado
 			RFCBean.CAMINHO = file.getAbsolutePath();
-			FileOutputStream fout = new FileOutputStream(file);
 
-			while (in.available() != 0) {
-				fout.write(in.read());
+			try (FileOutputStream fout = new FileOutputStream(file)) {
+				while (in.available() != 0) {
+					fout.write(in.read());
+				}
 			}
-			fout.close();
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
 			ex.printStackTrace();
@@ -58,21 +60,22 @@ public class FileUploadView {
 
 	/**
 	 * handleFileUpload p/ Controle de Siglas
-	 * @param event - Evento
+	 * 
+	 * @param event
+	 *            - Evento
 	 */
 	// ---------------------------------------------------------------------
 	public void handleFileUploadControle(FileUploadEvent event) {
 		new File("C:\\TempCargaRFC").mkdir();
-		try {
-			UploadedFile arq = event.getFile();
-			InputStream in = new BufferedInputStream(arq.getInputstream());
+		UploadedFile arq = event.getFile();
+		try (InputStream in = new BufferedInputStream(arq.getInputstream())) {
 			File file = new File("C:/TempCargaRFC/" + arq.getFileName());
 			ControleSiglasBean.CAMINHO = file.getAbsolutePath();
-			FileOutputStream fout = new FileOutputStream(file);
-			while (in.available() != 0) {
-				fout.write(in.read());
+			try (FileOutputStream fout = new FileOutputStream(file)) {
+				while (in.available() != 0) {
+					fout.write(in.read());
+				}
 			}
-			fout.close();
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
 			ex.printStackTrace();
@@ -83,21 +86,23 @@ public class FileUploadView {
 
 	/**
 	 * handleFileUpload p/ controle git hk
-	 * @param event - Evento
+	 * 
+	 * @param event
+	 *            - Evento
 	 */
 	// -----------------------------------------------------------------------------
 	public void handleFileUploadGitHK(FileUploadEvent event) {
 		new File("C:\\TempCargaRFC").mkdir();
-		try {
-			UploadedFile arq = event.getFile();
-			InputStream in = new BufferedInputStream(arq.getInputstream());
+		UploadedFile arq = event.getFile();
+		try (InputStream in = new BufferedInputStream(arq.getInputstream())) {
+
 			File file = new File("C:/TempCargaRFC/" + arq.getFileName());
 			ControleGitHKBean.CAMINHO = file.getAbsolutePath();
-			FileOutputStream fout = new FileOutputStream(file);
-			while (in.available() != 0) {
-				fout.write(in.read());
+			try (FileOutputStream fout = new FileOutputStream(file)) {
+				while (in.available() != 0) {
+					fout.write(in.read());
+				}
 			}
-			fout.close();
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
 			ex.printStackTrace();
@@ -108,21 +113,23 @@ public class FileUploadView {
 
 	/**
 	 * handleFileUpload p/ Controle Git Dev
-	 * @param event - Evento
+	 * 
+	 * @param event
+	 *            - Evento
 	 */
 	// -----------------------------------------------------------------------------
 	public void handleFileUploadGitDev(FileUploadEvent event) {
 		new File("C:\\TempCargaRFC").mkdir();
-		try {
-			UploadedFile arq = event.getFile();
-			InputStream in = new BufferedInputStream(arq.getInputstream());
+		UploadedFile arq = event.getFile();
+		try (InputStream in = new BufferedInputStream(arq.getInputstream())) {
+
 			File file = new File("C:/TempCargaRFC/" + arq.getFileName());
 			ControleGitDevBean.CAMINHO = file.getAbsolutePath();
-			FileOutputStream fout = new FileOutputStream(file);
-			while (in.available() != 0) {
-				fout.write(in.read());
+			try (FileOutputStream fout = new FileOutputStream(file)) {
+				while (in.available() != 0) {
+					fout.write(in.read());
+				}
 			}
-			fout.close();
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
 			ex.printStackTrace();
@@ -130,25 +137,26 @@ public class FileUploadView {
 		ControleGitDevBean bean = new ControleGitDevBean();
 		bean.salvarPlanilha();
 	}
-	
-	
+
 	/**
 	 * handleFileUpload p/ Controle RTC Dev
-	 * @param event - Evento
+	 * 
+	 * @param event
+	 *            - Evento
 	 */
 	// -----------------------------------------------------------------------------
 	public void handleFileUploadRtcDev(FileUploadEvent event) {
 		new File("C:\\TempCargaRFC").mkdir();
-		try {
-			UploadedFile arq = event.getFile();
-			InputStream in = new BufferedInputStream(arq.getInputstream());
+		UploadedFile arq = event.getFile();
+		try (InputStream in = new BufferedInputStream(arq.getInputstream())) {
+
 			File file = new File("C:/TempCargaRFC/" + arq.getFileName());
 			ControleRtcDevBean.CAMINHO = file.getAbsolutePath();
-			FileOutputStream fout = new FileOutputStream(file);
-			while (in.available() != 0) {
-				fout.write(in.read());
+			try (FileOutputStream fout = new FileOutputStream(file)) {
+				while (in.available() != 0) {
+					fout.write(in.read());
+				}
 			}
-			fout.close();
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
 			ex.printStackTrace();
@@ -156,26 +164,26 @@ public class FileUploadView {
 		ControleRtcDevBean bean = new ControleRtcDevBean();
 		bean.salvarPlanilha();
 	}
-	
-	
-	
+
 	/**
 	 * handleFileUpload p/ Controle RTC HK
-	 * @param event - Evento
+	 * 
+	 * @param event
+	 *            - Evento
 	 */
 	// -----------------------------------------------------------------------------
 	public void handleFileUploadRtcHK(FileUploadEvent event) {
 		new File("C:\\TempCargaRFC").mkdir();
-		try {
-			UploadedFile arq = event.getFile();
-			InputStream in = new BufferedInputStream(arq.getInputstream());
+		UploadedFile arq = event.getFile();
+		try (InputStream in = new BufferedInputStream(arq.getInputstream())) {
+
 			File file = new File("C:/TempCargaRFC/" + arq.getFileName());
 			ControleRtcHKBean.CAMINHO = file.getAbsolutePath();
-			FileOutputStream fout = new FileOutputStream(file);
-			while (in.available() != 0) {
-				fout.write(in.read());
+			try (FileOutputStream fout = new FileOutputStream(file)) {
+				while (in.available() != 0) {
+					fout.write(in.read());
+				}
 			}
-			fout.close();
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
 			ex.printStackTrace();

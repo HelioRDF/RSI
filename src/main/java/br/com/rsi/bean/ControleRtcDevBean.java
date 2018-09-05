@@ -66,12 +66,10 @@ public class ControleRtcDevBean implements Serializable {
 			dao = new ControleRtcDevDAO();
 			listaControle = dao.listar();
 			total = listaControle.size();
-
 			Messages.addGlobalInfo("Lista Atualizada!");
+
 		} catch (Exception e) {
-			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
-		} finally {
 		}
 	}
 
@@ -146,8 +144,7 @@ public class ControleRtcDevBean implements Serializable {
 			System.out.println(e.getCause());
 		}
 	}
-	
-	
+
 	/**
 	 * Chama o Runnable do Log RTC
 	 */
@@ -184,7 +181,7 @@ public class ControleRtcDevBean implements Serializable {
 			}
 		}
 	};
-	
+
 	/**
 	 * Faz a leitura de um arquivo txt e trata as informações
 	 * 
@@ -199,27 +196,26 @@ public class ControleRtcDevBean implements Serializable {
 		String sigla = obj.getSigla();
 		String path = obj.getCaminho();
 		StringBuilder log = new StringBuilder();
-		
+
 		Date dataAtual = null;
 		Date dataAnt = null;
 		Date dataVerificacao = new Date();
 
 		path = path + "Log_" + sigla + ".txt";
 		File file = new File(path);
-		String siglaTemp, commitTemp, dataTemp = "01/01/1900" ;
-	
-		try {
+		String siglaTemp, commitTemp, dataTemp = "01/01/1900";
 
-			FileReader fileReader = new FileReader(file);
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(file.getAbsolutePath()), "UTF-8"));
+		try (FileReader fileReader = new FileReader(file);
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(new FileInputStream(file.getAbsolutePath()), "UTF-8"));) {
+
 			String info = null;
 			int linha = 0;
 			while ((info = reader.readLine()) != null) {
 				linha++;
 				log.append("\n");
 				log.append(info);
-				
+
 				if (linha == 1) {
 					siglaTemp = info;
 					String array[] = new String[2];
@@ -268,15 +264,12 @@ public class ControleRtcDevBean implements Serializable {
 
 			info = reader.readLine();
 			obj.setDescricaoLog(log.toString());
-			fileReader.close();
-			reader.close();
 
 		} catch (Exception e) {
 			System.out.println("xxxxxxxx " + path);
-			// TODO: handle exception
 		}
 	}
-	
+
 	/**
 	 * Valida e converte uma objeto do tipo data
 	 * 
@@ -304,8 +297,6 @@ public class ControleRtcDevBean implements Serializable {
 		return dataFinal;
 	}
 
-
-
 	// Get e Set
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public ControleRtcDev getControle() {
@@ -324,8 +315,6 @@ public class ControleRtcDevBean implements Serializable {
 		this.listaControle = listaControle;
 	}
 
-
-
 	public int getTotal() {
 		return total;
 	}
@@ -341,8 +330,6 @@ public class ControleRtcDevBean implements Serializable {
 	public static void setCAMINHO(String cAMINHO) {
 		CAMINHO = cAMINHO;
 	}
-
-
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 

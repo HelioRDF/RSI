@@ -136,7 +136,7 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 					System.out.println("------ " + resultado);
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				System.out.println(e.getMessage());
 			}
 		}
 

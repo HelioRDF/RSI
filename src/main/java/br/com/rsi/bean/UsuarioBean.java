@@ -18,7 +18,7 @@ import br.com.rsi.domain.usuarios.Usuario;
  * @author helio.franca
  * @version v1.7
  * @since N/A
- *s
+ *
  */
 
 @SuppressWarnings("serial")
