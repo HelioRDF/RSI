@@ -57,6 +57,35 @@ public class TrataDados {
 		System.out.println(dataFormatada);
 		return dataFormatada;
 	}
-	
-	
+
+	// ------------------------------------------------------------------------
+	/**
+	 * Retorna uma linha TD para tabela HTML
+	 * 
+	 * @param informacao
+	 *            - String de texto com os dados da Coluna.
+	 * @return Retorna um Objeto String
+	 */
+	public static String incluirHtmlTd(String informacao) {
+		String linha = "<td style='font-size:10px;' > &ensp;" + informacao + " &ensp; </td>";
+		return linha;
+	}
+
+	// ------------------------------------------------------------------------
+	/**
+	 * Retorna uma linha TD para tabela HTML com CSS
+	 * 
+	 * @param informacao
+	 *            - String de texto com os dados da Coluna.
+	 * @param txtStyleCss
+	 *            - String com argumento css
+	 * @param simbolo
+	 *            - String com simbolos que representa os dados, exemplo '%', '$'
+	 * @return Retorna um Objeto String
+	 */
+	public static String incluirHtmlTdStyle(String informacao, String txtStyleCss, String simbolo) {
+		String linha = "<td " + txtStyleCss + " > &ensp;" + informacao + simbolo+" &ensp; </td>";
+		return linha;
+	}
+
 }

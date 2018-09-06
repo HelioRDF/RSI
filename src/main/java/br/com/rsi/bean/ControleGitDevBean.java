@@ -57,7 +57,6 @@ public class ControleGitDevBean implements Serializable {
 			dao.salvar(controle);
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar ");
-			System.out.println(e.getCause());
 		}
 	}
 
@@ -72,7 +71,6 @@ public class ControleGitDevBean implements Serializable {
 			total = listaControle.size();
 			Messages.addGlobalInfo("Lista Atualizada!");
 		} catch (Exception e) {
-			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
 		}
 	}
@@ -130,7 +128,6 @@ public class ControleGitDevBean implements Serializable {
 			}
 			Messages.addGlobalInfo("Planilha salva com sucesso!");
 		} catch (Exception e) {
-			e.printStackTrace();
 			Messages.addGlobalError("Não foi possível salvar ");
 		}
 	}
@@ -148,7 +145,6 @@ public class ControleGitDevBean implements Serializable {
 			}
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar ");
-			System.out.println(e.getCause());
 		}
 	}
 
@@ -173,7 +169,6 @@ public class ControleGitDevBean implements Serializable {
 			} catch (ParseException e) {
 				dataFinal = null;
 				System.out.println("\n-----------------------------------------Erro em data " + msg);
-				e.printStackTrace();
 			}
 		}
 		return dataFinal;
@@ -188,7 +183,6 @@ public class ControleGitDevBean implements Serializable {
 			new Thread(gitLog).start();
 			Messages.addGlobalInfo("Git log em execução!");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			Messages.addGlobalError("Erro ao executar Git Log!");
 		}
 	}
@@ -267,7 +261,6 @@ public class ControleGitDevBean implements Serializable {
 					ControleGitDev.setDescricaoLog(descricaoLog);
 
 				} catch (Exception e) {
-					System.err.println("---------------Erro: -" + e.getStackTrace());
 					author = "----------";
 					ControleGitDev.setAuthor(author);
 					descricaoLog = "null";
@@ -291,7 +284,6 @@ public class ControleGitDevBean implements Serializable {
 			new Thread(gitPull).start();
 			Messages.addGlobalInfo("Git pull em execução!");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			Messages.addGlobalError("Erro ao executar Git pull!");
 		}
 	}
@@ -309,7 +301,6 @@ public class ControleGitDevBean implements Serializable {
 		c.setTime(data);
 		String dataString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/"
 				+ c.get(Calendar.YEAR);
-		// System.out.println(dataString);
 		return ControleGitDevBean.validadorData(dataString, "Data Anterior");
 	}
 
@@ -335,7 +326,7 @@ public class ControleGitDevBean implements Serializable {
 				executaComandoGitPull(listaPacotesVinculadosContaLuis);
 				gerarLogGit();
 			} catch (Exception e) {
-				// TODO: handle exception
+				Messages.addGlobalError("Erro  ");
 			}
 		}
 	};
@@ -380,12 +371,8 @@ public class ControleGitDevBean implements Serializable {
 					log.append(i + ": " + line + "\n");
 					System.out.println(line);
 				}
-				// Messages.addGlobalInfo("Executado com sucesso!");
 			} catch (Exception e) {
-				// Messages.addGlobalError("Caminho não encontrado ...
-				// :\n"
-				// +
-				// ControleGitHKDev.getNomeSistema());
+				Messages.addGlobalError("Erro  ");
 			} finally {
 				dao.editar(obj);
 			}

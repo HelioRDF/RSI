@@ -24,7 +24,7 @@ public class EnviarEmail {
 	// private String smtp_365 = "smtp.office365.com";
 	private String smtp_365 = "smtp-mail.outlook.com";
 	private String office_365 = "helio.franca@rsinet.com.br";
-	private String identificadorChave = "Rsi#123!!!!???";
+	private String identificadorChave = "Rsi#123!!!!?";
 
 	private String apelido = "Inspeção de Código HK-RSI";
 
@@ -84,7 +84,7 @@ public class EnviarEmail {
 			enviado = false;
 			concluido = false;
 			emailHtmlGmail(resultado, titulo);
-		
+
 		}
 
 	}
@@ -141,7 +141,8 @@ public class EnviarEmail {
 		try {
 
 			destino = "heliordf@hotmail.com;";
-			//resultadoHtml = "<html>The apache logo Gmail - </html>"; // Não recomendado pelo sonar
+			// resultadoHtml = "<html>The apache logo Gmail - </html>"; // Não recomendado
+			// pelo sonar
 			// Create the email message
 			HtmlEmail email = new HtmlEmail();
 

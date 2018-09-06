@@ -25,6 +25,11 @@ import br.com.rsi.util.HibernateUtil;
 
 public class ControleGitHKDAO extends GenericDAO<ControleGitHK> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1479068389462822849L;
+
+	/**
 	 * Busca o commit mais recente por sigla, nome do sistema...
 	 * 
 	 * @param sigla
@@ -103,7 +108,7 @@ public class ControleGitHKDAO extends GenericDAO<ControleGitHK> {
 		Session sessao = HibernateUtil.getFabricadeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(ControleGitHK.class);
-			consulta.add(Restrictions.eq("alteracao", true));
+			//consulta.add(Restrictions.eq("alteracao", true));
 			consulta.addOrder(Order.desc("alteracao"));
 			List<ControleGitHK> resultado = consulta.list();
 			return resultado;

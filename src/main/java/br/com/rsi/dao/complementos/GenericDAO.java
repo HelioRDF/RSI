@@ -1,5 +1,6 @@
 package br.com.rsi.dao.complementos;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -20,8 +21,12 @@ import br.com.rsi.util.HibernateUtil;
  * 
  */
 
-public class GenericDAO<Entidade> {
+public class GenericDAO<Entidade> implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7039154413917366489L;
 	private Class<Entidade> classe;
 
 	// Construtor

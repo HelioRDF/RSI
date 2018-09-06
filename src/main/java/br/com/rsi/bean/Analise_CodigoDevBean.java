@@ -32,7 +32,7 @@ public class Analise_CodigoDevBean implements Serializable {
 	private Automacao_Analise_Codigo analise;
 	private AnaliseCodigoDevDAO dao;
 	private List<Automacao_Analise_Codigo> listaAnalise;
-	List<Automacao_Analise_Codigo> listaResultado;
+	private List<Automacao_Analise_Codigo> listaResultado;
 	private int total;
 	String siglaAtual;
 
@@ -47,7 +47,6 @@ public class Analise_CodigoDevBean implements Serializable {
 			Messages.addGlobalInfo(siglaAtual + " - Salva");
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar a Silga:" + siglaAtual);
-			System.out.println("Erro ao salvar --------------------------------------" + siglaAtual + e);
 		}
 	}
 
@@ -61,13 +60,12 @@ public class Analise_CodigoDevBean implements Serializable {
 
 			dao = new AnaliseCodigoDevDAO();
 			List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listar();
-			;
 			listaAnalise = listaAnaliseTemp;
 			total = listaAnalise.size();
 			Messages.addGlobalInfo("Lista Atualizada!");
 
 		} catch (Exception e) {
-			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ERRO:" + e.getMessage() + e.getCause());
+			Messages.addGlobalError("Erro  ");
 		}
 	}
 
@@ -140,6 +138,7 @@ public class Analise_CodigoDevBean implements Serializable {
 
 				} catch (Exception e) {
 					// Erro de conversão String para Interger.
+					Messages.addGlobalError("Erro  ");
 				}
 
 			} else if (obj.getDebitoTecnico().contains("h")) {
@@ -154,6 +153,7 @@ public class Analise_CodigoDevBean implements Serializable {
 
 				} catch (Exception e) {
 					// Erro de conversão String para Interger.
+					Messages.addGlobalError("Erro  ");
 				}
 			} else if (obj.getDebitoTecnico().contains("m")) {
 				String debitoTecnico = obj.getDebitoTecnico();
@@ -166,6 +166,7 @@ public class Analise_CodigoDevBean implements Serializable {
 
 				} catch (Exception e) {
 					// Erro de conversão String para Interger.
+					Messages.addGlobalError("Erro  ");
 				}
 
 			} else {
@@ -231,9 +232,7 @@ public class Analise_CodigoDevBean implements Serializable {
 			return listaAnaliseTemp;
 
 		} catch (Exception e) {
-			// TODO: handle exception
-			Messages.addGlobalError("Erro ao  Atualizar Lista.");
-			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ERRO:" + e.getMessage() + e.getCause());
+			Messages.addGlobalError("Erro  ");
 			return null;
 		}
 	}
@@ -279,8 +278,7 @@ public class Analise_CodigoDevBean implements Serializable {
 
 			} catch (Exception e) {
 				// Objeto anterior não existe.
-				System.out.println("----------- Objeto anterior não identificado ----------------");
-
+				Messages.addGlobalError("Erro  ");
 			}
 			obj.setNotaProjeto(String.valueOf(resultado));
 			dao = new AnaliseCodigoDevDAO();

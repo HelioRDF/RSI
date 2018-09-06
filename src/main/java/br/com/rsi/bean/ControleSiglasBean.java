@@ -46,7 +46,6 @@ public class ControleSiglasBean implements Serializable {
 			dao.salvar(controle);
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar ");
-			System.out.println(e.getCause());
 		}
 	}
 
@@ -63,7 +62,6 @@ public class ControleSiglasBean implements Serializable {
 			}
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar ");
-			System.out.println(e.getCause());
 		}
 	}
 
@@ -135,7 +133,6 @@ public class ControleSiglasBean implements Serializable {
 			}
 			Messages.addGlobalInfo("Planilha salva com sucesso!");
 		} catch (Exception e) {
-			e.printStackTrace();
 			Messages.addGlobalError("Não foi possível salvar ");
 		}
 	}
@@ -152,7 +149,6 @@ public class ControleSiglasBean implements Serializable {
 			Messages.addGlobalInfo("Lista Atualizada!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
 		} 
 	}

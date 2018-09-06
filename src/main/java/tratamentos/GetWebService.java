@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 
 import com.google.gson.Gson;
 
@@ -14,10 +15,16 @@ public class GetWebService {
 	private final String USER_AGENT = "Mozilla/5.0";
 
 	public static void main(String[] args) throws Exception {
+		
+//		LocalDate lc =LocalDate.now();
+//		LocalDate localDate = LocalDate.now();
+//		
+//		System.out.println(lc.getMonth());
+		
 
-		GetWebService http = new GetWebService();
-		Gson g = new Gson();
-		Usuario u = new Usuario();
+		//GetWebService http = new GetWebService();
+		//Gson g = new Gson();
+		//Usuario u = new Usuario();
 		// Type usuarioType = new TypeToken<Usuario>() {
 		// }.getType();
 
@@ -26,9 +33,9 @@ public class GetWebService {
 		// u.setSenha("4312");
 		// u.setPerfil("Admin");
 		// String json = g.toJson(u, usuarioType);
-		String url = "http://localhost:9000/api/projects/search";
+		//String url = "http://localhost:9000/api/projects/search";
 		// String result = http.sendGet(url,"GET");
-		System.out.println("\nSaída:"+http.sendGet(url, "GET").toString());
+		//System.out.println("\nSaída:"+http.sendGet(url, "GET").toString());
 
 		// http.sendPost(url, json, "PUT");
 

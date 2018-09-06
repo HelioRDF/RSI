@@ -25,6 +25,11 @@ import br.com.rsi.util.HibernateUtil;
 
 public class ControleRtcDevDAO extends GenericDAO<ControleRtcDev> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6829271323980666024L;
+
+	/**
 	 * Busca o commit mais recente por sigla, nome do sistema...
 	 * 
 	 * @param sigla

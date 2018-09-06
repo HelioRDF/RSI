@@ -2,7 +2,6 @@ package br.com.rsi.bean;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -28,19 +27,13 @@ public class UsuarioBean implements Serializable {
 
 	Usuario usuarioLogado = LoginBean.getUsuarioLogado();
 	private Usuario usuario = new Usuario();
-	UsuarioDAO dao;
-	String NomeTest;
+	private UsuarioDAO dao;
+	private String NomeTest;
 	private Boolean statusBoolean = false;
 	private Boolean telaEditar = false;
 	private Boolean botaoEditar = false;
 	private Boolean botaoSalvar = false;
 
-	// ....
-	// -------------------------------------------------------------------------------------------
-	@PostConstruct
-	public void inicia() {
-
-	}
 
 /*
  * Editar objeto do tipo usuário
@@ -53,7 +46,6 @@ public class UsuarioBean implements Serializable {
 			Messages.addGlobalInfo("Usuário(a) ' " + usuarioLogado.getNome() + "' Editado com sucesso!!!");
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Editar Usuário(a) '" + usuarioLogado.getNome() + "'");
-			System.out.println("------------- Erro Message: " + e.getMessage());
 		}
 	}
 

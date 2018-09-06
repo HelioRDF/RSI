@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import br.com.rsi.dao.complementos.AnaliseCodigoHKDAO;
 import br.com.rsi.domain.complementos.AnaliseCodigoHK;
 import br.com.rsi.domain.complementos.RFC;
+import tratamentos.TrataDados;
 
 /**
  * Classe criada p/ gerar linhas html(td), para inclusão em uma tabela HTML.
@@ -24,12 +25,12 @@ public class InspecaoList {
 	 * @return - Retorna uma linha para tabela HTML
 	 * 
 	 */
-	public String alertaInspecao(RFC obj) {
+	public StringBuffer alertaInspecao(RFC obj) {
 		AnaliseCodigoHK inspecaoObj = new AnaliseCodigoHK();
 		AnaliseCodigoHKDAO dao = new AnaliseCodigoHKDAO();
 		inspecaoObj = dao.buscarPorID(obj.getCodInspecao());
 
-		String resultado;
+		StringBuffer linhasTabela = new StringBuffer();
 		StringBuffer estiloH2 = new StringBuffer();
 		String dataTxt = inspecaoObj.getDataCaptura().toString();
 		String dataCommit = inspecaoObj.getDataCommit().toString();
@@ -62,29 +63,36 @@ public class InspecaoList {
 		estiloH3.append("font:12px;");
 		estiloH3.append("padding-left:10px;");
 		String corResultado = "style='color:blue;'";
-
+		String planoFundoCorTxt="style='background-color:#a0a0a0;color:#1e5cdf;font-size:11px;'";
 
 		if (inspecaoObj.getResultado().equalsIgnoreCase("Alerta")) {
 			corResultado = "style='color:orange;'";
 		} else {
-			corResultado = "style='color:#12d812;'";
+			corResultado = "style='color:#12d812; font-size:11px;'";
 		}
 
-		resultado = " <tr>"
-				+ "<td> &ensp; " + obj.getGestorEntrega() + " </td>" // Gestor Entrega lista Santander
-				+ "<td> &ensp; " + obj.getLider() + "&ensp; </td>" // Gestor de Teste
-				+ "<td> &ensp; " + obj.getCodProj() + "&ensp; </td>" + "<td> &ensp; " + obj.getCodRfc() + "&ensp; </td>"
-				+ "<td> &ensp; " + obj.getSigla() + " </td>" + "<td> &ensp; "
-				+ inspecaoObj.getPainelGestor().toUpperCase() + " </td>" // Painel Gestor Sigla
-				+ "<td> &ensp; " + notaAnterior + " </td>"
-				+ "<td style=\"background-color:#a0a0a0;color:#1e5cdf;\" > &ensp; " + inspecaoObj.getNotaProjeto()
-				+ "% </td>" + "<td> &ensp; " + dataTxt + " </td>" // Data de captura
-				+ "<td> &ensp; " + dataCommit + " </td>" // DT alt Cod
-			//	+ "<td> &ensp; " + inspecaoObj.getCodigoAlterado()+ " </td>" //
-				+ "<td> &ensp; " + inspecaoObj.getLinhaCodigo() + " </td>" + "<td> &ensp; "
-				+ inspecaoObj.getIssuesMuitoAlta() + " </td>" + "<td> &ensp; " + inspecaoObj.getIssuesAlta() + " </td>"
-				+ "<td " + corResultado + "> &ensp; " + inspecaoObj.getResultado() + "&ensp; </td>" + "</tr>";
-		return resultado;
+		linhasTabela.append(" <tr>");
+		linhasTabela.append(TrataDados.incluirHtmlTd(obj.getGestorEntrega())); // Gestor Entrega lista Santander
+		linhasTabela.append(TrataDados.incluirHtmlTd(obj.getLider()));// Gestor de Teste
+		linhasTabela.append(TrataDados.incluirHtmlTd(obj.getCodProj()));
+		linhasTabela.append(TrataDados.incluirHtmlTd(obj.getCodRfc()));
+		linhasTabela.append(TrataDados.incluirHtmlTd(obj.getSigla()));
+		linhasTabela.append(TrataDados.incluirHtmlTd(inspecaoObj.getPainelGestor().toUpperCase()));
+		linhasTabela.append(TrataDados.incluirHtmlTd(notaAnterior));
+		linhasTabela.append(TrataDados.incluirHtmlTdStyle(inspecaoObj.getNotaProjeto(), planoFundoCorTxt, "%"));
+		
+		//linhasTabela.append(
+		//		"<td style=\"background-color:#a0a0a0;color:#1e5cdf;\" > &ensp; " + inspecaoObj.getNotaProjeto());
+		linhasTabela.append(TrataDados.incluirHtmlTd(dataTxt));
+		linhasTabela.append(TrataDados.incluirHtmlTd(dataCommit));
+		//linhasTabela.append(TrataDados.incluirHTMLtd(inspecaoObj.getCodigoAlterado()));
+		linhasTabela.append(TrataDados.incluirHtmlTd(Integer.toString(inspecaoObj.getLinhaCodigo())));
+		linhasTabela.append(TrataDados.incluirHtmlTd(Integer.toString(inspecaoObj.getIssuesMuitoAlta())));
+		linhasTabela.append(TrataDados.incluirHtmlTd(Integer.toString(inspecaoObj.getIssuesAlta())));
+		linhasTabela.append("<td " + corResultado + "> &ensp; " + inspecaoObj.getResultado() + "&ensp; </td>");
+		linhasTabela.append("</tr>");
+
+		return linhasTabela;
 	}
 
 }

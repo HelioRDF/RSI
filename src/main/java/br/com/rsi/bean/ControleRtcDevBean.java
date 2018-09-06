@@ -24,11 +24,13 @@ import jxl.Sheet;
 import jxl.Workbook;
 
 /**
+ * 
  * -Classe BEAN ControleRtcDevBean.
  * 
  * @author helio.franca
  * @version v2.0.5
  * @since 25-07-2018
+ *
  *
  */
 
@@ -53,7 +55,6 @@ public class ControleRtcDevBean implements Serializable {
 			dao.salvar(controle);
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar ");
-			System.out.println(e.getCause());
 		}
 	}
 
@@ -123,7 +124,6 @@ public class ControleRtcDevBean implements Serializable {
 			}
 			Messages.addGlobalInfo("Planilha salva com sucesso!");
 		} catch (Exception e) {
-			e.printStackTrace();
 			Messages.addGlobalError("Não foi possível salvar ");
 		}
 	}
@@ -141,7 +141,6 @@ public class ControleRtcDevBean implements Serializable {
 			}
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar ");
-			System.out.println(e.getCause());
 		}
 	}
 
@@ -154,7 +153,6 @@ public class ControleRtcDevBean implements Serializable {
 			new Thread(rtcLog).start();
 			Messages.addGlobalInfo("RTC log em execução!");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			Messages.addGlobalError("Erro ao executar Git Log!");
 		}
 	}
@@ -174,7 +172,7 @@ public class ControleRtcDevBean implements Serializable {
 				try {
 
 				} catch (Exception e) {
-					System.err.println("---------------Erro: -" + e.getStackTrace());
+					Messages.addGlobalError("Erro");
 				} finally {
 					dao.editar(obj);
 				}
@@ -221,8 +219,6 @@ public class ControleRtcDevBean implements Serializable {
 					String array[] = new String[2];
 					array = siglaTemp.split(":");
 					siglaTemp = array[1].trim();
-					System.out.println("\n ----------------------------- \n");
-					System.out.println("- Sigla: " + siglaTemp);
 
 				}
 				if (linha == 2) {
@@ -230,7 +226,6 @@ public class ControleRtcDevBean implements Serializable {
 					String array[] = new String[2];
 					array = commitTemp.split(":");
 					commitTemp = array[1].trim();
-					System.out.println("- Commit: " + commitTemp);
 					if (commitTemp.equalsIgnoreCase("True")) {
 						obj.setAlteracao(true);
 					} else {
@@ -243,8 +238,6 @@ public class ControleRtcDevBean implements Serializable {
 					String array[] = new String[2];
 					array = dataTemp.split(":");
 					dataTemp = array[1].trim();
-					System.out.println("- Data: " + dataTemp);
-					System.out.println("\n ----------------------------- \n");
 					if (obj.getDataCommit() == null) {
 						System.out.println("\n Data Nula \n");
 					} else {
@@ -291,7 +284,6 @@ public class ControleRtcDevBean implements Serializable {
 			} catch (ParseException e) {
 				dataFinal = null;
 				System.out.println("\n-----------------------------------------Erro em data" + msg);
-				e.printStackTrace();
 			}
 		}
 		return dataFinal;

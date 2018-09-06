@@ -30,7 +30,7 @@ public class NovoUsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = -125586851442420009L;
 	private Usuario usuario;
-	UsuarioDAO dao;
+	private UsuarioDAO dao;
 	private Boolean statusBoolean = false;
 
 	@PostConstruct
@@ -44,7 +44,7 @@ public class NovoUsuarioBean implements Serializable {
 	}
 
 	/**
-	 *  Salvar novo usuário
+	 * Salvar novo usuário
 	 */
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
@@ -66,7 +66,6 @@ public class NovoUsuarioBean implements Serializable {
 			Messages.addGlobalInfo("Usuário(a) " + usuario.getNome() + ", salvo com sucesso.");
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar o usuário, tente novamente mais tarde ... ");
-			System.out.println("Erro" + e.getMessage());
 		}
 	}
 	// -------------------------------------------------------------------------------------

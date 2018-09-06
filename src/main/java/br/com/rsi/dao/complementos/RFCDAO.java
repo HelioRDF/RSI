@@ -28,6 +28,12 @@ public class RFCDAO extends GenericDAO<RFC> {
 	
 	/**
 	 * 
+	 */
+	private static final long serialVersionUID = 4470851436770725132L;
+
+
+	/**
+	 * 
 	 * @return - Retorna uma lista de objetos
 	 */
 	@SuppressWarnings("unchecked")

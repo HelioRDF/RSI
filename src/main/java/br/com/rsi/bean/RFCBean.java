@@ -41,9 +41,9 @@ public class RFCBean implements Serializable {
 	private List<RFC> listaRFC;
 	private int total;
 	static String CAMINHO = "";
-	String siglaAtual;
-	boolean enviarEmailTemp;
-	public Date filtrarDataEmail = new Date();
+	private String siglaAtual;
+	private boolean enviarEmailTemp;
+	private Date filtrarDataEmail = new Date();
 
 	/**
 	 * Dispara o envio de E-mail
@@ -51,7 +51,6 @@ public class RFCBean implements Serializable {
 	// -------------------------------------------------------------------------------------
 	public void enviarEmail() {
 		Messages.addGlobalWarn("Teste");
-		System.out.println("----xxxxxxxxxxxxxxx");
 		EnviarEmail email = new EnviarEmail();
 		RFCDAO daoRFC = new RFCDAO();
 		String resultado = "";
@@ -64,12 +63,10 @@ public class RFCBean implements Serializable {
 				InspecaoList list = new InspecaoList();
 				resultado += list.alertaInspecao(obj);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				Messages.addGlobalError("Erro enviarEmail()");
 			}
-
 		}
 		email.emailHtmlInspecao(resultado, "Monitor de Inspeção/RFC");
-
 	}
 
 	/**
@@ -82,7 +79,6 @@ public class RFCBean implements Serializable {
 			Messages.addGlobalInfo(siglaAtual + " - Salva | Inspeção:" + rFC.getCodInspecao());
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar a Silga:" + siglaAtual);
-			System.out.println("Erro ao salvar --------------------------------------" + siglaAtual + e);
 		}
 	}
 
@@ -119,8 +115,6 @@ public class RFCBean implements Serializable {
 	// -------------------------------------------------------------------------------------------
 	public void editar() {
 		try {
-			// daoRFC = new RFCDAO();
-			// daoRFC.merge(rFC);
 			Messages.addGlobalInfo(" Editado com sucesso!!!");
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Editar ");
@@ -204,11 +198,8 @@ public class RFCBean implements Serializable {
 				}
 				try {
 					setCodInspecaoInt = Integer.parseInt(codInspecao);
-
 				} catch (Exception e) {
-					System.out.println("Cod Inspeção - Erro");
 					setCodInspecaoInt = 0;
-
 				}
 
 				if (!salvarSigla.isEmpty()) {
@@ -227,16 +218,15 @@ public class RFCBean implements Serializable {
 					rFC.setLider(lider);
 					rFC.setGestorEntrega(gestorEntrega);
 					rFC.setEmailLider(emailLider);
-
 					siglaAtual = sigla;
 					salvar();
 				}
 			}
 		} catch (NullPointerException e) {
-			System.out.println("Catch 01 ---------------------------------");
+			Messages.addGlobalError("Erro");
 
 		} catch (Exception e) {
-			System.out.println("Catch 02 ---------------------------------");
+			Messages.addGlobalError("Erro");
 		}
 	}
 
@@ -249,7 +239,6 @@ public class RFCBean implements Serializable {
 	// -------------------------------------------------------------------------------------------
 	public void selecionarRFC(ActionEvent evento) {
 		try {
-			System.out.println("Teste chamado");
 			rFC = (RFC) evento.getComponent().getAttributes().get("meuSelect");
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Editar: ");
@@ -292,7 +281,6 @@ public class RFCBean implements Serializable {
 				dataFinal = (Date) formatter.parse(dataInfo);
 			} catch (ParseException e) {
 				dataFinal = null;
-				System.out.println("\n-----------------------------------------Erro em data" + msg);
 			}
 		}
 		return dataFinal;

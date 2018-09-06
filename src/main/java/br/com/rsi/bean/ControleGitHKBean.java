@@ -64,7 +64,6 @@ public class ControleGitHKBean implements Serializable {
 		git = gitDao.listarOrdenandoAlteracao();
 
 		for (ControleGitHK obj : git) {
-
 			GitList list = new GitList();
 			resultado += list.alertaGit(obj.getSigla(), obj.getNomeSistema(), obj.getPacote(), obj.getDataCommit(),
 					obj.getDataCommitAnt(), obj.isAlteracao());
@@ -158,7 +157,7 @@ public class ControleGitHKBean implements Serializable {
 			}
 			Messages.addGlobalInfo("Planilha salva com sucesso!");
 		} catch (Exception e) {
-			e.printStackTrace();
+
 			Messages.addGlobalError("Não foi possível salvar ");
 		}
 	}
@@ -201,7 +200,6 @@ public class ControleGitHKBean implements Serializable {
 			} catch (ParseException e) {
 				dataFinal = null;
 				System.out.println("\n-----------------------------------------Erro em data" + msg);
-				e.printStackTrace();
 			}
 		}
 		return dataFinal;

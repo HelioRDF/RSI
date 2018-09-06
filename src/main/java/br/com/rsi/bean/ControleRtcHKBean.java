@@ -54,7 +54,6 @@ public class ControleRtcHKBean implements Serializable {
 			dao.salvar(controle);
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar ");
-			System.out.println(e.getCause());
 		}
 	}
 
@@ -70,7 +69,6 @@ public class ControleRtcHKBean implements Serializable {
 
 			Messages.addGlobalInfo("Lista Atualizada!");
 		} catch (Exception e) {
-			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
 		} 
 	}
@@ -124,7 +122,6 @@ public class ControleRtcHKBean implements Serializable {
 			}
 			Messages.addGlobalInfo("Planilha salva com sucesso!");
 		} catch (Exception e) {
-			e.printStackTrace();
 			Messages.addGlobalError("Não foi possível salvar ");
 		}
 	}
@@ -142,7 +139,6 @@ public class ControleRtcHKBean implements Serializable {
 			}
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar ");
-			System.out.println(e.getCause());
 		}
 	}
 
@@ -166,8 +162,6 @@ public class ControleRtcHKBean implements Serializable {
 				dataFinal = (Date) formatter.parse(dataInfo);
 			} catch (ParseException e) {
 				dataFinal = null;
-				System.out.println("\n-----------------------------------------Erro em data" + msg);
-				e.printStackTrace();
 			}
 		}
 		return dataFinal;
@@ -202,7 +196,7 @@ public class ControleRtcHKBean implements Serializable {
 				try {
 
 				} catch (Exception e) {
-					System.err.println("---------------Erro: -" + e.getStackTrace());
+					Messages.addGlobalError("Erro  ");
 				} finally {
 					dao.editar(obj);
 				}
@@ -249,8 +243,6 @@ public class ControleRtcHKBean implements Serializable {
 					String array[] = new String[2];
 					array = siglaTemp.split(":");
 					siglaTemp = array[1].trim();
-					System.out.println("\n ----------------------------- \n");
-					System.out.println("- Sigla: " + siglaTemp);
 
 				}
 				if (linha == 2) {
@@ -299,7 +291,6 @@ public class ControleRtcHKBean implements Serializable {
 
 		} catch (Exception e) {
 			System.out.println("xxxxxxxx " + path);
-			// TODO: handle exception
 		}
 	}
 

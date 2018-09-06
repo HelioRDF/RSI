@@ -46,7 +46,6 @@ public class AnaliseCodigoHKBean implements Serializable {
 			Messages.addGlobalInfo(siglaAtual + " - Salva");
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar a Silga:" + siglaAtual);
-			System.out.println("Erro ao salvar --------------------------------------" + siglaAtual + e);
 		}
 	}
 
@@ -79,7 +78,6 @@ public class AnaliseCodigoHKBean implements Serializable {
 		} catch (Exception e) {
 			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
-			System.out.println(" ERRO:" + e.getMessage() + e.getCause());
 		}
 	}
 
@@ -157,12 +155,12 @@ public class AnaliseCodigoHKBean implements Serializable {
 						resultado = analiseCodigoHK.getResultado();
 						Messages.addGlobalInfo(" Sigla: " + sigla + "-" + resultado);
 					} catch (Exception e) {
-						// TODO: handle exception
+						Messages.addGlobalError("Erro  ");
 					}
 				} // Fim do For
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO:" + e.getMessage() + e.getCause());
+			Messages.addGlobalError("Erro  ");
 		}
 	}
 
@@ -247,7 +245,7 @@ public class AnaliseCodigoHKBean implements Serializable {
 			}
 		}
 	}
-	
+
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Trata a coluna debito técnico, deixando apenas o numeral dia.
@@ -290,7 +288,7 @@ public class AnaliseCodigoHKBean implements Serializable {
 					obj.setDebitoTecnicoMinutos(Integer.toString(debitoTecnicoMinutos));
 
 				} catch (Exception e) {
-					// Erro de conversão String para Interger.
+					Messages.addGlobalError("Erro");
 				}
 			} else if (obj.getDebitoTecnico().contains("m")) {
 				String debitoTecnico = obj.getDebitoTecnico();
@@ -302,7 +300,7 @@ public class AnaliseCodigoHKBean implements Serializable {
 					obj.setDebitoTecnicoMinutos(Integer.toString(debitoTecnicoMinutos));
 
 				} catch (Exception e) {
-					// Erro de conversão String para Interger.
+					Messages.addGlobalError("Erro  ");
 				}
 
 			} else {

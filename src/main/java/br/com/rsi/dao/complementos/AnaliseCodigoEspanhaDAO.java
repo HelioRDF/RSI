@@ -25,6 +25,11 @@ public class AnaliseCodigoEspanhaDAO extends GenericDAO<AnaliseCodigoEspanha> {
 
 	/**
 	 * 
+	 */
+	private static final long serialVersionUID = -3195816058318407152L;
+
+	/**
+	 * 
 	 * @return - Retorna uma lista de AnaliseCodigoEspanha
 	 */
 	@SuppressWarnings("unchecked")

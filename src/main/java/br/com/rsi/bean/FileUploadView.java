@@ -52,7 +52,6 @@ public class FileUploadView {
 			}
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
-			ex.printStackTrace();
 		}
 		RFCBean bean = new RFCBean();
 		bean.salvarPlanilha();
@@ -78,7 +77,6 @@ public class FileUploadView {
 			}
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
-			ex.printStackTrace();
 		}
 		ControleSiglasBean bean = new ControleSiglasBean();
 		bean.salvarPlanilha();
@@ -105,7 +103,6 @@ public class FileUploadView {
 			}
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
-			ex.printStackTrace();
 		}
 		ControleGitHKBean bean = new ControleGitHKBean();
 		bean.salvarPlanilha();
@@ -132,7 +129,6 @@ public class FileUploadView {
 			}
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
-			ex.printStackTrace();
 		}
 		ControleGitDevBean bean = new ControleGitDevBean();
 		bean.salvarPlanilha();
@@ -159,7 +155,6 @@ public class FileUploadView {
 			}
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
-			ex.printStackTrace();
 		}
 		ControleRtcDevBean bean = new ControleRtcDevBean();
 		bean.salvarPlanilha();
@@ -186,7 +181,6 @@ public class FileUploadView {
 			}
 		} catch (Exception ex) {
 			Messages.addGlobalError("Falha ao carregar arquivo:");
-			ex.printStackTrace();
 		}
 		ControleRtcHKBean bean = new ControleRtcHKBean();
 		bean.salvarPlanilha();

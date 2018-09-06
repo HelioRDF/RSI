@@ -23,6 +23,11 @@ import br.com.rsi.util.HibernateUtil;
 
 public class AnaliseCodigoHKDAO extends GenericDAO<AnaliseCodigoHK> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5640293968135258957L;
+
 	// ---------------------------------------------------------------------------------
 	/**
 	 * 

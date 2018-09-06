@@ -34,7 +34,7 @@ public class CorpoHtmlInspecao {
 
 		msgs.append("<br></br>");
 		msgs.append("<table border='1'>");
-		msgs.append("<tr style=\"background-color:#2f75b5; color:#fff;\">");
+		msgs.append("<tr style=\"background-color:#2f75b5; color:#fff; font-size:11px;\">");
 	
 		msgs.append("<td>&ensp; Gestor de Entrega  &ensp;</td>"); // Da  Lista de RFCs
 		msgs.append("<td>&ensp; Gestor de Testes  &ensp;</td>");

@@ -24,6 +24,11 @@ import br.com.rsi.util.HibernateUtil;
 
 public class ControleGitDevDAO extends GenericDAO<ControleGitDev> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3955388182778766107L;
+
+	/**
 	 * Busca ordenada por alteração
 	 * 
 	 * @return - Retorna uma lista de ControleGitDev

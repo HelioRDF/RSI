@@ -28,9 +28,9 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private AnaliseCodigoEspanha analise;
-	private AnaliseCodigoEspanhaDAO dao;
+	private AnaliseCodigoEspanhaDAO analiseDao;
 	private List<AnaliseCodigoEspanha> listaAnalise;
-	List<AnaliseCodigoEspanha> listaResultado;
+	private List<AnaliseCodigoEspanha> listaResultado;
 	private int total;
 	String siglaAtual;
 
@@ -40,11 +40,10 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 	// -------------------------------------------------------------------------------------
 	public void salvar() {
 		try {
-			dao.salvar(analise);
+			analiseDao.salvar(analise);
 			Messages.addGlobalInfo(siglaAtual + " - Salva");
 		} catch (Exception e) {
 			Messages.addGlobalError("Não foi possível salvar a Silga:" + siglaAtual);
-			System.out.println("Erro ao salvar --------------------------------------" + siglaAtual + e);
 		}
 	}
 
@@ -55,8 +54,8 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 	public void editar() {
 		try {
 			analise = new AnaliseCodigoEspanha();
-			dao = new AnaliseCodigoEspanhaDAO();
-			dao.editar(analise);
+			analiseDao = new AnaliseCodigoEspanhaDAO();
+			analiseDao.editar(analise);
 			Messages.addGlobalInfo("Editado com sucesso!!!");
 		} catch (Exception e) {
 			Messages.addGlobalError("Erro ao Editar ");
@@ -74,7 +73,7 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 		try {
 			analise = (AnaliseCodigoEspanha) evento.getComponent().getAttributes().get("meuSelect");
 		} catch (Exception e) {
-			Messages.addGlobalError("Erro ao Editar: ");
+			Messages.addGlobalError("Erro na seleção: ");
 		}
 	}
 
@@ -85,19 +84,16 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 	public void listarInfos() {
 		try {
 
-			dao = new AnaliseCodigoEspanhaDAO();
-			List<AnaliseCodigoEspanha> listaAnaliseTemp = dao.listar();
+			analiseDao = new AnaliseCodigoEspanhaDAO();
+			List<AnaliseCodigoEspanha> listaAnaliseTemp = analiseDao.listar();
 			;
 			listaAnalise = listaAnaliseTemp;
 			total = listaAnalise.size();
 			Messages.addGlobalInfo("Lista Atualizada!");
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			Messages.addGlobalError("Erro ao  Atualizar Lista.");
-			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ERRO:" + e.getMessage() + e.getCause());
-		} finally {
-		}
+		} 
 	}
 
 	/**
@@ -130,13 +126,13 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 					resultado = Integer.parseInt(df.format(nota));
 					obj.setNotaProjeto(String.valueOf(resultado));
 
-					dao = new AnaliseCodigoEspanhaDAO();
-					dao.editar(obj);
+					analiseDao = new AnaliseCodigoEspanhaDAO();
+					analiseDao.editar(obj);
 					Messages.addGlobalInfo("Nota incluída:" + obj.getSigla() + " Nota:" + resultado + "%");
 					System.out.println("------ " + resultado);
 				}
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				Messages.addGlobalError("Erro ao calcular ");
 			}
 		}
 
@@ -149,8 +145,8 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 	public void infoAnt() {
 		try {
 
-			dao = new AnaliseCodigoEspanhaDAO();
-			listaResultado = dao.listaResultadoVazio();
+			analiseDao = new AnaliseCodigoEspanhaDAO();
+			listaResultado = analiseDao.listaResultadoVazio();
 			AnaliseCodigoEspanha objAnterior = new AnaliseCodigoEspanha();
 
 			for (AnaliseCodigoEspanha obj : listaResultado) {
@@ -173,7 +169,7 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 			} // Fim do For
 
 		} catch (Exception e) {
-			System.out.println("----- ERRO:" + e.getMessage() + e.getCause());
+			Messages.addGlobalError("Erro Info ");
 		}
 	}
 
@@ -183,8 +179,8 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 	 */
 	public void tipoSigla() {
 		String tipo = "NOVO";
-		dao = new AnaliseCodigoEspanhaDAO();
-		List<AnaliseCodigoEspanha> listaAnaliseTemp = dao.listaTipoVazio();
+		analiseDao = new AnaliseCodigoEspanhaDAO();
+		List<AnaliseCodigoEspanha> listaAnaliseTemp = analiseDao.listaTipoVazio();
 
 		listaAnalise = listaAnaliseTemp;
 		total = listaAnalise.size();
@@ -192,7 +188,7 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 		for (AnaliseCodigoEspanha obj : listaAnaliseTemp) {
 
 			try {
-				AnaliseCodigoEspanha objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(),
+				AnaliseCodigoEspanha objAnterior = analiseDao.buscarAnterior(obj.getId(), obj.getSigla(),
 						obj.getNomeProjeto());
 
 				if (obj.getDataCommit().equalsIgnoreCase(objAnterior.getDataCommit())) {
@@ -202,10 +198,10 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 				}
 
 			} catch (Exception e) {
-				// TODO: Caso não tenha sigla anterior
+				Messages.addGlobalError("Erro  tipoSigla ");
 			}
 			obj.setTipo(tipo);
-			dao.editar(obj);
+			analiseDao.editar(obj);
 
 		}
 
@@ -222,8 +218,8 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 	 */
 	public void tipoSiglaNtLi() {
 		String tipo = "NOVO";
-		dao = new AnaliseCodigoEspanhaDAO();
-		List<AnaliseCodigoEspanha> listaAnaliseTemp = dao.listaTipoVazio();
+		analiseDao = new AnaliseCodigoEspanhaDAO();
+		List<AnaliseCodigoEspanha> listaAnaliseTemp = analiseDao.listaTipoVazio();
 
 		listaAnalise = listaAnaliseTemp;
 		total = listaAnalise.size();
@@ -239,21 +235,17 @@ public class AnaliseCodigoEspanhaBean implements Serializable {
 
 				if (linha != linhaAnt) {
 					tipo = "NOVO";
-
 				} else if (!nota.equalsIgnoreCase(notaAnt)) {
-
 					tipo = "NOVO";
-
 				} else {
 					tipo = "LEGADO";
-
 				}
 
 			} catch (Exception e) {
-				// TODO: Caso não tenha sigla anterior
+				Messages.addGlobalError("Erro tipoSiglaNtLi() ");
 			}
 			obj.setTipo(tipo);
-			dao.editar(obj);
+			analiseDao.editar(obj);
 
 		}
 

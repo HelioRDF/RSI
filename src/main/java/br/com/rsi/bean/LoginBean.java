@@ -24,7 +24,6 @@ import br.com.rsi.domain.usuarios.Usuario;
  * @since N/A
  *
  */
-
 @SuppressWarnings("serial")
 @ManagedBean
 @SessionScoped
@@ -41,7 +40,7 @@ public class LoginBean implements Serializable {
 	public void iniciar() {
 		usuario = new Usuario();
 	}
-	
+
 	/**
 	 * Autenticar usuário na aplicação.
 	 */
@@ -68,21 +67,21 @@ public class LoginBean implements Serializable {
 				usuarioLogado.setUltimoLogin(new Date());
 				usuarioDAO.editar(usuarioLogado);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Messages.addGlobalError("Erro  ");
 			}
 		} // fim do If
 	}
 
 	// Logoff
 	// -------------------------------------------------------------------------------------------
-/**
- * Sair da aplicação
- */
+	/**
+	 * Sair da aplicação
+	 */
 	public void sair() {
 		try {
 			userlogadoB = false;
 			usuarioLogado = null;
+			
 			// Destroi as sessões após loggof do usuário.
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
@@ -91,10 +90,10 @@ public class LoginBean implements Serializable {
 			// Redireciona para a página de login
 			Faces.redirect("./pages/publicas/login.xhtml");
 			Messages.addGlobalInfo("Logout");
+			
 			return;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Messages.addGlobalError("Erro  ");
 		}
 	}
 

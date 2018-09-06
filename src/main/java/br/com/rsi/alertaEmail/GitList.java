@@ -3,6 +3,8 @@ package br.com.rsi.alertaEmail;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import tratamentos.TrataDados;
+
 /**
  * Classe criada p/ gerar linhas html(td), para inclusão em uma tabela HTML.
  *
@@ -21,10 +23,11 @@ public class GitList {
 	 * @param dataAnt - Recebe a data anterior de commit
 	 * @param alteracao - Recebe se teve alteração de commit (True/False)
 	 * @return - Retorna uma linha para tabela HTML
-	 * 
+	 *  
 	 */
-	public String alertaGit(String sigla, String sistema,String pacote, Date dataCommit, Date dataAnt, boolean alteracao) {
-		String resultado;
+	
+	public StringBuffer alertaGit(String sigla, String sistema,String pacote, Date dataCommit, Date dataAnt, boolean alteracao) {
+		StringBuffer resultado= new StringBuffer();
 		StringBuffer estiloH2 = new StringBuffer();
 		String dataTxt = "---";
 		String dataTxtAnt = "---";
@@ -56,24 +59,29 @@ public class GitList {
 
 		// Caso esteja Ok
 		if (alteracao) {
-			resultado = " <tr><td> &ensp;  &ensp; &ensp; <img src='https://cdn.pixabay.com/photo/2016/06/01/07/41/green-1428507_960_720.png' width='20' height='20' align='center' /> </td>"
-					+ "<td> &ensp; &ensp;" + sigla + " </td>" + "<td> &ensp; &ensp;" + sistema + " </td>"
-					+ "<td> &ensp; &ensp;" + pacote + " </td>" 
-					+ "<td> &ensp; &ensp;" + dataTxt + " </td>" 
-					+ "<td> &ensp; &ensp;" + dataTxtAnt + " </td>"
-					+ "</tr>";
+			resultado.append(" <tr><td> &ensp;  &ensp; &ensp; <img src='https://cdn.pixabay.com/photo/2016/06/01/07/41/green-1428507_960_720.png' width='20' height='20' align='center' /> </td>");
+			resultado.append(TrataDados.incluirHtmlTd(sigla));
+			resultado.append(TrataDados.incluirHtmlTd(sistema));
+			resultado.append(TrataDados.incluirHtmlTd(pacote));
+			resultado.append(TrataDados.incluirHtmlTd(dataTxt));
+			resultado.append(TrataDados.incluirHtmlTd(dataTxtAnt));
+			resultado.append(TrataDados.incluirHtmlTd("</tr>"));
 
 			// Caso de erro
 		} else {
-			resultado = " <tr><td> &ensp;  &ensp; &ensp; <img src='https://cdn.icon-icons.com/icons2/1380/PNG/512/vcsconflicting_93497.png' width='20' height='20' align='center' /> </td>"
-					+ "<td> &ensp; &ensp;" + sigla + " </td>" + "<td> &ensp; &ensp;" + sistema + " </td>"
-					+ "<td> &ensp; &ensp;" + pacote + " </td>" 
-					+ "<td> &ensp; &ensp;" + dataTxt + " </td>"
-					+ "<td> &ensp; &ensp;" + dataTxtAnt + " </td>"
-					+ "</tr>";
+			resultado = 
+					resultado.append("<tr><td> &ensp;  &ensp; &ensp; <img src='https://cdn.icon-icons.com/icons2/1380/PNG/512/vcsconflicting_93497.png' width='20' height='20' align='center' /> </td>");
+					resultado.append(TrataDados.incluirHtmlTd(sigla));
+					resultado.append(TrataDados.incluirHtmlTd(sistema));
+					resultado.append(TrataDados.incluirHtmlTd(pacote));
+					resultado.append(TrataDados.incluirHtmlTd(dataTxt));
+					resultado.append(TrataDados.incluirHtmlTd(dataTxtAnt));
+					resultado.append(TrataDados.incluirHtmlTd("</tr>"));
 		}
 
 		return resultado;
 	}
+	
+	
 
 }

@@ -26,6 +26,11 @@ public class AnaliseCodigoDevDAO extends GenericDAO<Automacao_Analise_Codigo> {
 	
 	/**
 	 * 
+	 */
+	private static final long serialVersionUID = -126164611692514074L;
+
+	/**
+	 * 
 	 * @return - Retorna uma lista de Automacao_Analise_Codigo, aonde a nota é nula
 	 */
 	@SuppressWarnings("unchecked")

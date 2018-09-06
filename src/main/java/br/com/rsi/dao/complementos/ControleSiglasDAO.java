@@ -14,4 +14,9 @@ import br.com.rsi.domain.complementos.ControleSiglas;
 
 public class ControleSiglasDAO extends GenericDAO<ControleSiglas> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 786315802961294772L;
+
 }
