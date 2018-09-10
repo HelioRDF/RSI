@@ -2,7 +2,6 @@ package br.com.rsi.bean;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -169,15 +168,20 @@ public class Analise_CodigoDevBean implements Serializable {
 					Messages.addGlobalError("Erro  ");
 				}
 
+				finally {
+					dao.editar(obj);
+					// Chama calcularCoeficiente();
+					calcularCoeficiente();
+					// Chama alteracaoSigla();
+					alteracaoSigla();
+				}
+
 			} else {
 				obj.setDebitoTecnicoMinutos("0");
+				dao.editar(obj);
 
 			}
-			dao.editar(obj);
-			// Chama calcularCoeficiente();
-			calcularCoeficiente();
-			// Chama alteracaoSigla();
-			alteracaoSigla();
+
 		}
 	}
 
@@ -196,7 +200,8 @@ public class Analise_CodigoDevBean implements Serializable {
 		List<Automacao_Analise_Codigo> listaObj = dao.listaCoeficiente();
 
 		for (Automacao_Analise_Codigo obj : listaObj) {
-			double totalIssues = (obj.getIssuesMuitoAlta() + obj.getIssuesAlta() + obj.getIssuesMedia() + obj.getIssuesBaixa());
+			double totalIssues = (obj.getIssuesMuitoAlta() + obj.getIssuesAlta() + obj.getIssuesMedia()
+					+ obj.getIssuesBaixa());
 			double debitoDias = 0;
 			double coeficiente = 0;
 			try {
@@ -292,41 +297,23 @@ public class Analise_CodigoDevBean implements Serializable {
 	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void alteracaoSigla() {
-		String codigoAlterado = "SIM";
+
 		dao = new AnaliseCodigoDevDAO();
 		List<Automacao_Analise_Codigo> listaAnaliseTemp = dao.listaTipoVazio();
-		String textoDataCommit = "Vazio";
-		boolean resultado = false;
+
 		for (Automacao_Analise_Codigo obj : listaAnaliseTemp) {
-			try {
-				Automacao_Analise_Codigo objAnterior = dao.buscarAnterior(obj.getId(), obj.getSigla(),
-						obj.getNomeProjeto());
-				textoDataCommit = obj.getDataCommit().toString();
-				Date dataCapturaAnterior = objAnterior.getDataCaptura();
-				if (textoDataCommit.equalsIgnoreCase("N/A")) {
-					codigoAlterado = "LEGADO";
-					continue;
-				}
-				String array[] = new String[3];
-				array = textoDataCommit.split("-");
-				textoDataCommit = array[0].trim() + "/" + array[1].trim() + "/" + array[2].trim();
-				@SuppressWarnings("deprecation")
-				Date dataCommit = new Date(textoDataCommit);
-				resultado = dataCommit.before(dataCapturaAnterior);
-				if (resultado) {
-					codigoAlterado = "LEGADO";
-				} else {
-					codigoAlterado = "NOVO";
-				}
-				if (!obj.getNotaProjeto().equalsIgnoreCase(objAnterior.getNotaProjeto())) {
-					codigoAlterado = "NOVO";
-				}
-			} catch (Exception e) {
-				codigoAlterado = "LEGADO";
-			} finally {
-				obj.setCodigoAlterado(codigoAlterado);
-				dao.editar(obj);
+			int linhasAtual, linhasAnt;
+			linhasAtual = obj.getLinhaCodigo();
+			linhasAnt = obj.getLinhaCodigoAnt();
+			String codigoAlterado = "LEGADO";
+			
+			if(linhasAtual!=linhasAnt) {
+				codigoAlterado="NOVO";
 			}
+			
+			obj.setCodigoAlterado(codigoAlterado);
+			dao.editar(obj);
+
 		}
 	}
 

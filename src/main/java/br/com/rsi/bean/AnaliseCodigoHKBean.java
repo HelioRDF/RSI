@@ -122,46 +122,21 @@ public class AnaliseCodigoHKBean implements Serializable {
 	 */
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void resultado() {
-		try {
-			dao = new AnaliseCodigoHKDAO();
-			listaResultado = dao.listaResultadoVazio();
-			AnaliseCodigoHK objAnterior = new AnaliseCodigoHK();
-			String sigla;
-			String resultado;
-			if (listaResultado.isEmpty()) {
-				Messages.addGlobalInfo("Análises concluídas");
+		dao = new AnaliseCodigoHKDAO();
+		listaResultado = dao.listaResultadoVazio();
+
+		for (AnaliseCodigoHK obj : listaResultado) {
+
+			if (obj.getIssuesMuitoAlta() > 0) {
+				obj.setResultado("ALERTA");
 			} else {
-				for (AnaliseCodigoHK analiseCodigoHK : listaResultado) {
-					try {
-						AnaliseCodigoHKDAO daoTemp = new AnaliseCodigoHKDAO();
-						sigla = analiseCodigoHK.getSigla();
-						int qtdSiglas = daoTemp.qtdList(analiseCodigoHK.getId(), analiseCodigoHK.getSigla(),
-								analiseCodigoHK.getNomeProjeto());
-						if (qtdSiglas > 0) {
-							objAnterior = daoTemp.buscarAnterior(analiseCodigoHK.getId(), analiseCodigoHK.getSigla(),
-									analiseCodigoHK.getNomeProjeto());
-							int notaAtual = Integer.parseInt(analiseCodigoHK.getNotaProjeto());
-							int notaAnterior = Integer.parseInt(objAnterior.getNotaProjeto());
-							analiseCodigoHK.setNotaAnterior(Integer.toString(notaAnterior));
-							if (notaAtual >= notaAnterior || notaAtual == 100) {
-								analiseCodigoHK.setResultado("LIBERADO");
-							} else {
-								analiseCodigoHK.setResultado("ALERTA");
-							}
-						} else {
-							analiseCodigoHK.setResultado("LIBERADO");
-						}
-						dao.editar(analiseCodigoHK); // Salva alteração
-						resultado = analiseCodigoHK.getResultado();
-						Messages.addGlobalInfo(" Sigla: " + sigla + "-" + resultado);
-					} catch (Exception e) {
-						Messages.addGlobalError("Erro  ");
-					}
-				} // Fim do For
+				obj.setResultado("LIBERADO");
 			}
-		} catch (Exception e) {
-			Messages.addGlobalError("Erro  ");
-		}
+
+			dao.editar(obj);
+
+		} // Fim do For
+
 	}
 
 	/**
