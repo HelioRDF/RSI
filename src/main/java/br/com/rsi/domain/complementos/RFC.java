@@ -46,6 +46,9 @@ public class RFC extends GenericDomain {
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInspecao;
+	
+	@Column(nullable = true)
+	private String dataPro;
 
 	@Column
 	@Lob
@@ -151,4 +154,11 @@ public class RFC extends GenericDomain {
 	public void setGestorEntrega(String gestorEntrega) {
 		this.gestorEntrega = gestorEntrega;
 	}
+	public String getDataPro() {
+		return dataPro;
+	}
+	public void setDataPro(String dataPro) {
+		this.dataPro = dataPro;
+	}
+	
 }

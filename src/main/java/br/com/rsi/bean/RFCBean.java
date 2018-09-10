@@ -144,7 +144,7 @@ public class RFCBean implements Serializable {
 	public void salvarPlanilha() {
 		rFC = new RFC();
 		daoRFC = new RFCDAO();
-		String codRfc, codProj, sigla, observacao, status, codVazio, codInspecao, lider, emailLider, gestorEntrega;
+		String codRfc, codProj, sigla, observacao, status, codVazio, codInspecao, lider, emailLider, gestorEntrega, dataPro;
 		String dataCadastro = "";
 		String dataInspecao = "";
 		Date dateC = new Date();
@@ -175,6 +175,7 @@ public class RFCBean implements Serializable {
 				Cell celulaCodVazio = sheet.getCell(11, i); // coluna 11 - Cod_Vazio
 				Cell celula11 = sheet.getCell(12, i); // coluna 12 - Salvar no Banco
 				Cell celula13 = sheet.getCell(13, i); // coluna 13 - Email Lider
+				Cell celula14 = sheet.getCell(14, i); // coluna 14 - Data_Pro
 
 				codRfc = celulaRFC.getContents().toString().trim().toUpperCase(); // Coluna 1:COD_RFC
 				codProj = celulaCodProj.getContents().toString().trim().toUpperCase(); // Coluna 2:COD_PROJ
@@ -191,6 +192,7 @@ public class RFCBean implements Serializable {
 				lider = celulaLider.getContents().toString().trim().toUpperCase();// Lider
 				gestorEntrega = celulaGestorEntrega.getContents().toString().trim().toUpperCase();// Lider
 				emailLider = celula13.getContents().toString().trim().toUpperCase();// Email Lider
+				dataPro = celula14.getContents().toString().trim().toUpperCase();// Data_Pro
 
 				// Encerra a leitura quando encontra linha vazia
 				if (sigla.isEmpty()) {
@@ -218,6 +220,7 @@ public class RFCBean implements Serializable {
 					rFC.setLider(lider);
 					rFC.setGestorEntrega(gestorEntrega);
 					rFC.setEmailLider(emailLider);
+					rFC.setDataPro(dataPro);
 					siglaAtual = sigla;
 					salvar();
 				}
