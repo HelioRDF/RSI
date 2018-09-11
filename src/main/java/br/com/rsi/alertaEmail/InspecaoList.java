@@ -63,12 +63,12 @@ public class InspecaoList {
 		estiloH3.append("font:12px;");
 		estiloH3.append("padding-left:10px;");
 		String corResultado = "style='color:blue;'";
-		String planoFundoCorTxt="style='background-color:#a0a0a0;color:#1e5cdf;font-size:11px;'";
+		String planoFundoCorTxt = "style='background-color:#a0a0a0;color:#1e5cdf;font-size:10px;'";
 
 		if (inspecaoObj.getResultado().equalsIgnoreCase("Alerta")) {
-			corResultado = "style='color:orange;'";
+			corResultado = "style='color:orange;font-size:10px;'";
 		} else {
-			corResultado = "style='color:#12d812; font-size:11px;'";
+			corResultado = "style='color:#12d812;font-size:10px;'";
 		}
 
 		linhasTabela.append(" <tr>");
@@ -80,12 +80,10 @@ public class InspecaoList {
 		linhasTabela.append(TrataDados.incluirHtmlTd(inspecaoObj.getPainelGestor().toUpperCase()));
 		linhasTabela.append(TrataDados.incluirHtmlTd(notaAnterior));
 		linhasTabela.append(TrataDados.incluirHtmlTdStyle(inspecaoObj.getNotaProjeto(), planoFundoCorTxt, "%"));
-		
-		//linhasTabela.append(
-		//		"<td style=\"background-color:#a0a0a0;color:#1e5cdf;\" > &ensp; " + inspecaoObj.getNotaProjeto());
+
 		linhasTabela.append(TrataDados.incluirHtmlTd(dataTxt));
 		linhasTabela.append(TrataDados.incluirHtmlTd(dataCommit));
-		//linhasTabela.append(TrataDados.incluirHTMLtd(inspecaoObj.getCodigoAlterado()));
+		linhasTabela.append(TrataDados.incluirHtmlTd(obj.getDataPro()));
 		linhasTabela.append(TrataDados.incluirHtmlTd(Integer.toString(inspecaoObj.getLinhaCodigo())));
 		linhasTabela.append(TrataDados.incluirHtmlTd(Integer.toString(inspecaoObj.getIssuesMuitoAlta())));
 		linhasTabela.append(TrataDados.incluirHtmlTd(Integer.toString(inspecaoObj.getIssuesAlta())));

@@ -46,7 +46,7 @@ public class CorpoHtmlInspecao {
 		msgs.append("<td>&ensp; Nota atual  &ensp;</td>");
 		msgs.append("<td>&ensp; Dt Inspeção &ensp;</td>"); // Data Captura Sonar
 		msgs.append("<td>&ensp; Dt.Alt.Cód   &ensp;</td>");
-//		msgs.append("<td>&ensp; Alt.Cód   &ensp;</td>");
+		msgs.append("<td>&ensp; Dt.Pro   &ensp;</td>");
 		msgs.append("<td>&ensp; Linhas.Cód  &ensp;</td>");
 		msgs.append("<td>&ensp; Blocker  &ensp;</td>");
 		msgs.append("<td>&ensp; Critical  &ensp;</td>");
@@ -56,8 +56,8 @@ public class CorpoHtmlInspecao {
 		msgs.append("</table>");
 	
 		msgs.append("<br></br><br></br> <img\r\n" + 
-				"		// src='https://firebasestorage.googleapis.com/v0/b/cccc-4ff93.appspot.com/o/Legenda.PNG?alt=media&token=f5bb1312-8d5d-4e84-be27-7a9887d0eb36'\r\n" + 
-				"		//width='75%' height='75%' align='BASELINE'/> ");
+				"		// src='https://firebasestorage.googleapis.com/v0/b/appmsg16.appspot.com/o/legendaEmail.PNG?alt=media&token=de9a5103-1192-4313-9a8c-9a4b562a3732'\r\n" + 
+				"		//width='40%' height='40%' align='BASELINE'/> ");
 
 		msgs.append("</div>  " + "</body>");
 
